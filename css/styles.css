@@ -683,6 +683,155 @@ a {
   filter: drop-shadow(0 24px 44px rgba(20, 33, 12, 0.2));
 }
 
+/* --- AI + OCR Visual --- */
+.ai-visual {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.scan-card {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 22px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  box-shadow: 0 0 14px 2px rgba(118, 176, 65, 0.6);
+  animation: scanMove 2.6s ease-in-out infinite;
+}
+
+@keyframes scanMove {
+
+  0%,
+  100% {
+    top: 8%;
+    opacity: 0.4;
+  }
+
+  50% {
+    top: 88%;
+    opacity: 1;
+  }
+}
+
+.scan-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.scan-ic {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  background: var(--grad-soft);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.scan-bars {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.scan-bars span {
+  height: 9px;
+  border-radius: 99px;
+  background: var(--bg-tint);
+}
+
+.scan-bars span:nth-child(1) {
+  width: 90%;
+}
+
+.scan-bars span:nth-child(2) {
+  width: 70%;
+}
+
+.scan-bars span:nth-child(3) {
+  width: 80%;
+}
+
+.scan-detected {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--bg-tint);
+  border-radius: 14px;
+}
+
+.scan-detected span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--primary);
+}
+
+.scan-detected strong {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--primary-dark);
+}
+
+.ai-bubble {
+  max-width: 85%;
+  padding: 13px 18px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.6;
+  box-shadow: var(--shadow-sm);
+  animation: floatY 6s ease-in-out infinite;
+}
+
+.ai-bubble-user {
+  align-self: flex-start;
+  background: var(--white);
+  border: 1px solid var(--border);
+  color: var(--primary-dark);
+  border-radius: 18px 18px 18px 4px;
+}
+
+.ai-bubble-bot {
+  align-self: flex-end;
+  background: var(--grad);
+  color: #fff;
+  border-radius: 18px 18px 4px 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+}
+
+.ai-bubble-bot i {
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
 /* --- App Showcase --- */
 .app-feature {
   padding: 100px 0;
