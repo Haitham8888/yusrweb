@@ -156,4 +156,23 @@ document.addEventListener('DOMContentLoaded', function () {
       }, 1400);
     });
   }
+
+  // "Coming soon" toast for store badges (app not launched yet)
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.innerHTML = '<i class="fas fa-rocket"></i>' +
+    '<div><strong>قريباً بإذن الله</strong><span>يُسر تحت الإطلاق — ترقّب توفّره على المتجر قريباً.</span></div>';
+  document.body.appendChild(toast);
+  let toastTimer;
+  const showToast = function () {
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 3800);
+  };
+  document.querySelectorAll('.app-badge').forEach(function (badge) {
+    badge.addEventListener('click', function (e) {
+      e.preventDefault();
+      showToast();
+    });
+  });
 });
