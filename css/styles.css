@@ -1690,8 +1690,8 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 150px;
-  padding: 26px;
+  height: 170px;
+  padding: 20px;
   background: var(--white);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -1705,9 +1705,31 @@ a {
 }
 
 .partner-logo img {
+  width: auto;
+  height: var(--logo-h, 64px);
   max-width: 100%;
-  max-height: 100%;
   object-fit: contain;
+}
+
+/* Per-partner sizing for balanced visual weight & clarity */
+.p-tamkeen img {
+  --logo-h: 104px;
+}
+
+.p-kacst img {
+  --logo-h: 66px;
+}
+
+.p-aljazira img {
+  --logo-h: 86px;
+}
+
+.p-mubtakiroon img {
+  --logo-h: 86px;
+}
+
+.p-techshop img {
+  --logo-h: 104px;
 }
 
 @media (max-width: 768px) {
