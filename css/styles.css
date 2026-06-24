@@ -1674,10 +1674,16 @@ a {
 
 .partners-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 26px;
-  max-width: 1000px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 22px;
+  max-width: 1120px;
   margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+  .partners-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .partner-logo {
