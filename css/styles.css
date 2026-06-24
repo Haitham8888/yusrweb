@@ -1171,6 +1171,17 @@ a {
   border-color: var(--primary);
 }
 
+/* --- Flexible Payments --- */
+.payments-section {
+  padding: 100px 0;
+  background: var(--bg-light);
+}
+
+.pay-grid {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
 /* --- Pricing --- */
 .pricing {
   padding: 100px 0;
