@@ -147,13 +147,16 @@ document.addEventListener('DOMContentLoaded', function () {
         status.style.color = '#D32F2F';
         return;
       }
-      status.textContent = 'جاري إرسال الرسالة...';
+      // Open the visitor's email client to send the message to us.
+      const subject = encodeURIComponent('رسالة من ' + name + ' عبر موقع يُسر');
+      const body = encodeURIComponent(
+        'الاسم: ' + name + '\n' +
+        'البريد الإلكتروني: ' + email + '\n\n' +
+        'الرسالة:\n' + message
+      );
+      window.location.href = 'mailto:info@haithamhattan.sa?subject=' + subject + '&body=' + body;
+      status.textContent = 'يتم فتح بريدك الإلكتروني لإرسال الرسالة...';
       status.style.color = 'var(--primary)';
-      setTimeout(function () {
-        status.textContent = 'تم إرسال رسالتك بنجاح، سنتواصل معك قريباً ✅';
-        status.style.color = 'var(--accent)';
-        form.reset();
-      }, 1400);
     });
   }
 
