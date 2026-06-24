@@ -1917,15 +1917,25 @@ a {
 }
 
 /* --- Reveal Animations --- */
-.reveal {
+/* Hidden state applies ONLY when JS is active, so content is always visible
+   if the script fails to load. JS reveals elements on scroll. */
+html.js .reveal {
   opacity: 0;
   transform: translateY(36px);
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
-.reveal.visible {
+html.js .reveal.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* --- Responsive --- */

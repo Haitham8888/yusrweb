@@ -60,22 +60,10 @@ document.addEventListener('DOMContentLoaded', function () {
   }, { rootMargin: '-45% 0px -50% 0px' });
   sections.forEach(s => spy.observe(s));
 
-  // Reveal on scroll
-  const revealEls = document.querySelectorAll('.reveal');
-  const revealObserver = new IntersectionObserver(function (entries, obs) {
-    entries.forEach(function (entry, i) {
-      if (entry.isIntersecting) {
-        const delay = entry.target.dataset.delay || (entry.target.closest('.feature-grid, .steps-grid') ? (i % 3) * 90 : 0);
-        setTimeout(() => entry.target.classList.add('visible'), delay);
-        obs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  revealEls.forEach(el => revealObserver.observe(el));
-
   // Animated counters
-  const counters = document.querySelectorAll('.stat-num');
   const animateCount = function (el) {
+    if (el.dataset.counted) return;
+    el.dataset.counted = '1';
     const target = parseFloat(el.dataset.target);
     const decimals = parseInt(el.dataset.decimal || '0', 10);
     const suffix = el.dataset.suffix || '';
@@ -91,15 +79,42 @@ document.addEventListener('DOMContentLoaded', function () {
     };
     requestAnimationFrame(tick);
   };
-  const countObserver = new IntersectionObserver(function (entries, obs) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        animateCount(entry.target);
-        obs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.6 });
-  counters.forEach(c => countObserver.observe(c));
+
+  // Reveal-on-scroll (robust: reveals anything at/above the trigger line, so
+  // nothing stays hidden after fast scrolling or jumping via anchor links).
+  const revealEls = document.querySelectorAll('.reveal');
+  const counters = document.querySelectorAll('.stat-num');
+  const revealAll = function () {
+    revealEls.forEach(el => el.classList.add('visible'));
+    counters.forEach(c => animateCount(c));
+  };
+
+  if (!('requestAnimationFrame' in window) || !('IntersectionObserver' in window)) {
+    revealAll();
+  } else {
+    const checkReveal = function () {
+      const trigger = window.innerHeight * 0.9;
+      revealEls.forEach(function (el) {
+        if (!el.classList.contains('visible') && el.getBoundingClientRect().top < trigger) {
+          el.classList.add('visible');
+        }
+      });
+      counters.forEach(function (c) {
+        if (!c.dataset.counted && c.getBoundingClientRect().top < window.innerHeight * 0.85) {
+          animateCount(c);
+        }
+      });
+    };
+    window.addEventListener('scroll', checkReveal, { passive: true });
+    window.addEventListener('resize', checkReveal, { passive: true });
+    window.addEventListener('load', checkReveal);
+    // Initial reveal: run now and on the next frame (after layout) so
+    // above-the-fold content shows instantly with no flash.
+    checkReveal();
+    requestAnimationFrame(checkReveal);
+    // Safety net: never leave content hidden even if a scroll event is missed.
+    setTimeout(checkReveal, 600);
+  }
 
   // FAQ accordion
   document.querySelectorAll('.faq-item').forEach(function (item) {
