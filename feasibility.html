@@ -124,6 +124,7 @@
     .ask { background: var(--grad-dark); color: #fff; border-radius: 20px; padding: 30px 32px; margin: 8px 0 }
     .ask h3 { color: #fff; font-size: 24px; margin-bottom: 8px }
     .ask p { color: #cfe0b8; font-size: 16px }
+    .ask p strong { color: #fff }
     .ask .big { font-size: 42px; font-weight: 900; color: #bce08a; margin: 6px 0 }
 
     .pill { display: inline-block; font-size: 13px; font-weight: 800; color: var(--primary); background: var(--tint); padding: 4px 12px; border-radius: 999px; margin: 0 4px 6px 0 }
@@ -326,11 +327,11 @@
         <tbody>
           <tr><td>متاجر مدفوعة</td><td>~500</td><td>~590</td><td>~690</td></tr>
           <tr><td>إجمالي الإيرادات</td><td>513,190</td><td>616,900</td><td>737,100</td></tr>
-          <tr class="tot"><td>صافي الربح بعد الزكاة</td><td class="pos">312,886</td><td class="pos">247,278</td><td class="pos">210,423</td></tr>
+          <tr class="tot"><td>صافي الربح بعد الزكاة</td><td class="pos">409,411</td><td class="pos">247,278</td><td class="pos">210,423</td></tr>
         </tbody>
       </table>
-      <p style="font-size:14.5px;color:var(--mut)">قاعدة آمنة: مربحة من السنة الأولى، صافي تراكمي ~771K ر.س برأس مال
-        ذاتي ~213K — دون أي تمويل خارجي.</p>
+      <p style="font-size:14.5px;color:var(--mut)">قاعدة آمنة: مربحة من السنة الأولى (المؤسسون بلا رواتب)، صافي تراكمي
+        ~867K ر.س برأس مال تأسيسي ~150K فقط — دون أي تمويل خارجي.</p>
 
       <span class="tag2 grow" style="margin-top:18px">السيناريو 2 · نمو (مع استثمار)</span>
       <table class="tbl">
@@ -397,19 +398,19 @@
       <div class="stats three">
         <div class="stat"><div class="n">42,700</div><div class="l">مصاريف التأسيس (لمرة واحدة)</div></div>
         <div class="stat"><div class="n">31,565</div><div class="l">رأس المال الثابت (لمرة واحدة)</div></div>
-        <div class="stat"><div class="n">~213,000</div><div class="l">إجمالي رأس المال المطلوب (ذاتي)</div></div>
+        <div class="stat"><div class="n">~150,000</div><div class="l">إجمالي رأس المال التأسيسي المطلوب</div></div>
       </div>
       <h3 class="sub">تكاليف التشغيل السنوية</h3>
       <table class="tbl">
         <thead><tr><th>البند</th><th>السنة 1</th><th>السنة 2</th><th>السنة 3</th></tr></thead>
         <tbody>
-          <tr><td>الرواتب والأجور</td><td>99,000</td><td>129,000</td><td>195,000</td></tr>
+          <tr><td>الرواتب والأجور <small>(المؤسسون بلا رواتب في السنة 1)</small></td><td>0</td><td>129,000</td><td>195,000</td></tr>
           <tr><td>التشغيل التقني والاستضافة</td><td>40,000</td><td>110,000</td><td>200,000</td></tr>
           <tr><td>التسويق واكتساب العملاء</td><td>10,000</td><td>15,000</td><td>50,000</td></tr>
           <tr><td>المصرفية المفتوحة والامتثال</td><td>0</td><td>50,000</td><td>0</td></tr>
           <tr><td>عمومية وإدارية ومنافع وصيانة</td><td>27,000</td><td>43,000</td><td>60,000</td></tr>
           <tr><td>إهلاك وإطفاء (غير نقدي)</td><td>16,281</td><td>16,281</td><td>16,281</td></tr>
-          <tr class="tot"><td>إجمالي تكاليف التشغيل</td><td>192,281</td><td>363,281</td><td>521,281</td></tr>
+          <tr class="tot"><td>إجمالي تكاليف التشغيل</td><td>93,281</td><td>363,281</td><td>521,281</td></tr>
         </tbody>
       </table>
       <div class="note"><i class="fas fa-circle-check"></i> مشروع سحابي يُدار عن بُعد — لا مقر ولا مستودع ولا أجهزة خاصة،
@@ -448,21 +449,20 @@
   <!-- 8. THE ASK -->
   <section>
     <div class="wrap">
-      <span class="eyebrow"><i class="fas fa-handshake-angle"></i> الطلب الاستثماري</span>
-      <h2 class="sec">نبحث عن شريك لتسريع النمو</h2>
+      <span class="eyebrow"><i class="fas fa-handshake-angle"></i> الدعم المطلوب</span>
+      <h2 class="sec">دعم تأسيسي صغير لإطلاق MVP</h2>
       <div class="ask">
-        <h3>جولة استثمارية (Seed)</h3>
-        <div class="big">3,000,000 ر.س</div>
-        <p>لتمويل ~18–24 شهراً من النمو المتسارع، والانتقال من القاعدة المربحة إلى سيناريو النمو — مع تفعيل دخل
-          المؤسسات والحكومات (B2B/B2G).</p>
+        <h3>دعم احتضان الشركات الناشئة (MVP Lab)</h3>
+        <div class="big">~150,000 ر.س</div>
+        <p>لتغطية تأسيس وإطلاق النسخة الأولى (MVP) وتشغيل السنة الأولى — التي يعمل فيها المؤسسون <strong>بلا
+          رواتب</strong> — حتى الوصول للربحية. ويبقى سيناريو النمو خياراً لتمويل لاحق.</p>
       </div>
       <h3 class="sub">استخدام التمويل</h3>
       <div class="fund">
-        <div class="fund-row"><div class="fund-lab">اكتساب التجار والمبيعات</div><div class="fund-track"><div class="fund-fill" style="width:35%">35%</div></div></div>
-        <div class="fund-row"><div class="fund-lab">تطوير المنتج وتقنية AUREX</div><div class="fund-track"><div class="fund-fill" style="width:25%">25%</div></div></div>
-        <div class="fund-row"><div class="fund-lab">حلول B2B والمصرفية المفتوحة</div><div class="fund-track"><div class="fund-fill" style="width:15%">15%</div></div></div>
-        <div class="fund-row"><div class="fund-lab">التسويق والعلامة</div><div class="fund-track"><div class="fund-fill" style="width:15%">15%</div></div></div>
-        <div class="fund-row"><div class="fund-lab">بناء الفريق</div><div class="fund-track"><div class="fund-fill" style="width:10%">10%</div></div></div>
+        <div class="fund-row"><div class="fund-lab">تطوير MVP وتقنية AUREX</div><div class="fund-track"><div class="fund-fill" style="width:40%">40%</div></div></div>
+        <div class="fund-row"><div class="fund-lab">البنية التقنية والاستضافة</div><div class="fund-track"><div class="fund-fill" style="width:20%">20%</div></div></div>
+        <div class="fund-row"><div class="fund-lab">التسويق واكتساب التجار</div><div class="fund-track"><div class="fund-fill" style="width:25%">25%</div></div></div>
+        <div class="fund-row"><div class="fund-lab">التأسيس والتراخيص والامتثال</div><div class="fund-track"><div class="fund-fill" style="width:15%">15%</div></div></div>
       </div>
     </div>
   </section>
