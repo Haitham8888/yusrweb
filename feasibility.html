@@ -19,560 +19,631 @@
       --ink: #16210d; --body: #45513f; --mut: #8a978a;
       --bg: #f7f9f2; --tint: #eef6e2; --line: #e3ebd8; --white: #fff;
       --red: #c0392b; --redbg: #fdecea; --gold: #b8860b;
+      --s: 1;
     }
     * { box-sizing: border-box; margin: 0; padding: 0 }
-    html { scroll-behavior: smooth }
-    body { font-family: 'Cairo', sans-serif; background: var(--bg); color: var(--body); line-height: 1.75; -webkit-font-smoothing: antialiased }
-    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 22px }
-    a { color: var(--primary) }
+    html { -webkit-print-color-adjust: exact; print-color-adjust: exact }
+    body { font-family: 'Cairo', sans-serif; background: #cdd2c6; color: var(--body); line-height: 1.6; -webkit-font-smoothing: antialiased }
+    @page { size: 13.333in 7.5in; margin: 0 }
 
-    /* Hero */
-    .hero { background: var(--grad-dark); color: #fff; padding: 64px 0 56px; position: relative; overflow: hidden }
-    .hero .ring { position: absolute; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .07); width: 620px; height: 620px; top: -240px; left: -160px }
-    .hero .glow { position: absolute; width: 560px; height: 560px; border-radius: 50%; background: radial-gradient(circle, rgba(127, 167, 53, .28), transparent 66%); bottom: -260px; right: -120px }
-    .hero-in { position: relative; z-index: 2 }
-    .hbrand { display: flex; align-items: center; gap: 12px; margin-bottom: 20px }
-    .hbrand img { width: 46px; height: 46px; background: #fff; border-radius: 12px; padding: 5px }
-    .hbrand span { font-size: 30px; font-weight: 900 }
-    .htag { font-size: 14px; font-weight: 800; letter-spacing: 2px; color: #bce08a }
-    .hero h1 { font-size: 42px; font-weight: 900; line-height: 1.18; margin: 8px 0 14px }
-    .hero h1 .g { color: #bce08a }
-    .hero p { font-size: 19px; color: #cfe0b8; max-width: 72ch }
-    .hero p strong { color: #fff }
-    .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px }
-    .hero-meta span { font-size: 14px; font-weight: 700; background: rgba(255, 255, 255, .10); border: 1px solid rgba(255, 255, 255, .18); padding: 8px 16px; border-radius: 999px }
+    /* ===== Deck frame model ===== */
+    .deck { display: flex; flex-direction: column; align-items: center; gap: 24px; padding: 24px 12px 56px }
+    .frame { width: calc(1280px*var(--s)); height: calc(720px*var(--s)); flex: none }
+    .slide { width: 1280px; height: 720px; transform: scale(var(--s)); transform-origin: top left; position: relative; background: var(--white); border-radius: 14px; overflow: hidden; box-shadow: 0 14px 50px rgba(20, 33, 12, .22) }
+    .pad { position: absolute; inset: 0; padding: 48px 60px 40px; display: flex; flex-direction: column }
 
-    section { padding: 52px 0; border-bottom: 1px solid var(--line) }
-    .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; color: var(--primary); background: var(--tint); padding: 7px 16px; border-radius: 999px; margin-bottom: 14px }
-    h2.sec { font-size: 30px; font-weight: 900; color: var(--ink); line-height: 1.25; margin-bottom: 8px }
-    .lead { font-size: 18px; color: var(--body); margin-bottom: 26px; max-width: 80ch }
-    h3.sub { font-size: 21px; font-weight: 800; color: var(--ink); margin: 28px 0 12px }
-    p { margin-bottom: 12px }
-    strong { color: var(--ink) }
+    /* toolbar */
+    .toolbar { position: fixed; top: 14px; left: 14px; z-index: 60 }
+    .toolbar button { font-family: inherit; font-weight: 800; font-size: 14px; border: 0; cursor: pointer; background: var(--dark); color: #fff; padding: 11px 18px; border-radius: 999px; box-shadow: 0 6px 18px rgba(20, 33, 12, .3); display: flex; align-items: center; gap: 8px }
+    .toolbar button:hover { background: var(--primary) }
 
-    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 10px 0 6px }
+    /* shared */
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 800; color: var(--primary); background: var(--tint); padding: 7px 16px; border-radius: 999px; align-self: flex-start }
+    h2.sec { font-size: 33px; font-weight: 900; color: var(--ink); line-height: 1.2; margin-top: 12px }
+    h2.sec .g { color: var(--primary) }
+    .lead { font-size: 17px; color: var(--body); margin-top: 8px; max-width: 92ch }
+    h3.sub { font-size: 19px; font-weight: 800; color: var(--ink); margin: 16px 0 10px }
+    .body { flex: 1; display: flex; flex-direction: column; justify-content: center; margin-top: 12px }
+    .body.top { justify-content: flex-start }
+    p { margin-bottom: 10px } strong { color: var(--ink) }
+
+    .s-foot { position: absolute; left: 60px; right: 60px; bottom: 18px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); padding-top: 9px }
+    .s-foot .b { display: flex; align-items: center; gap: 9px } .s-foot img { height: 22px } .s-foot .nm { font-size: 16px; font-weight: 900; color: var(--ink) }
+    .s-foot .pg { font-size: 13px; font-weight: 800; color: var(--mut) }
+
+    /* cover */
+    .slide.cover { background: var(--grad-dark); color: #fff }
+    .slide.cover .pad { justify-content: center }
+    .slide.cover .ring { position: absolute; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .07); width: 760px; height: 760px; top: -300px; right: -200px }
+    .slide.cover .glow { position: absolute; width: 680px; height: 680px; border-radius: 50%; background: radial-gradient(circle, rgba(127, 167, 53, .28), transparent 66%); bottom: -360px; left: -160px }
+    .hbrand { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; position: relative; z-index: 2 }
+    .hbrand img { width: 64px; height: 64px; background: #fff; border-radius: 16px; padding: 7px }
+    .hbrand span { font-size: 44px; font-weight: 900 }
+    .htag { font-size: 16px; font-weight: 800; letter-spacing: 2px; color: #bce08a; position: relative; z-index: 2 }
+    .cover h1 { font-size: 54px; font-weight: 900; line-height: 1.15; margin: 12px 0 16px; position: relative; z-index: 2 }
+    .cover h1 .g { color: #bce08a }
+    .cover .desc { font-size: 21px; color: #cfe0b8; max-width: 80ch; position: relative; z-index: 2 }
+    .cover .desc strong { color: #fff }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 30px; position: relative; z-index: 2 }
+    .hero-meta span { font-size: 16px; font-weight: 700; background: rgba(255, 255, 255, .10); border: 1px solid rgba(255, 255, 255, .18); padding: 9px 18px; border-radius: 999px }
+
+    /* stats */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px }
     .stats.three { grid-template-columns: repeat(3, 1fr) }
+    .stats.six { grid-template-columns: repeat(3, 1fr) }
     .stat { background: var(--white); border: 1px solid var(--line); border-radius: 16px; padding: 22px 18px; text-align: center }
     .stat.dark { background: var(--grad-dark); color: #fff; border: 0 }
-    .stat .n { font-size: 30px; font-weight: 900; color: var(--primary); line-height: 1.1 }
+    .stat .n { font-size: 32px; font-weight: 900; color: var(--primary); line-height: 1.1 }
     .stat.dark .n { color: #fff }
-    .stat .n small { font-size: 15px; font-weight: 800 }
-    .stat .l { font-size: 13.5px; font-weight: 700; margin-top: 6px; color: var(--mut) }
+    .stat .n small { font-size: 16px; font-weight: 800 }
+    .stat .l { font-size: 14px; font-weight: 700; margin-top: 6px; color: var(--mut) }
     .stat.dark .l { color: #c4d8aa }
-    .src { font-size: 12px; color: var(--mut); margin-top: 4px }
+    .src { font-size: 12.5px; color: var(--mut); margin-top: 4px }
 
-    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 18px 0 }
-    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 18px 0 }
-    .card { background: var(--white); border: 1px solid var(--line); border-radius: 16px; padding: 22px 24px }
-    .card h4 { font-size: 18px; color: var(--ink); margin-bottom: 8px; display: flex; align-items: center; gap: 10px }
-    .card p { font-size: 15px; line-height: 1.65; margin: 0 }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px }
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px }
+    .card { background: var(--white); border: 1px solid var(--line); border-radius: 16px; padding: 20px 22px }
+    .card h4 { font-size: 18px; color: var(--ink); margin-bottom: 7px; display: flex; align-items: center; gap: 10px }
+    .card p { font-size: 14.5px; line-height: 1.6; margin: 0; color: var(--body) }
     .ci { width: 40px; height: 40px; border-radius: 11px; background: var(--tint); color: var(--primary); display: inline-flex; align-items: center; justify-content: center; font-size: 17px; flex: none }
     .card.bad h4 .ci { background: var(--redbg); color: var(--red) }
 
-    .tbl { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 15px; background: var(--white); border-radius: 14px; overflow: hidden; border: 1px solid var(--line) }
-    .tbl th, .tbl td { padding: 12px 16px; text-align: right; border-bottom: 1px solid var(--line) }
+    .tbl { width: 100%; border-collapse: collapse; font-size: 15px; background: var(--white); border-radius: 14px; overflow: hidden; border: 1px solid var(--line) }
+    .tbl th, .tbl td { padding: 11px 16px; text-align: right; border-bottom: 1px solid var(--line) }
     .tbl thead th { background: var(--tint); color: var(--ink); font-weight: 800; font-size: 14px }
     .tbl tbody tr:last-child td { border-bottom: 0 }
     .tbl .tot td { background: #f3f7eb; font-weight: 800; color: var(--ink) }
+    .tbl small { font-weight: 600; color: var(--mut); font-size: 12px }
     .pos { color: var(--primary); font-weight: 800 }
 
-    .chart { display: flex; align-items: flex-end; gap: 26px; height: 220px; padding: 26px 16px 0; background: var(--white); border: 1px solid var(--line); border-radius: 16px; margin: 16px 0 6px }
+    .chart { display: flex; align-items: flex-end; gap: 30px; height: 250px; padding: 28px 18px 0; background: var(--white); border: 1px solid var(--line); border-radius: 16px }
     .col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100% }
-    .bars { flex: 1; display: flex; align-items: flex-end; gap: 7px; width: 100% }
+    .bars { flex: 1; display: flex; align-items: flex-end; gap: 9px; width: 100% }
     .bar { flex: 1; border-radius: 7px 7px 0 0; position: relative; min-height: 4px }
-    .bar.rev { background: var(--grad) } .bar.cost { background: #cdd8c0 } .bar.prof { background: var(--dark) }
-    .bar b { position: absolute; top: -21px; left: 50%; transform: translateX(-50%); font-size: 11.5px; font-weight: 800; color: var(--ink); white-space: nowrap }
-    .col .yl { font-size: 14px; font-weight: 800; color: var(--ink) }
-    .legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 13px; font-weight: 700; color: var(--body); margin: 4px 0 0 }
+    .bar.rev { background: var(--grad) } .bar.prof { background: var(--dark) }
+    .bar b { position: absolute; top: -22px; left: 50%; transform: translateX(-50%); font-size: 13px; font-weight: 800; color: var(--ink); white-space: nowrap }
+    .col .yl { font-size: 15px; font-weight: 800; color: var(--ink) }
+    .legend { display: flex; gap: 20px; flex-wrap: wrap; font-size: 14px; font-weight: 700; color: var(--body); margin-top: 12px }
     .legend span { display: inline-flex; align-items: center; gap: 7px }
     .dot { width: 13px; height: 13px; border-radius: 4px; display: inline-block }
 
-    ul.b { list-style: none; margin: 6px 0 12px }
-    ul.b li { position: relative; padding: 4px 28px 4px 0; font-size: 15.5px }
-    ul.b li::before { content: "\f058"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--primary); position: absolute; right: 0; top: 6px; font-size: 14px }
-    ul.b.warn li::before { content: "\f071"; color: #d68910 }
+    ul.b { list-style: none }
+    ul.b li { position: relative; padding: 6px 30px 6px 0; font-size: 16px; color: var(--body) }
+    ul.b li::before { content: "\f058"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--primary); position: absolute; right: 0; top: 8px; font-size: 15px }
 
-    .funnel { display: flex; flex-direction: column; gap: 10px; margin: 14px 0 }
+    .funnel { display: flex; flex-direction: column; gap: 12px }
     .frow { display: flex; align-items: center; gap: 16px }
-    .fbar { height: 54px; border-radius: 12px; display: flex; align-items: center; padding: 0 20px; color: #fff; font-weight: 800; font-size: 16px }
+    .fbar { height: 56px; border-radius: 12px; display: flex; align-items: center; padding: 0 22px; color: #fff; font-weight: 800; font-size: 17px }
     .frow:nth-child(1) .fbar { width: 100%; background: var(--dark) }
-    .frow:nth-child(2) .fbar { width: 60%; background: var(--primary) }
-    .frow:nth-child(3) .fbar { width: 26%; background: var(--p2) }
-    .fmeta { font-size: 14px; color: var(--mut); font-weight: 700 }
+    .frow:nth-child(2) .fbar { width: 62%; background: var(--primary) }
+    .frow:nth-child(3) .fbar { width: 28%; background: var(--p2) }
+    .fmeta { font-size: 15px; color: var(--mut); font-weight: 700 }
 
-    .swot { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0 }
-    .sw { border-radius: 14px; padding: 18px 20px; border: 1px solid var(--line) }
-    .sw h4 { font-size: 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px }
+    .swot { display: grid; grid-template-columns: 1fr 1fr; gap: 18px }
+    .sw { border-radius: 14px; padding: 20px 24px; border: 1px solid var(--line) }
+    .sw h4 { font-size: 18px; margin-bottom: 10px; display: flex; align-items: center; gap: 9px; color: var(--ink) }
     .sw.s { background: #f1f8e8 } .sw.w { background: #fff6ec } .sw.o { background: #eef4fb } .sw.t { background: #fdecec }
-    .sw ul { list-style: none } .sw li { font-size: 14px; padding: 3px 0 }
+    .sw ul { list-style: none } .sw li { font-size: 15px; padding: 4px 0; color: var(--body) }
 
-    /* Use of funds */
-    .fund { display: flex; flex-direction: column; gap: 12px; margin: 16px 0 }
-    .fund-row { display: flex; align-items: center; gap: 14px }
-    .fund-lab { width: 230px; font-size: 14.5px; font-weight: 700; color: var(--ink); flex: none }
-    .fund-track { flex: 1; background: var(--tint); border-radius: 999px; height: 26px; overflow: hidden }
-    .fund-fill { height: 100%; background: var(--grad); border-radius: 999px; display: flex; align-items: center; justify-content: flex-start; padding: 0 12px; color: #fff; font-size: 13px; font-weight: 800 }
+    .fund { display: flex; flex-direction: column; gap: 14px }
+    .fund-row { display: flex; align-items: center; gap: 16px }
+    .fund-lab { width: 280px; font-size: 16px; font-weight: 700; color: var(--ink); flex: none }
+    .fund-track { flex: 1; background: var(--tint); border-radius: 999px; height: 30px; overflow: hidden }
+    .fund-fill { height: 100%; background: var(--grad); border-radius: 999px; display: flex; align-items: center; padding: 0 14px; color: #fff; font-size: 14px; font-weight: 800 }
 
-    /* Roadmap */
-    .road { position: relative; margin: 18px 0; padding-right: 24px; border-right: 3px solid var(--line) }
-    .rstep { position: relative; padding: 0 26px 22px 0 }
-    .rstep::before { content: ""; position: absolute; right: -33px; top: 4px; width: 16px; height: 16px; border-radius: 50%; background: var(--primary); border: 3px solid var(--bg) }
+    .road { position: relative; padding-right: 26px; border-right: 3px solid var(--line) }
+    .rstep { position: relative; padding: 0 28px 18px 0 }
+    .rstep:last-child { padding-bottom: 0 }
+    .rstep::before { content: ""; position: absolute; right: -34px; top: 4px; width: 16px; height: 16px; border-radius: 50%; background: var(--primary); border: 3px solid var(--white) }
     .rstep.now::before { background: var(--gold); box-shadow: 0 0 0 4px rgba(184, 134, 11, .18) }
-    .rstep h4 { font-size: 17px; color: var(--ink) } .rstep span { font-size: 13px; font-weight: 800; color: var(--primary) }
-    .rstep p { font-size: 14.5px; margin: 2px 0 0 }
+    .rstep h4 { font-size: 18px; color: var(--ink) } .rstep span { font-size: 14px; font-weight: 800; color: var(--primary) }
+    .rstep p { font-size: 15px; margin: 2px 0 0; color: var(--body) }
 
-    .ask { background: var(--grad-dark); color: #fff; border-radius: 20px; padding: 30px 32px; margin: 8px 0 }
-    .ask h3 { color: #fff; font-size: 24px; margin-bottom: 8px }
-    .ask p { color: #cfe0b8; font-size: 16px }
+    .ask { background: var(--grad-dark); color: #fff; border-radius: 20px; padding: 26px 30px }
+    .ask h3 { color: #fff; font-size: 24px; margin-bottom: 6px }
+    .ask p { color: #cfe0b8; font-size: 16px; margin: 0 }
     .ask p strong { color: #fff }
-    .ask .big { font-size: 42px; font-weight: 900; color: #bce08a; margin: 6px 0 }
+    .ask .big { font-size: 44px; font-weight: 900; color: #bce08a; margin: 6px 0 }
 
-    .pill { display: inline-block; font-size: 13px; font-weight: 800; color: var(--primary); background: var(--tint); padding: 4px 12px; border-radius: 999px; margin: 0 4px 6px 0 }
-    .note { font-size: 13.5px; color: var(--mut); background: var(--white); border: 1px dashed var(--line); border-radius: 12px; padding: 12px 16px; margin-top: 12px }
-    .tag2 { display: inline-block; font-size: 12px; font-weight: 800; padding: 3px 10px; border-radius: 6px; margin-bottom: 8px }
+    .pill { display: inline-block; font-size: 15px; font-weight: 800; color: var(--primary); background: var(--tint); padding: 6px 15px; border-radius: 999px; margin: 0 5px 8px 0 }
+    .note { font-size: 14.5px; color: var(--body); background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; margin-top: 12px }
+    .note i { color: var(--primary) }
+    .note.dash { border-style: dashed; background: var(--white) }
+    .mininotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px }
+    .mininotes .note { margin: 0; font-size: 13px }
+    .tag2 { display: inline-block; font-size: 13px; font-weight: 800; padding: 4px 12px; border-radius: 7px; margin-bottom: 8px }
     .tag2.base { background: #eef4fb; color: #2b5d8a } .tag2.grow { background: var(--tint); color: var(--primary) }
-    .foot { background: var(--dark); color: #c4d8aa; padding: 30px 0; font-size: 13px }
-    .foot a { color: #bce08a } .foot h4 { color: #fff; font-size: 15px; margin-bottom: 10px }
-    .foot ol { margin: 0 18px 0 0; font-size: 12.5px; line-height: 1.9 }
+    .twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: start }
+    .srclist { columns: 2; column-gap: 40px; font-size: 15px; line-height: 2; color: var(--body) }
+    .srclist li { margin-right: 18px }
 
-    @media (max-width:760px) {
-      .stats, .stats.three, .grid2, .grid3, .swot { grid-template-columns: 1fr }
-      .hero h1 { font-size: 30px } h2.sec { font-size: 24px } .fund-lab { width: 130px; font-size: 12.5px }
-      .chart { gap: 12px } .tbl { font-size: 13px } .tbl th, .tbl td { padding: 9px }
+    /* slide 13 (costs) is the densest — tighten to fit one frame */
+    #costs h2.sec { font-size: 27px }
+    #costs .stat { padding: 13px 12px } #costs .stat .n { font-size: 25px } #costs .stat .l { font-size: 12.5px; margin-top: 4px }
+    #costs .tbl th { font-size: 13px; padding: 7px 14px } #costs .tbl td { font-size: 13.5px; padding: 6px 14px } #costs .tbl small { font-size: 11px }
+    #costs .mininotes { margin-top: 9px } #costs .mininotes .note { padding: 8px 11px; font-size: 11.5px }
+
+    @media print {
+      body { background: #fff }
+      .toolbar { display: none }
+      .deck { display: block; padding: 0; gap: 0 }
+      .frame { width: 1280px; height: 720px; page-break-after: always; break-after: page }
+      .frame:last-child { page-break-after: auto; break-after: auto }
+      .slide { transform: none; border-radius: 0; box-shadow: none }
     }
   </style>
 </head>
 
 <body>
+  <div class="toolbar"><button onclick="window.print()"><i class="fas fa-file-pdf"></i> طباعة / حفظ PDF</button></div>
+  <div class="deck">
 
-  <!-- HERO -->
-  <header class="hero">
-    <span class="ring"></span><span class="glow"></span>
-    <div class="wrap hero-in">
-      <div class="hbrand"><img src="assets/img/Yusr.png" alt="يُسر"><span>يُسر</span></div>
-      <div class="htag">دراسة جدوى مالية وتقنية ومشروعية · فرصة استثمارية · 2026</div>
-      <h1>نُرقمن توثيق تعاملات سوق بـ <span class="g">2.85 مليار دولار</span><br>بتقنية AUREX</h1>
-      <p>يُسر وسيط رقمي يحوّل دفاتر الديون والعربون الورقية إلى سجلات موثّقة بلمسة واحدة. فكرة <strong>مُجرّبة
-        وناجحة</strong>، <strong>مربحة فعلياً بتمويل ذاتي</strong>، ونموذجها <strong>مُثبَت عالمياً</strong> — ونبحث عن
-        شريك استثماري لاقتناص سوق سعودي ضخم وجاهز رقمياً.</p>
-      <div class="hero-meta">
-        <span>مربح من السنة الأولى</span><span>تحقّق مُثبَت سابقاً</span><span>LTV/CAC ~28×</span>
-        <span>سوق 1.3M منشأة</span><span>نموذج عالمي بـ 600M$</span>
-      </div>
-    </div>
-  </header>
-
-  <!-- 1. INVESTMENT HIGHLIGHTS -->
-  <section>
-    <div class="wrap">
-      <span class="eyebrow"><i class="fas fa-star"></i> لماذا يُسر؟ — ملخّص الفرصة</span>
-      <h2 class="sec">ستة أسباب تجعل يُسر رهاناً قوياً</h2>
-      <div class="stats three">
-        <div class="stat dark"><div class="n">2.85<small>B$</small></div><div class="l">سوق تقنية مالية ينمو 13% سنوياً</div></div>
-        <div class="stat dark"><div class="n">مُربح</div><div class="l">صافي ربح من السنة الأولى (تمويل ذاتي)</div></div>
-        <div class="stat dark"><div class="n">مُجرّب</div><div class="l">تحقّق سوقي سابق (10 متاجر، 50+ مستخدم)</div></div>
-        <div class="stat dark"><div class="n">~28×</div><div class="l">نسبة LTV/CAC (اقتصاديات وحدة قوية)</div></div>
-        <div class="stat dark"><div class="n">600<small>M$</small></div><div class="l">تقييم نموذج عالمي مماثل (KhataBook)</div></div>
-        <div class="stat dark"><div class="n">AUREX</div><div class="l">تقنية حصرية + حدّ ائتماني موحّد كخندق</div></div>
-      </div>
-      <div class="note"><i class="fas fa-circle-info"></i> يُسر يجمع نادراً بين <strong>ربحية مُثبتة الآن</strong>
-        و<strong>إمكان نمو كبير</strong>: قاعدة آمنة بتمويل ذاتي، وصعود حادّ مع الاستثمار.</div>
-    </div>
-  </section>
-
-  <!-- 2. PROBLEM & SOLUTION -->
-  <section>
-    <div class="wrap">
-      <span class="eyebrow"><i class="fas fa-triangle-exclamation"></i> المشكلة والحل</span>
-      <h2 class="sec">دفاتر ورقية تضيع معها الحقوق</h2>
-      <div class="grid2">
-        <div class="card bad">
-          <h4><span class="ci"><i class="fas fa-book"></i></span> المشكلة</h4>
-          <p>ملايين التجار والأفراد يسجّلون الديون والعربون في <strong>دفاتر ورقية</strong> تُفقد وتُزوّر وتسبّب
-            النزاعات، دون سجل موثّق يحفظ الحق، ودون رقابة موحّدة تمنع تراكم الدين بين المتاجر.</p>
-        </div>
-        <div class="card">
-          <h4><span class="ci"><i class="fas fa-shield-halved"></i></span> الحل · يُسر</h4>
-          <p>تحويل كل عملية إلى <strong>سجل رقمي موثّق غير قابل للتلاعب</strong> بلمسة AUREX، مع
-            <strong>حدّ ائتماني موحّد</strong> يحمي المتاجر — يُسر يوثّق الحق الآن، والسداد يبقى لاحقاً.</p>
+    <!-- 1. COVER -->
+    <div class="frame"><section class="slide cover">
+      <span class="ring"></span><span class="glow"></span>
+      <div class="pad">
+        <div class="hbrand"><img src="assets/img/Yusr.png" alt="يُسر"><span>يُسر</span></div>
+        <div class="htag">دراسة جدوى مالية وتقنية ومشروعية · فرصة استثمارية · 2026</div>
+        <h1>نُرقمن توثيق تعاملات سوق بـ <span class="g">2.85 مليار دولار</span><br>بتقنية AUREX</h1>
+        <div class="desc">يُسر وسيط رقمي يحوّل دفاتر الديون والعربون الورقية إلى سجلات موثّقة بلمسة واحدة. فكرة <strong>مُجرّبة وناجحة</strong>، <strong>مربحة فعلياً بتمويل ذاتي</strong>، ونموذجها <strong>مُثبَت عالمياً</strong> — ونبحث عن شريك استثماري لاقتناص سوق سعودي ضخم وجاهز رقمياً.</div>
+        <div class="hero-meta">
+          <span>مربح من السنة الأولى</span><span>تحقّق مُثبَت سابقاً</span><span>LTV/CAC ~28×</span><span>سوق 1.3M منشأة</span><span>نموذج عالمي بـ 600M$</span>
         </div>
       </div>
-      <ul class="b">
-        <li>أكثر من <strong>1.3 مليون منشأة صغيرة ومتوسطة</strong> في المملكة، كثير منها يتعامل بالدين والعربون يدوياً.</li>
-        <li>سوق «اشترِ الآن وادفع لاحقاً» تجاوز <strong>10 ملايين مستخدم</strong> و42% من المستهلكين — ثقافة «وثّق الآن
-          وادفع لاحقاً» راسخة وجاهزة.</li>
-        <li>لا توجد أداة متخصّصة في <strong>توثيق</strong> الديون والعربون — المنافس إمّا دفع/تقسيط أو محاسبة عامة.</li>
-      </ul>
-    </div>
-  </section>
+    </section></div>
 
-  <!-- 3. TRACTION -->
-  <section>
-    <div class="wrap">
-      <span class="eyebrow"><i class="fas fa-chart-line"></i> التحقّق والزخم</span>
-      <h2 class="sec">فكرة مُجرّبة وناجحة — وإطلاق جديد مربح</h2>
-      <div class="stats">
-        <div class="stat"><div class="n">QR</div><div class="l">إطلاق تجريبي ناجح</div></div>
-        <div class="stat"><div class="n">10</div><div class="l">متاجر في التجربة الأولى</div></div>
-        <div class="stat"><div class="n">50<small>+</small></div><div class="l">مستخدم فرد</div></div>
-        <div class="stat"><div class="n">7,000</div><div class="l">ر.س إيرادات الإطلاق الحالي (شهران)</div></div>
+    <!-- 2. HIGHLIGHTS -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-star"></i> لماذا يُسر؟ — ملخّص الفرصة</span>
+        <h2 class="sec">ستة أسباب تجعل يُسر رهاناً قوياً</h2>
+        <div class="body">
+          <div class="stats six">
+            <div class="stat dark"><div class="n">2.85<small>B$</small></div><div class="l">سوق تقنية مالية ينمو 13% سنوياً</div></div>
+            <div class="stat dark"><div class="n">مُربح</div><div class="l">صافي ربح من السنة الأولى (تمويل ذاتي)</div></div>
+            <div class="stat dark"><div class="n">مُجرّب</div><div class="l">تحقّق سوقي سابق (10 متاجر، 50+ مستخدم)</div></div>
+            <div class="stat dark"><div class="n">~28×</div><div class="l">نسبة LTV/CAC (اقتصاديات وحدة قوية)</div></div>
+            <div class="stat dark"><div class="n">600<small>M$</small></div><div class="l">تقييم نموذج عالمي مماثل (KhataBook)</div></div>
+            <div class="stat dark"><div class="n">AUREX</div><div class="l">تقنية حصرية + حدّ ائتماني موحّد كخندق</div></div>
+          </div>
+          <div class="note"><i class="fas fa-circle-info"></i> يُسر يجمع نادراً بين <strong>ربحية مُثبتة الآن</strong> و<strong>إمكان نمو كبير</strong>: قاعدة آمنة بتمويل ذاتي، وصعود حادّ مع الاستثمار.</div>
+        </div>
       </div>
-      <p>أثبتنا الطلب الحقيقي سابقاً عبر تجربة QR مع 10 متاجر و50+ مستخدماً. واليوم
-        <strong>أعدنا الإطلاق بتقنية AUREX منذ شهرين</strong> — ترفع التجربة من «رمز مرئي» إلى
-        <strong>لمسة فورية تعمل على كل الأجهزة</strong> — وبدأنا تحقيق إيرادات فعلية مع أول المتاجر المشتركة. لسنا فكرة
-        على ورق، بل <strong>منتج يعمل ويُربح</strong>.</p>
-    </div>
-  </section>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">دراسة الجدوى · 02</span></div>
+    </section></div>
 
-  <!-- 4. MARKET -->
-  <section>
-    <div class="wrap">
-      <span class="eyebrow"><i class="fas fa-globe"></i> دراسة السوق</span>
-      <h2 class="sec">سوق سعودي ضخم وجاهز رقمياً ومدعوم برؤية 2030</h2>
-
-      <h3 class="sub">أولاً: السوق السعودي</h3>
-      <div class="stats">
-        <div class="stat"><div class="n">2.85<small>B$</small></div><div class="l">سوق التقنية المالية 2025</div><div class="src">→ 5.28B$ بحلول 2030</div></div>
-        <div class="stat"><div class="n">79<small>%</small></div><div class="l">معاملات لاسلكية 2024</div><div class="src">تجاوزت هدف 2025 مبكراً</div></div>
-        <div class="stat"><div class="n">2.1<small>M</small></div><div class="l">جهاز نقاط بيع (مدى)</div></div>
-        <div class="stat"><div class="n">99<small>%</small></div><div class="l">نفاذ الإنترنت · 95%+ هواتف</div></div>
+    <!-- 3. PROBLEM & SOLUTION -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-triangle-exclamation"></i> المشكلة والحل</span>
+        <h2 class="sec">دفاتر ورقية تضيع معها الحقوق</h2>
+        <div class="body">
+          <div class="grid2">
+            <div class="card bad"><h4><span class="ci"><i class="fas fa-book"></i></span> المشكلة</h4><p>ملايين التجار والأفراد يسجّلون الديون والعربون في <strong>دفاتر ورقية</strong> تُفقد وتُزوّر وتسبّب النزاعات، دون سجل موثّق يحفظ الحق، ودون رقابة موحّدة تمنع تراكم الدين بين المتاجر.</p></div>
+            <div class="card"><h4><span class="ci"><i class="fas fa-shield-halved"></i></span> الحل · يُسر</h4><p>تحويل كل عملية إلى <strong>سجل رقمي موثّق غير قابل للتلاعب</strong> بلمسة AUREX، مع <strong>حدّ ائتماني موحّد</strong> يحمي المتاجر — يُسر يوثّق الحق الآن، والسداد يبقى لاحقاً.</p></div>
+          </div>
+          <ul class="b" style="margin-top:16px">
+            <li>أكثر من <strong>1.3 مليون منشأة صغيرة ومتوسطة</strong> في المملكة، كثير منها يتعامل بالدين والعربون يدوياً.</li>
+            <li>سوق «اشترِ الآن وادفع لاحقاً» تجاوز <strong>10 ملايين مستخدم</strong> و42% من المستهلكين — ثقافة «وثّق الآن وادفع لاحقاً» راسخة وجاهزة.</li>
+            <li>لا توجد أداة متخصّصة في <strong>توثيق</strong> الديون والعربون — المنافس إمّا دفع/تقسيط أو محاسبة عامة.</li>
+          </ul>
+        </div>
       </div>
-      <ul class="b">
-        <li><strong>1.3 مليون منشأة</strong> + 80,000 سجل جديد كل ربع — قاعدة عملاء متنامية باستمرار.</li>
-        <li>سوق مدفوعات وطني بـ <strong>181 مليار دولار</strong>، و«Tap to Phone» يُطرح للمتاجر الصغيرة بلا أجهزة — بيئة
-          مثالية لتقنية اللمسة.</li>
-        <li><strong>رؤية 2030</strong> والاستراتيجية الوطنية للتقنية المالية (280+ شركة) وإطار <strong>المصرفية المفتوحة
-          من ساما</strong> = رياح داعمة قوية.</li>
-      </ul>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">دراسة الجدوى · 03</span></div>
+    </section></div>
 
-      <h3 class="sub">ثانياً: السوق العربي والعالمي</h3>
-      <div class="grid3">
-        <div class="card"><h4><span class="ci"><i class="fas fa-coins"></i></span> 5.65B$ · MENA</h4><p>سوق التقنية المالية العربي 2025 → <strong>11.46B$ بحلول 2031</strong>، والخليج 62.75% منه — مسار توسّع طبيعي.</p></div>
-        <div class="card"><h4><span class="ci"><i class="fas fa-trophy"></i></span> 600M$ · عالمياً</h4><p>تطبيق <strong>KhataBook</strong> (دفتر ديون رقمي بالهند) بلغ ~600M$ تقييماً وعشرات الملايين من المستخدمين — دليل قاطع على قابلية النموذج للتوسّع الضخم.</p></div>
-        <div class="card"><h4><span class="ci"><i class="fas fa-rocket"></i></span> نمو مُثبَت</h4><p>سوق BNPL بلغ 10M مستخدم خلال ~عامين — يثبت سرعة تبنّي السوق للحلول الرقمية الجديدة.</p></div>
+    <!-- 4. TRACTION -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-chart-line"></i> التحقّق والزخم</span>
+        <h2 class="sec">فكرة مُجرّبة وناجحة — وإطلاق جديد مربح</h2>
+        <div class="body">
+          <div class="stats">
+            <div class="stat"><div class="n">QR</div><div class="l">إطلاق تجريبي ناجح</div></div>
+            <div class="stat"><div class="n">10</div><div class="l">متاجر في التجربة الأولى</div></div>
+            <div class="stat"><div class="n">50<small>+</small></div><div class="l">مستخدم فرد</div></div>
+            <div class="stat"><div class="n">7,000</div><div class="l">ر.س إيرادات الإطلاق الحالي (شهران)</div></div>
+          </div>
+          <div class="note" style="margin-top:18px"><i class="fas fa-rocket"></i> أثبتنا الطلب الحقيقي سابقاً عبر تجربة QR مع 10 متاجر و50+ مستخدماً. واليوم <strong>أعدنا الإطلاق بتقنية AUREX منذ شهرين</strong> — ترفع التجربة من «رمز مرئي» إلى <strong>لمسة فورية تعمل على كل الأجهزة</strong> — وبدأنا تحقيق إيرادات فعلية مع أول المتاجر المشتركة. لسنا فكرة على ورق، بل <strong>منتج يعمل ويُربح</strong>.</div>
+        </div>
       </div>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">دراسة الجدوى · 04</span></div>
+    </section></div>
 
-      <h3 class="sub">حجم الفرصة (TAM / SAM / SOM)</h3>
-      <div class="funnel">
-        <div class="frow"><div class="fbar">TAM · 1.3 مليون منشأة صغيرة ومتوسطة</div><span class="fmeta">كامل سوق المنشآت</span></div>
-        <div class="frow"><div class="fbar">SAM · ~450 ألف متجر تجزئة وتجارة</div><span class="fmeta">المتعاملون بالدين والعربون</span></div>
-        <div class="frow"><div class="fbar">SOM · ~14 ألف متجر (سيناريو النمو، 3 سنوات)</div><span class="fmeta">~3% فقط — مساحة نمو هائلة</span></div>
+    <!-- 5. SAUDI MARKET -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-globe"></i> دراسة السوق · السعودية</span>
+        <h2 class="sec">سوق سعودي ضخم وجاهز رقمياً ومدعوم برؤية 2030</h2>
+        <div class="body">
+          <div class="stats">
+            <div class="stat"><div class="n">2.85<small>B$</small></div><div class="l">سوق التقنية المالية 2025</div><div class="src">→ 5.28B$ بحلول 2030</div></div>
+            <div class="stat"><div class="n">79<small>%</small></div><div class="l">معاملات لاسلكية 2024</div><div class="src">تجاوزت هدف 2025 مبكراً</div></div>
+            <div class="stat"><div class="n">2.1<small>M</small></div><div class="l">جهاز نقاط بيع (مدى)</div></div>
+            <div class="stat"><div class="n">99<small>%</small></div><div class="l">نفاذ الإنترنت · 95%+ هواتف</div></div>
+          </div>
+          <ul class="b" style="margin-top:16px">
+            <li><strong>1.3 مليون منشأة</strong> + 80,000 سجل جديد كل ربع — قاعدة عملاء متنامية باستمرار.</li>
+            <li>سوق مدفوعات وطني بـ <strong>181 مليار دولار</strong>، و«Tap to Phone» يُطرح للمتاجر الصغيرة بلا أجهزة — بيئة مثالية لتقنية اللمسة.</li>
+            <li><strong>رؤية 2030</strong> والاستراتيجية الوطنية للتقنية المالية (280+ شركة) وإطار <strong>المصرفية المفتوحة من ساما</strong> = رياح داعمة قوية.</li>
+          </ul>
+        </div>
       </div>
-      <div class="note"><i class="fas fa-circle-info"></i> حتى عند اقتناص <strong>3% فقط</strong> من السوق المتاح، تبقى
-        مساحة النمو أمام يُسر ضخمة — والسقف هو حجم السوق العربي كاملاً.</div>
-    </div>
-  </section>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">دراسة الجدوى · 05</span></div>
+    </section></div>
 
-  <!-- 5. MOAT & COMPETITION -->
-  <section>
-    <div class="wrap">
-      <span class="eyebrow"><i class="fas fa-chess-rook"></i> الميزة التنافسية والخندق</span>
-      <h2 class="sec">موقع متفرّد يصعب تقليده</h2>
-      <table class="tbl">
-        <thead><tr><th>المنافس</th><th>مجاله</th><th>الفجوة التي نسدّها</th></tr></thead>
-        <tbody>
-          <tr><td>تابي / تمارا</td><td>دفع وتقسيط</td><td>لا توثّق الديون والعربون الشخصية بين الأطراف</td></tr>
-          <tr><td>دفترة / قيود</td><td>محاسبة شاملة</td><td>أوسع وأعقد وأعلى سعراً من حاجة التوثيق</td></tr>
-          <tr><td>Square / POS</td><td>نقاط بيع</td><td>تتطلب أجهزة خاصة وغير متخصّصة بالتوثيق</td></tr>
-          <tr class="tot"><td>يُسر</td><td>توثيق بلمسة AUREX</td><td>توثيق + حدّ ائتماني موحّد + سداد مرن</td></tr>
-        </tbody>
-      </table>
-      <div class="grid3">
-        <div class="card"><h4><span class="ci"><i class="fas fa-fingerprint"></i></span> تقنية AUREX</h4><p>توثيق بلمسة حصري بلا أجهزة خاصة — صعب التقليد وعنصر تمايز جوهري.</p></div>
-        <div class="card"><h4><span class="ci"><i class="fas fa-network-wired"></i></span> أثر الشبكة</h4><p>الحدّ الائتماني الموحّد يقوى مع كل متجر جديد — كلما كبرنا صعب اللحاق بنا.</p></div>
-        <div class="card"><h4><span class="ci"><i class="fas fa-lock"></i></span> تكلفة التحوّل</h4><p>سجلات موثّقة وأرشيف دائم يجعل ترك المنصة مكلفاً — ولاء عالٍ وثبات.</p></div>
+    <!-- 6. GLOBAL MARKET + TAM/SAM/SOM -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-earth-americas"></i> السوق العربي والعالمي · حجم الفرصة</span>
+        <h2 class="sec">نموذج مُثبَت عالمياً وسقف نمو ضخم</h2>
+        <div class="body">
+          <div class="grid3">
+            <div class="card"><h4><span class="ci"><i class="fas fa-coins"></i></span> 5.65B$ · MENA</h4><p>سوق التقنية المالية العربي 2025 → <strong>11.46B$ بحلول 2031</strong>، والخليج 62.75% منه.</p></div>
+            <div class="card"><h4><span class="ci"><i class="fas fa-trophy"></i></span> 600M$ · عالمياً</h4><p><strong>KhataBook</strong> (دفتر ديون رقمي بالهند) بلغ ~600M$ تقييماً وعشرات الملايين من المستخدمين.</p></div>
+            <div class="card"><h4><span class="ci"><i class="fas fa-rocket"></i></span> نمو مُثبَت</h4><p>سوق BNPL بلغ 10M مستخدم خلال ~عامين — يثبت سرعة تبنّي السوق للحلول الرقمية.</p></div>
+          </div>
+          <h3 class="sub">حجم الفرصة (TAM / SAM / SOM)</h3>
+          <div class="funnel">
+            <div class="frow"><div class="fbar">TAM · 1.3 مليون منشأة صغيرة ومتوسطة</div><span class="fmeta">كامل سوق المنشآت</span></div>
+            <div class="frow"><div class="fbar">SAM · ~450 ألف متجر تجزئة وتجارة</div><span class="fmeta">المتعاملون بالدين والعربون</span></div>
+            <div class="frow"><div class="fbar">SOM · ~14 ألف متجر (3 سنوات)</div><span class="fmeta">~3% فقط — مساحة نمو هائلة</span></div>
+          </div>
+        </div>
       </div>
-      <div class="swot">
-        <div class="sw s"><h4><i class="fas fa-bolt"></i> القوة</h4><ul><li>تقنية AUREX وتوثيق بلمسة</li><li>ربحية مُثبتة وتكاليف منخفضة</li><li>شمولية: ديون + عربون + موردين</li></ul></div>
-        <div class="sw o"><h4><i class="fas fa-door-open"></i> الفرص</h4><ul><li>دعم رؤية 2030 ودخل B2B/B2G</li><li>توسّع عربي ونماذج عالمية مُثبتة</li><li>المصرفية المفتوحة (ساما)</li></ul></div>
-        <div class="sw w"><h4><i class="fas fa-circle-half-stroke"></i> الضعف</h4><ul><li>علامة جديدة تحتاج للثقة</li><li>اعتماد على التطبيق والسحابة</li><li>ميزانية تسويق أولية محدودة</li></ul></div>
-        <div class="sw t"><h4><i class="fas fa-shield-virus"></i> التهديدات</h4><ul><li>دخول منافسين كبار</li><li>اشتراطات تنظيمية (ساما)</li><li>الأمن السيبراني</li></ul></div>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">دراسة الجدوى · 06</span></div>
+    </section></div>
+
+    <!-- 7. MOAT TABLE -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-chess-rook"></i> الميزة التنافسية والخندق</span>
+        <h2 class="sec">موقع متفرّد يصعب تقليده</h2>
+        <div class="body">
+          <table class="tbl">
+            <thead><tr><th>المنافس</th><th>مجاله</th><th>الفجوة التي نسدّها</th></tr></thead>
+            <tbody>
+              <tr><td>تابي / تمارا</td><td>دفع وتقسيط</td><td>لا توثّق الديون والعربون الشخصية بين الأطراف</td></tr>
+              <tr><td>دفترة / قيود</td><td>محاسبة شاملة</td><td>أوسع وأعقد وأعلى سعراً من حاجة التوثيق</td></tr>
+              <tr><td>Square / POS</td><td>نقاط بيع</td><td>تتطلب أجهزة خاصة وغير متخصّصة بالتوثيق</td></tr>
+              <tr class="tot"><td>يُسر</td><td>توثيق بلمسة AUREX</td><td>توثيق + حدّ ائتماني موحّد + سداد مرن</td></tr>
+            </tbody>
+          </table>
+          <div class="grid3" style="margin-top:18px">
+            <div class="card"><h4><span class="ci"><i class="fas fa-fingerprint"></i></span> تقنية AUREX</h4><p>توثيق بلمسة حصري بلا أجهزة خاصة — صعب التقليد وعنصر تمايز جوهري.</p></div>
+            <div class="card"><h4><span class="ci"><i class="fas fa-network-wired"></i></span> أثر الشبكة</h4><p>الحدّ الائتماني الموحّد يقوى مع كل متجر جديد — كلما كبرنا صعب اللحاق بنا.</p></div>
+            <div class="card"><h4><span class="ci"><i class="fas fa-lock"></i></span> تكلفة التحوّل</h4><p>سجلات موثّقة وأرشيف دائم يجعل ترك المنصة مكلفاً — ولاء عالٍ وثبات.</p></div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">دراسة الجدوى · 07</span></div>
+    </section></div>
 
-  <!-- 6. BUSINESS MODEL & UNIT ECONOMICS -->
-  <section>
-    <div class="wrap">
-      <span class="eyebrow"><i class="fas fa-layer-group"></i> نموذج العمل واقتصاديات الوحدة</span>
-      <h2 class="sec">ثلاثة مصادر دخل واقتصاديات قوية</h2>
-      <div class="grid3">
-        <div class="card"><h4><span class="ci"><i class="fas fa-user"></i></span> الأفراد — مجاناً</h4><p>الدفتر الرقمي + توثيق AUREX، لبناء أثر الشبكة الذي يجذب التجار.</p></div>
-        <div class="card"><h4><span class="ci"><i class="fas fa-store"></i></span> التجار — اشتراكات</h4><p>3 باقات <strong>80 / 119 / 149 ر.س</strong> شهرياً — الأقل سعراً في السوق وبهامش مرتفع.</p></div>
-        <div class="card"><h4><span class="ci"><i class="fas fa-building-columns"></i></span> المؤسسات والحكومات</h4><p>ترخيص <strong>AUREX عبر API</strong> + المصرفية المفتوحة — صفقات كبيرة وتسعير مخصّص.</p></div>
+    <!-- 8. SWOT -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-table-cells-large"></i> تحليل SWOT</span>
+        <h2 class="sec">قوة جوهرية وفرص كبيرة بمخاطر مُدارة</h2>
+        <div class="body">
+          <div class="swot">
+            <div class="sw s"><h4><i class="fas fa-bolt"></i> القوة</h4><ul><li>تقنية AUREX وتوثيق بلمسة</li><li>ربحية مُثبتة وتكاليف منخفضة</li><li>شمولية: ديون + عربون + موردين</li></ul></div>
+            <div class="sw o"><h4><i class="fas fa-door-open"></i> الفرص</h4><ul><li>دعم رؤية 2030 ودخل B2B/B2G</li><li>توسّع عربي ونماذج عالمية مُثبتة</li><li>المصرفية المفتوحة (ساما)</li></ul></div>
+            <div class="sw w"><h4><i class="fas fa-circle-half-stroke"></i> الضعف</h4><ul><li>علامة جديدة تحتاج للثقة</li><li>اعتماد على التطبيق والسحابة</li><li>ميزانية تسويق أولية محدودة</li></ul></div>
+            <div class="sw t"><h4><i class="fas fa-shield-virus"></i> التهديدات</h4><ul><li>دخول منافسين كبار</li><li>اشتراطات تنظيمية (ساما)</li><li>الأمن السيبراني</li></ul></div>
+          </div>
+        </div>
       </div>
-      <h3 class="sub">اقتصاديات الوحدة (لكل متجر)</h3>
-      <div class="stats">
-        <div class="stat"><div class="n">~1,320</div><div class="l">ر.س متوسط الإيراد السنوي (ARPU)</div></div>
-        <div class="stat"><div class="n">~120</div><div class="l">ر.س تكلفة الاكتساب (CAC)</div></div>
-        <div class="stat"><div class="n">~28×</div><div class="l">نسبة LTV / CAC</div></div>
-        <div class="stat"><div class="n">~85<small>%</small></div><div class="l">هامش ربح إجمالي · استرداد &lt; شهرين</div></div>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">دراسة الجدوى · 08</span></div>
+    </section></div>
+
+    <!-- 9. BUSINESS MODEL + UNIT ECONOMICS -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-layer-group"></i> نموذج العمل واقتصاديات الوحدة</span>
+        <h2 class="sec">ثلاثة مصادر دخل واقتصاديات قوية</h2>
+        <div class="body">
+          <div class="grid3">
+            <div class="card"><h4><span class="ci"><i class="fas fa-user"></i></span> الأفراد — مجاناً</h4><p>الدفتر الرقمي + توثيق AUREX، لبناء أثر الشبكة الذي يجذب التجار.</p></div>
+            <div class="card"><h4><span class="ci"><i class="fas fa-store"></i></span> التجار — اشتراكات</h4><p>3 باقات <strong>80 / 119 / 149 ر.س</strong> شهرياً — الأقل سعراً في السوق وبهامش مرتفع.</p></div>
+            <div class="card"><h4><span class="ci"><i class="fas fa-building-columns"></i></span> المؤسسات والحكومات</h4><p>ترخيص <strong>AUREX عبر API</strong> + المصرفية المفتوحة — صفقات كبيرة وتسعير مخصّص.</p></div>
+          </div>
+          <div class="stats" style="margin-top:18px">
+            <div class="stat"><div class="n">~1,320</div><div class="l">ر.س متوسط الإيراد السنوي (ARPU)</div></div>
+            <div class="stat"><div class="n">~120</div><div class="l">ر.س تكلفة الاكتساب (CAC)</div></div>
+            <div class="stat"><div class="n">~28×</div><div class="l">نسبة LTV / CAC</div></div>
+            <div class="stat"><div class="n">~85<small>%</small></div><div class="l">هامش ربح إجمالي · استرداد &lt; شهرين</div></div>
+          </div>
+        </div>
       </div>
-      <div class="note"><i class="fas fa-circle-check"></i> اقتصاديات وحدة بهذه القوة (LTV/CAC أعلى من 3× بكثير، واسترداد
-        سريع) = <strong>كل ريال تسويق يولّد عائداً مضاعفاً</strong>، وهو ما يجعل ضخّ الاستثمار في النمو قراراً رابحاً.</div>
-    </div>
-  </section>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">دراسة الجدوى · 09</span></div>
+    </section></div>
 
-  <!-- 7. FINANCIALS — TWO SCENARIOS -->
-  <section>
-    <div class="wrap">
-      <span class="eyebrow"><i class="fas fa-sack-dollar"></i> الجدوى المالية</span>
-      <h2 class="sec">قاعدة مربحة الآن — وصعود حادّ مع الاستثمار</h2>
-      <p class="lead">نعرض سيناريوهين: <strong>متحفّظ بتمويل ذاتي</strong> (يثبت أننا مربحون بلا مخاطرة)، و<strong>نمو
-        مع استثمار</strong> (يفعّل الاكتساب السريع ودخل B2B). جميع المبالغ بالريال السعودي.</p>
-
-      <span class="tag2 base">السيناريو 1 · متحفّظ (تمويل ذاتي)</span>
-      <table class="tbl">
-        <thead><tr><th>البند</th><th>السنة 1</th><th>السنة 2</th><th>السنة 3</th></tr></thead>
-        <tbody>
-          <tr><td>متاجر مدفوعة</td><td>~500</td><td>~590</td><td>~690</td></tr>
-          <tr><td>إجمالي الإيرادات</td><td>513,190</td><td>616,900</td><td>737,100</td></tr>
-          <tr class="tot"><td>صافي الربح بعد الزكاة</td><td class="pos">460,111</td><td class="pos">444,716</td><td class="pos">539,486</td></tr>
-        </tbody>
-      </table>
-      <p style="font-size:14.5px;color:var(--mut)">قاعدة آمنة: مربحة من السنة الأولى (المؤسسون بلا رواتب) ومدعومة
-        حكومياً في رواتب السنتين 2–3، صافي تراكمي ~1.44M ر.س برأس مال تأسيسي ~150K فقط — دون أي تمويل خارجي.</p>
-
-      <span class="tag2 grow" style="margin-top:18px">السيناريو 2 · نمو (مع استثمار)</span>
-      <table class="tbl">
-        <thead><tr><th>البند</th><th>السنة 1</th><th>السنة 2</th><th>السنة 3</th></tr></thead>
-        <tbody>
-          <tr><td>متاجر مدفوعة</td><td>~1,200</td><td>~5,000</td><td>~14,000</td></tr>
-          <tr><td>إجمالي الإيرادات</td><td>1,600,000</td><td>7,500,000</td><td>23,000,000</td></tr>
-          <tr><td>تكاليف التشغيل</td><td>1,400,000</td><td>4,500,000</td><td>13,000,000</td></tr>
-          <tr class="tot"><td>صافي الربح</td><td class="pos">200,000</td><td class="pos">3,000,000</td><td class="pos">10,000,000</td></tr>
-        </tbody>
-      </table>
-
-      <div class="chart">
-        <div class="col"><div class="bars">
-          <div class="bar rev" style="height:7%"><b>1.6M</b></div>
-          <div class="bar prof" style="height:2%"></div>
-        </div><div class="yl">السنة 1</div></div>
-        <div class="col"><div class="bars">
-          <div class="bar rev" style="height:33%"><b>7.5M</b></div>
-          <div class="bar prof" style="height:13%"></div>
-        </div><div class="yl">السنة 2</div></div>
-        <div class="col"><div class="bars">
-          <div class="bar rev" style="height:100%"><b>23M</b></div>
-          <div class="bar prof" style="height:43%"></div>
-        </div><div class="yl">السنة 3</div></div>
+    <!-- 10. FINANCIALS — SCENARIOS -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-sack-dollar"></i> الجدوى المالية</span>
+        <h2 class="sec">قاعدة مربحة الآن — وصعود حادّ مع الاستثمار</h2>
+        <div class="body">
+          <div class="twocol">
+            <div>
+              <span class="tag2 base">السيناريو 1 · متحفّظ (تمويل ذاتي)</span>
+              <table class="tbl">
+                <thead><tr><th>البند</th><th>س1</th><th>س2</th><th>س3</th></tr></thead>
+                <tbody>
+                  <tr><td>متاجر مدفوعة</td><td>~500</td><td>~590</td><td>~690</td></tr>
+                  <tr><td>إجمالي الإيرادات</td><td>513,190</td><td>616,900</td><td>737,100</td></tr>
+                  <tr class="tot"><td>صافي الربح بعد الزكاة</td><td class="pos">460,111</td><td class="pos">444,716</td><td class="pos">539,486</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div>
+              <span class="tag2 grow">السيناريو 2 · نمو (مع استثمار)</span>
+              <table class="tbl">
+                <thead><tr><th>البند</th><th>س1</th><th>س2</th><th>س3</th></tr></thead>
+                <tbody>
+                  <tr><td>متاجر مدفوعة</td><td>~1,200</td><td>~5,000</td><td>~14,000</td></tr>
+                  <tr><td>إجمالي الإيرادات</td><td>1.6M</td><td>7.5M</td><td>23M</td></tr>
+                  <tr class="tot"><td>صافي الربح</td><td class="pos">200K</td><td class="pos">3.0M</td><td class="pos">10M</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="note"><i class="fas fa-circle-info"></i> المتحفّظ مربح من السنة الأولى (مؤسسون بلا رواتب + دعم حكومي) — صافي تراكمي <strong>~1.44M ر.س</strong> برأس مال ~150K فقط. سيناريو النمو يفترض ~3% فقط من السوق المتاح — تقديري قابل للتحديث.</div>
+        </div>
       </div>
-      <div class="legend">
-        <span><i class="dot" style="background:var(--primary)"></i> الإيرادات</span>
-        <span><i class="dot" style="background:var(--dark)"></i> صافي الربح</span>
-      </div>
-      <div class="note"><i class="fas fa-circle-info"></i> سيناريو النمو يفترض اقتناص <strong>~3% فقط</strong> من السوق
-        المتاح خلال 3 سنوات + تفعيل دخل B2B/B2G — وهو محافظ مقارنةً بنماذج عالمية مثل KhataBook. أرقام تقديرية قابلة
-        للتحديث.</div>
-    </div>
-  </section>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">دراسة الجدوى · 10</span></div>
+    </section></div>
 
-  <!-- 7b. REVENUE DETAIL -->
-  <section>
-    <div class="wrap">
-      <span class="eyebrow"><i class="fas fa-coins"></i> الإيرادات المتوقّعة (تفصيل)</span>
-      <h2 class="sec">مصدر كل ريال — حسب الباقة</h2>
-      <p class="lead">تفصيل السيناريو المتحفّظ: الأفراد مجاناً لبناء الشبكة، والدخل من باقات التجار الثلاث. جميع المبالغ
-        بالريال السعودي.</p>
-      <table class="tbl">
-        <thead><tr><th>الباقة</th><th>مشتركون (س1·س2·س3)</th><th>إيراد س1</th><th>إيراد س2</th><th>إيراد س3</th></tr></thead>
-        <tbody>
-          <tr><td>الأساسية (800/سنة)</td><td>249 · 280 · 300</td><td>199,200</td><td>224,000</td><td>240,000</td></tr>
-          <tr><td>المتقدمة (1,190/سنة)</td><td>200 · 230 · 280</td><td>238,000</td><td>273,700</td><td>333,200</td></tr>
-          <tr><td>الاحترافية (1,490/سنة)</td><td>51 · 80 · 110</td><td>75,990</td><td>119,200</td><td>163,900</td></tr>
-          <tr><td>الأفراد (مجاني)</td><td>5,000 · 20,000 · 50,000</td><td>0</td><td>0</td><td>0</td></tr>
-          <tr class="tot"><td>إجمالي الإيرادات</td><td>—</td><td>513,190</td><td>616,900</td><td>737,100</td></tr>
-        </tbody>
-      </table>
-      <div class="note"><i class="fas fa-circle-info"></i> دخل المؤسسات والحكومات (API و Open Banking) غير محتسب في هذا
-        السيناريو المتحفّظ — وهو فرصة إضافية كبيرة تُفعّل في سيناريو النمو.</div>
-    </div>
-  </section>
-
-  <!-- 7c. COSTS DETAIL -->
-  <section>
-    <div class="wrap">
-      <span class="eyebrow"><i class="fas fa-receipt"></i> تفصيل التكاليف</span>
-      <h2 class="sec">نموذج تكاليف خفيف — بلا أجهزة أو مستودعات</h2>
-      <div class="stats three">
-        <div class="stat"><div class="n">42,700</div><div class="l">مصاريف التأسيس (لمرة واحدة)</div></div>
-        <div class="stat"><div class="n">31,565</div><div class="l">رأس المال الثابت (لمرة واحدة)</div></div>
-        <div class="stat"><div class="n">~150,000</div><div class="l">إجمالي رأس المال التأسيسي المطلوب</div></div>
+    <!-- 11. GROWTH CHART -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-chart-column"></i> مسار النمو (السيناريو الاستثماري)</span>
+        <h2 class="sec">من 1.6M إلى 23M ر.س خلال 3 سنوات</h2>
+        <div class="body">
+          <div class="chart">
+            <div class="col"><div class="bars"><div class="bar rev" style="height:7%"><b>1.6M</b></div><div class="bar prof" style="height:2%"></div></div><div class="yl">السنة 1</div></div>
+            <div class="col"><div class="bars"><div class="bar rev" style="height:33%"><b>7.5M</b></div><div class="bar prof" style="height:13%"></div></div><div class="yl">السنة 2</div></div>
+            <div class="col"><div class="bars"><div class="bar rev" style="height:100%"><b>23M</b></div><div class="bar prof" style="height:43%"></div></div><div class="yl">السنة 3</div></div>
+          </div>
+          <div class="legend">
+            <span><i class="dot" style="background:var(--primary)"></i> الإيرادات</span>
+            <span><i class="dot" style="background:var(--dark)"></i> صافي الربح</span>
+          </div>
+          <div class="note"><i class="fas fa-circle-info"></i> النمو مدفوع بأثر الشبكة وتفعيل دخل المؤسسات (API و Open Banking) — محافظ مقارنةً بنماذج عالمية مثل KhataBook.</div>
+        </div>
       </div>
-      <h3 class="sub">تكاليف التشغيل السنوية</h3>
-      <table class="tbl">
-        <thead><tr><th>البند</th><th>السنة 1</th><th>السنة 2</th><th>السنة 3</th></tr></thead>
-        <tbody>
-          <tr><td>الرواتب والأجور <small>(س1 بلا رواتب · س2–3 بعد الدعم الحكومي)</small></td><td>0</td><td>64,500</td><td>97,500</td></tr>
-          <tr><td>التشغيل التقني والاستضافة <small>(سيرفرات محلية · ترقية أجهزة س1 وس3 فقط)</small></td><td>12,000</td><td>5,000</td><td>20,000</td></tr>
-          <tr><td>التسويق واكتساب العملاء <small>(تسويق رقمي ذكي منخفض التكلفة)</small></td><td>5,000</td><td>10,000</td><td>25,000</td></tr>
-          <tr><td>المصرفية المفتوحة والامتثال</td><td>0</td><td>50,000</td><td>0</td></tr>
-          <tr><td>عمومية وإدارية ومنافع <small>(مكتب مجاني عبر الحاضنة · صيانة ذاتية)</small></td><td>8,000</td><td>15,000</td><td>25,000</td></tr>
-          <tr><td>إهلاك وإطفاء (غير نقدي)</td><td>16,281</td><td>16,281</td><td>16,281</td></tr>
-          <tr class="tot"><td>إجمالي تكاليف التشغيل</td><td>41,281</td><td>160,781</td><td>183,781</td></tr>
-        </tbody>
-      </table>
-      <div class="note"><i class="fas fa-landmark"></i> <strong>دعم حكومي للرواتب:</strong> تستفيد الشركات الناشئة
-        السعودية من دعم رواتب الكوادر السعودية في السنوات الأولى (عبر صندوق تنمية الموارد البشرية «هدف») — يغطّي نحو
-        50% من الرواتب في السنتين 2 و3، فيخفّض التكاليف ويرفع الربحية.</div>
-      <div class="note"><i class="fas fa-building-circle-check"></i> <strong>مقرّ مجاني/مدعوم:</strong> توفّر هيئة
-        المنشآت «مُنشآت» (عبر حاضنات الأعمال و«Startup Hub») والغرف التجارية مساحات عمل مجهّزة مجاناً أو بأسعار مدعومة
-        للشركات الناشئة — فلا حاجة لتكلفة مقرّ أو إيجار.</div>
-      <div class="note"><i class="fas fa-server"></i> <strong>سيرفرات محلية خاصة:</strong> البيانات نصية وصورية خفيفة
-        على سيرفراتنا المحلية (عبر الغرفة التجارية) — لا رسوم استضافة سحابية متكرّرة. الاستثمار في الأجهزة يقتصر على
-        السنة الأولى (التأسيس) والسنة الثالثة (توسعة تخزين + كروت رسومات لتشغيل OCR والذكاء الاصطناعي محلياً).</div>
-    </div>
-  </section>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">دراسة الجدوى · 11</span></div>
+    </section></div>
 
-  <!-- 7d. MARKETING PLAN -->
-  <section>
-    <div class="wrap">
-      <span class="eyebrow"><i class="fas fa-bullhorn"></i> الخطة التسويقية</span>
-      <h2 class="sec">نمو مدفوع بأثر الشبكة وتكلفة اكتساب منخفضة</h2>
-      <h3 class="sub">القنوات</h3>
-      <div class="grid3">
-        <div class="card"><h4><span class="ci"><i class="fas fa-mobile-screen"></i></span> متاجر التطبيقات والموقع</h4><p>حضور على App Store و Google Play وتحسين الظهور (ASO/SEO) لالتقاط الباحثين عن حلول التوثيق.</p></div>
-        <div class="card"><h4><span class="ci"><i class="fas fa-hashtag"></i></span> التسويق الرقمي المباشر</h4><p>تسويق قوي ومنخفض الكلفة عبر X وتيك توك وأدوات الذكاء الاصطناعي للمحتوى — يقوده مدير تسويق داخلي بأقل الأسعار.</p></div>
-        <div class="card"><h4><span class="ci"><i class="fas fa-people-group"></i></span> المبيعات الميدانية</h4><p>فريق يزور المتاجر والأسواق مباشرةً — القناة الأقوى لإقناع التاجر وتفعيل أول عملية توثيق.</p></div>
-        <div class="card"><h4><span class="ci"><i class="fas fa-share-nodes"></i></span> أثر الشبكة والإحالة</h4><p>كل متجر يجلب عملاءه الأفراد مجاناً، وكل فرد يدعو تاجره — نموّ تلقائي بلا تكلفة إعلانات.</p></div>
-        <div class="card"><h4><span class="ci"><i class="fas fa-handshake"></i></span> الشراكات</h4><p>الغرف التجارية، مسرّعات الأعمال، وجهات دعم المنشآت — وصول سريع لقاعدة تجار كبيرة.</p></div>
-        <div class="card"><h4><span class="ci"><i class="fas fa-building-columns"></i></span> مبيعات المؤسسات (B2B/B2G)</h4><p>فريق مبيعات مؤسسي يستهدف البنوك والشركات والجهات الحكومية لترخيص AUREX عبر API.</p></div>
+    <!-- 12. REVENUE DETAIL -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-coins"></i> الإيرادات المتوقّعة (تفصيل)</span>
+        <h2 class="sec">مصدر كل ريال — حسب الباقة</h2>
+        <div class="body">
+          <table class="tbl">
+            <thead><tr><th>الباقة</th><th>مشتركون (س1·س2·س3)</th><th>إيراد س1</th><th>إيراد س2</th><th>إيراد س3</th></tr></thead>
+            <tbody>
+              <tr><td>الأساسية (800/سنة)</td><td>249 · 280 · 300</td><td>199,200</td><td>224,000</td><td>240,000</td></tr>
+              <tr><td>المتقدمة (1,190/سنة)</td><td>200 · 230 · 280</td><td>238,000</td><td>273,700</td><td>333,200</td></tr>
+              <tr><td>الاحترافية (1,490/سنة)</td><td>51 · 80 · 110</td><td>75,990</td><td>119,200</td><td>163,900</td></tr>
+              <tr><td>الأفراد (مجاني)</td><td>5,000 · 20,000 · 50,000</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr class="tot"><td>إجمالي الإيرادات</td><td>—</td><td>513,190</td><td>616,900</td><td>737,100</td></tr>
+            </tbody>
+          </table>
+          <div class="note"><i class="fas fa-circle-info"></i> دخل المؤسسات والحكومات (API و Open Banking) <strong>غير محتسب</strong> في هذا السيناريو المتحفّظ — وهو فرصة إضافية كبيرة تُفعّل في سيناريو النمو.</div>
+        </div>
       </div>
-      <h3 class="sub">مراحل التنفيذ</h3>
-      <div class="road">
-        <div class="rstep now"><span>المرحلة 1 · الإطلاق</span><h4>تركيز محلي وإثبات النموذج</h4><p>متاجر مختارة + مبيعات ميدانية مكثّفة + بناء قصص نجاح.</p></div>
-        <div class="rstep"><span>المرحلة 2 · النمو</span><h4>توسّع القنوات</h4><p>تكثيف الرقمي والإحالة والشراكات، وبدء مبيعات المؤسسات.</p></div>
-        <div class="rstep"><span>المرحلة 3 · التوسّع</span><h4>حملات أوسع وإقليمية</h4><p>حملات علامة واسعة + شراكات مؤسسية + دخول أسواق الخليج.</p></div>
-      </div>
-      <div class="stats three">
-        <div class="stat"><div class="n">~120</div><div class="l">ر.س تكلفة اكتساب التاجر (CAC)</div></div>
-        <div class="stat"><div class="n">&lt; شهرين</div><div class="l">فترة استرداد تكلفة الاكتساب</div></div>
-        <div class="stat"><div class="n">تلقائي</div><div class="l">أثر الشبكة يخفّض كلفة الاكتساب مع النمو</div></div>
-      </div>
-    </div>
-  </section>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">دراسة الجدوى · 12</span></div>
+    </section></div>
 
-  <!-- 8. THE ASK -->
-  <section>
-    <div class="wrap">
-      <span class="eyebrow"><i class="fas fa-handshake-angle"></i> الدعم المطلوب</span>
-      <h2 class="sec">دعم تأسيسي صغير لإطلاق MVP</h2>
-      <div class="ask">
-        <h3>دعم احتضان الشركات الناشئة (MVP Lab)</h3>
-        <div class="big">~150,000 ر.س</div>
-        <p>لتغطية تأسيس وإطلاق النسخة الأولى (MVP) وتشغيل السنة الأولى — التي يعمل فيها المؤسسون <strong>بلا
-          رواتب</strong> — حتى الوصول للربحية. ويبقى سيناريو النمو خياراً لتمويل لاحق.</p>
+    <!-- 13. COSTS -->
+    <div class="frame"><section class="slide" id="costs">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-receipt"></i> تفصيل التكاليف</span>
+        <h2 class="sec">نموذج تكاليف خفيف — بلا أجهزة أو مستودعات</h2>
+        <div class="body top">
+          <div class="stats three">
+            <div class="stat"><div class="n">42,700</div><div class="l">مصاريف التأسيس (لمرة واحدة)</div></div>
+            <div class="stat"><div class="n">31,565</div><div class="l">رأس المال الثابت (لمرة واحدة)</div></div>
+            <div class="stat dark"><div class="n">~150,000</div><div class="l">إجمالي رأس المال التأسيسي المطلوب</div></div>
+          </div>
+          <table class="tbl" style="margin-top:14px">
+            <thead><tr><th>بند التشغيل السنوي</th><th>السنة 1</th><th>السنة 2</th><th>السنة 3</th></tr></thead>
+            <tbody>
+              <tr><td>الرواتب والأجور <small>(س1 بلا رواتب · س2–3 بعد الدعم الحكومي)</small></td><td>0</td><td>64,500</td><td>97,500</td></tr>
+              <tr><td>التشغيل التقني والاستضافة <small>(سيرفرات محلية)</small></td><td>12,000</td><td>5,000</td><td>20,000</td></tr>
+              <tr><td>التسويق واكتساب العملاء</td><td>5,000</td><td>10,000</td><td>25,000</td></tr>
+              <tr><td>المصرفية المفتوحة والامتثال</td><td>0</td><td>50,000</td><td>0</td></tr>
+              <tr><td>عمومية وإدارية ومنافع <small>(مكتب مجاني عبر الحاضنة)</small></td><td>8,000</td><td>15,000</td><td>25,000</td></tr>
+              <tr><td>إهلاك وإطفاء (غير نقدي)</td><td>16,281</td><td>16,281</td><td>16,281</td></tr>
+              <tr class="tot"><td>إجمالي تكاليف التشغيل</td><td>41,281</td><td>160,781</td><td>183,781</td></tr>
+            </tbody>
+          </table>
+          <div class="mininotes">
+            <div class="note"><i class="fas fa-landmark"></i> <strong>دعم حكومي للرواتب</strong> (هدف) يغطّي ~50% في س2–3.</div>
+            <div class="note"><i class="fas fa-building-circle-check"></i> <strong>مقرّ مجاني</strong> عبر «مُنشآت» والحاضنات والغرف التجارية.</div>
+            <div class="note"><i class="fas fa-server"></i> <strong>سيرفرات محلية</strong> خفيفة — لا رسوم استضافة سحابية متكرّرة.</div>
+          </div>
+        </div>
       </div>
-      <h3 class="sub">استخدام التمويل</h3>
-      <div class="fund">
-        <div class="fund-row"><div class="fund-lab">تطوير MVP وتقنية AUREX</div><div class="fund-track"><div class="fund-fill" style="width:40%">40%</div></div></div>
-        <div class="fund-row"><div class="fund-lab">البنية التقنية والاستضافة</div><div class="fund-track"><div class="fund-fill" style="width:20%">20%</div></div></div>
-        <div class="fund-row"><div class="fund-lab">التسويق واكتساب التجار</div><div class="fund-track"><div class="fund-fill" style="width:25%">25%</div></div></div>
-        <div class="fund-row"><div class="fund-lab">التأسيس والتراخيص والامتثال</div><div class="fund-track"><div class="fund-fill" style="width:15%">15%</div></div></div>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">دراسة الجدوى · 13</span></div>
+    </section></div>
+
+    <!-- 14. MARKETING CHANNELS -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-bullhorn"></i> الخطة التسويقية · القنوات</span>
+        <h2 class="sec">نمو مدفوع بأثر الشبكة وتكلفة اكتساب منخفضة</h2>
+        <div class="body">
+          <div class="grid3">
+            <div class="card"><h4><span class="ci"><i class="fas fa-mobile-screen"></i></span> متاجر التطبيقات والموقع</h4><p>حضور على App Store و Google Play وتحسين الظهور (ASO/SEO).</p></div>
+            <div class="card"><h4><span class="ci"><i class="fas fa-hashtag"></i></span> التسويق الرقمي المباشر</h4><p>منخفض الكلفة عبر X وتيك توك وأدوات الذكاء الاصطناعي للمحتوى.</p></div>
+            <div class="card"><h4><span class="ci"><i class="fas fa-people-group"></i></span> المبيعات الميدانية</h4><p>فريق يزور المتاجر والأسواق — الأقوى لتفعيل أول عملية توثيق.</p></div>
+            <div class="card"><h4><span class="ci"><i class="fas fa-share-nodes"></i></span> أثر الشبكة والإحالة</h4><p>كل متجر يجلب أفراده، وكل فرد يدعو تاجره — نموّ تلقائي بلا إعلانات.</p></div>
+            <div class="card"><h4><span class="ci"><i class="fas fa-handshake"></i></span> الشراكات</h4><p>الغرف التجارية والمسرّعات وجهات دعم المنشآت — وصول سريع لقاعدة تجار.</p></div>
+            <div class="card"><h4><span class="ci"><i class="fas fa-building-columns"></i></span> مبيعات المؤسسات (B2B/B2G)</h4><p>فريق مؤسسي يستهدف البنوك والشركات والجهات الحكومية لترخيص AUREX.</p></div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">دراسة الجدوى · 14</span></div>
+    </section></div>
 
-  <!-- 9. ROADMAP -->
-  <section>
-    <div class="wrap">
-      <span class="eyebrow"><i class="fas fa-route"></i> خارطة الطريق</span>
-      <h2 class="sec">من التحقّق إلى الريادة الإقليمية</h2>
-      <div class="road">
-        <div class="rstep"><span>المرحلة الأولى</span><h4>إثبات الفكرة</h4><p>إطلاق تجريبي بـ QR — 10 متاجر و50+ مستخدماً، أثبت الطلب.</p></div>
-        <div class="rstep now"><span>2026 · الآن</span><h4>إطلاق AUREX والربحية</h4><p>إعادة الإطلاق بتقنية اللمسة، أول إيرادات فعلية وأول متاجر مشتركة.</p></div>
-        <div class="rstep"><span>2026 · النصف الثاني</span><h4>التوسّع في المملكة</h4><p>تسريع اكتساب التجار وإطلاق تجارب API للمؤسسات.</p></div>
-        <div class="rstep"><span>2027</span><h4>تفعيل B2B/B2G</h4><p>وحدة المصرفية المفتوحة، أول عميل بنكي/حكومي، 5,000+ متجر.</p></div>
-        <div class="rstep"><span>2028</span><h4>التوسّع الخليجي</h4><p>دخول أسواق المنطقة، 14,000+ متجر، ريادة في التوثيق الرقمي.</p></div>
+    <!-- 15. EXECUTION PHASES + CAC -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-diagram-project"></i> مراحل التنفيذ والاكتساب</span>
+        <h2 class="sec">ثلاث مراحل واكتساب رخيص يتحسّن مع النمو</h2>
+        <div class="body">
+          <div class="grid3">
+            <div class="card"><h4><span class="ci">1</span> الإطلاق</h4><p>تركيز محلي + مبيعات ميدانية مكثّفة + بناء قصص نجاح.</p></div>
+            <div class="card"><h4><span class="ci">2</span> النمو</h4><p>تكثيف الرقمي والإحالة والشراكات، وبدء مبيعات المؤسسات.</p></div>
+            <div class="card"><h4><span class="ci">3</span> التوسّع</h4><p>حملات علامة واسعة + شراكات مؤسسية + دخول أسواق الخليج.</p></div>
+          </div>
+          <div class="stats three" style="margin-top:18px">
+            <div class="stat"><div class="n">~120</div><div class="l">ر.س تكلفة اكتساب التاجر (CAC)</div></div>
+            <div class="stat"><div class="n">&lt; شهرين</div><div class="l">فترة استرداد تكلفة الاكتساب</div></div>
+            <div class="stat"><div class="n">تلقائي</div><div class="l">أثر الشبكة يخفّض الكلفة مع النمو</div></div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">دراسة الجدوى · 15</span></div>
+    </section></div>
 
-  <!-- 10. TECHNICAL -->
-  <section>
-    <div class="wrap">
-      <span class="eyebrow"><i class="fas fa-microchip"></i> الجدوى التقنية</span>
-      <h2 class="sec">تقنية AUREX — قوية، آمنة، وقابلة للتوسّع</h2>
-      <div class="grid2">
-        <div class="card"><h4><span class="ci"><i class="fas fa-hand-pointer"></i></span> لمسة بلا أجهزة خاصة</h4><p>توثيق فوري بين الجهازين على آيفون وأندرويد دون جهاز إضافي — متوافق مع توجّه «Tap to Phone».</p></div>
-        <div class="card"><h4><span class="ci"><i class="fas fa-lock"></i></span> آمن غير قابل للتلاعب</h4><p>تشفير وتوقيع رقمي متقدّم وتوثيق متبادل، يمنع التزوير والإنكار وإعادة التشغيل.</p></div>
-        <div class="card"><h4><span class="ci"><i class="fas fa-wifi"></i></span> يعمل دون إنترنت</h4><p>يُوثّق لحظة العملية بلا اتصال، ثم يُزامن السجلات بأمان عند توفّر الشبكة.</p></div>
-        <div class="card"><h4><span class="ci"><i class="fas fa-cloud"></i></span> سحابي قابل للتوسّع</h4><p>بنية منخفضة التكلفة تتوسّع مع المستخدمين بلا بنية مادية ثقيلة — تدعم النمو السريع.</p></div>
+    <!-- 16. THE ASK -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-handshake-angle"></i> الدعم المطلوب</span>
+        <h2 class="sec">دعم تأسيسي صغير لإطلاق MVP</h2>
+        <div class="body">
+          <div class="ask">
+            <h3>دعم احتضان الشركات الناشئة (MVP Lab)</h3>
+            <div class="big">~150,000 ر.س</div>
+            <p>لتغطية تأسيس وإطلاق النسخة الأولى (MVP) وتشغيل السنة الأولى — التي يعمل فيها المؤسسون <strong>بلا رواتب</strong> — حتى الوصول للربحية. ويبقى سيناريو النمو خياراً لتمويل لاحق.</p>
+          </div>
+          <h3 class="sub">استخدام التمويل</h3>
+          <div class="fund">
+            <div class="fund-row"><div class="fund-lab">تطوير MVP وتقنية AUREX</div><div class="fund-track"><div class="fund-fill" style="width:40%">40%</div></div></div>
+            <div class="fund-row"><div class="fund-lab">البنية التقنية والاستضافة</div><div class="fund-track"><div class="fund-fill" style="width:20%">20%</div></div></div>
+            <div class="fund-row"><div class="fund-lab">التسويق واكتساب التجار</div><div class="fund-track"><div class="fund-fill" style="width:25%">25%</div></div></div>
+            <div class="fund-row"><div class="fund-lab">التأسيس والتراخيص والامتثال</div><div class="fund-track"><div class="fund-fill" style="width:15%">15%</div></div></div>
+          </div>
+        </div>
       </div>
-      <ul class="b">
-        <li>يُسر <strong>وسيط توثيق</strong> — نطاق تنظيمي أخفّ من جهات الإقراض والدفع.</li>
-        <li>وحدة <strong>المصرفية المفتوحة</strong> عبر تكامل مع مزوّد مرخّص من ساما — مسار دخل B2B واضح.</li>
-      </ul>
-    </div>
-  </section>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">دراسة الجدوى · 16</span></div>
+    </section></div>
 
-  <!-- 11. RISKS -->
-  <section>
-    <div class="wrap">
-      <span class="eyebrow"><i class="fas fa-shield-halved"></i> المخاطر والتخفيف</span>
-      <h2 class="sec">مخاطر مدروسة بخطط واضحة</h2>
-      <table class="tbl">
-        <thead><tr><th>المخاطرة</th><th>التخفيف</th></tr></thead>
-        <tbody>
-          <tr><td>بناء ثقة علامة جديدة</td><td>تحقّق سوقي سابق، شراكات، وباقة أفراد مجانية لأثر الشبكة</td></tr>
-          <tr><td>دخول منافسين كبار</td><td>خندق الحدّ الائتماني الموحّد + تقنية AUREX + تكلفة التحوّل</td></tr>
-          <tr><td>اشتراطات تنظيمية (ساما)</td><td>التكامل مع مزوّد مرخّص، والبقاء كوسيط توثيق</td></tr>
-          <tr><td>الأمن السيبراني</td><td>تشفير وتوقيع رقمي، تدقيق أمني دوري، ونسخ احتياطي</td></tr>
-          <tr><td>سرعة التبنّي</td><td>مجانية الأفراد + عائد واضح للتاجر + الأقل سعراً</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- 12. TEAM -->
-  <section>
-    <div class="wrap">
-      <span class="eyebrow"><i class="fas fa-users"></i> الفريق</span>
-      <h2 class="sec">فريق مؤسّس رشيق ومتكامل</h2>
-      <div class="grid3">
-        <div class="card"><h4><span class="ci"><i class="fas fa-user-gear"></i></span> إدارة المشروع</h4><p>قيادة الإستراتيجية وتطوير الأعمال والشراكات.</p></div>
-        <div class="card"><h4><span class="ci"><i class="fas fa-code"></i></span> القيادة التقنية</h4><p>تطوير التطبيق وتقنية AUREX، وخبرة في الأجهزة والصيانة تُدار داخلياً — ما يخفّض التكاليف.</p></div>
-        <div class="card"><h4><span class="ci"><i class="fas fa-bullhorn"></i></span> التسويق والعملاء</h4><p>اكتساب التجار، الدعم، وبناء العلامة.</p></div>
+    <!-- 17. ROADMAP -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-route"></i> خارطة الطريق</span>
+        <h2 class="sec">من التحقّق إلى الريادة الإقليمية</h2>
+        <div class="body">
+          <div class="road">
+            <div class="rstep"><span>المرحلة الأولى</span><h4>إثبات الفكرة</h4><p>إطلاق تجريبي بـ QR — 10 متاجر و50+ مستخدماً، أثبت الطلب.</p></div>
+            <div class="rstep now"><span>2026 · الآن</span><h4>إطلاق AUREX والربحية</h4><p>إعادة الإطلاق بتقنية اللمسة، أول إيرادات فعلية وأول متاجر مشتركة.</p></div>
+            <div class="rstep"><span>2026 · النصف الثاني</span><h4>التوسّع في المملكة</h4><p>تسريع اكتساب التجار وإطلاق تجارب API للمؤسسات.</p></div>
+            <div class="rstep"><span>2027</span><h4>تفعيل B2B/B2G</h4><p>وحدة المصرفية المفتوحة، أول عميل بنكي/حكومي، 5,000+ متجر.</p></div>
+            <div class="rstep"><span>2028</span><h4>التوسّع الخليجي</h4><p>دخول أسواق المنطقة، 14,000+ متجر، ريادة في التوثيق الرقمي.</p></div>
+          </div>
+        </div>
       </div>
-      <p style="font-size:15px">3 مؤسّسين بتمويل ذاتي، والتمويل سيُمكّن توسيع الفريق في المبيعات والتطوير والامتثال.</p>
-    </div>
-  </section>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">دراسة الجدوى · 17</span></div>
+    </section></div>
 
-  <!-- 13. CONCLUSION -->
-  <section style="border-bottom:0">
-    <div class="wrap">
-      <span class="eyebrow"><i class="fas fa-circle-check"></i> الخلاصة</span>
-      <h2 class="sec">رهان قوي: فكرة مُثبتة، سوق ضخم، وربحية حقيقية</h2>
-      <p class="lead">يُسر يجمع ما يندر اجتماعه: <strong>مشكلة حقيقية واسعة</strong>، و<strong>سوق سعودي ضخم وجاهز</strong>،
-        و<strong>نموذج عالمي مُثبَت بـ 600 مليون دولار</strong>، وتقنية <strong>AUREX</strong> حصرية، و<strong>ربحية
-        فعلية من السنة الأولى</strong> — مع إمكان نمو إلى عشرات الملايين باستثمار محدود. المخاطرة منخفضة، والعائد كبير.</p>
-      <div>
-        <span class="pill">سوق 1.3M منشأة</span><span class="pill">مربح من السنة 1</span><span class="pill">LTV/CAC ~28×</span>
-        <span class="pill">نموذج مُثبَت عالمياً</span><span class="pill">تقنية AUREX حصرية</span><span class="pill">عائد كبير · مخاطرة منخفضة</span>
+    <!-- 18. TECHNICAL -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-microchip"></i> الجدوى التقنية</span>
+        <h2 class="sec">تقنية AUREX — قوية، آمنة، وقابلة للتوسّع</h2>
+        <div class="body">
+          <div class="grid2">
+            <div class="card"><h4><span class="ci"><i class="fas fa-hand-pointer"></i></span> لمسة بلا أجهزة خاصة</h4><p>توثيق فوري بين الجهازين على آيفون وأندرويد دون جهاز إضافي — متوافق مع توجّه «Tap to Phone».</p></div>
+            <div class="card"><h4><span class="ci"><i class="fas fa-lock"></i></span> آمن غير قابل للتلاعب</h4><p>تشفير وتوقيع رقمي متقدّم وتوثيق متبادل، يمنع التزوير والإنكار وإعادة التشغيل.</p></div>
+            <div class="card"><h4><span class="ci"><i class="fas fa-wifi"></i></span> يعمل دون إنترنت</h4><p>يُوثّق لحظة العملية بلا اتصال، ثم يُزامن السجلات بأمان عند توفّر الشبكة.</p></div>
+            <div class="card"><h4><span class="ci"><i class="fas fa-cloud"></i></span> سحابي قابل للتوسّع</h4><p>بنية منخفضة التكلفة تتوسّع مع المستخدمين بلا بنية مادية ثقيلة — تدعم النمو السريع.</p></div>
+          </div>
+          <ul class="b" style="margin-top:14px">
+            <li>يُسر <strong>وسيط توثيق</strong> — نطاق تنظيمي أخفّ من جهات الإقراض والدفع.</li>
+            <li>وحدة <strong>المصرفية المفتوحة</strong> عبر تكامل مع مزوّد مرخّص من ساما — مسار دخل B2B واضح.</li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </section>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">دراسة الجدوى · 18</span></div>
+    </section></div>
 
-  <footer class="foot">
-    <div class="wrap">
-      <h4>المصادر</h4>
-      <ol>
-        <li>Mordor Intelligence — سوق التقنية المالية السعودي 2025–2030.</li>
-        <li>Monsha'at (مُنشآت) — تقارير المنشآت الصغيرة والمتوسطة 2025.</li>
-        <li>mada / Saudi Payments — أجهزة نقاط البيع والدفع اللاسلكي 2025.</li>
-        <li>DataReportal / GASTAT — نفاذ الإنترنت والهواتف الذكية 2025.</li>
-        <li>PS Market Research / Mordor — سوق BNPL السعودي 2025.</li>
-        <li>Mordor Intelligence — سوق التقنية المالية في MENA 2025–2031.</li>
-        <li>تقارير KhataBook / OkCredit — تقييم وتمويل تطبيقات الدفتر الرقمي.</li>
-        <li>SAMA — إطار المصرفية المفتوحة 2025–2026.</li>
-        <li>النموذج المالي الأساسي (السيناريو المتحفّظ) — دراسة جدوى يُسر الداخلية.</li>
-      </ol>
-      <p style="margin-top:14px">يُسر © 2026 — دراسة جدوى وفرصة استثمارية. السيناريو المتحفّظ مبني على النموذج الداخلي
-        الفعلي؛ سيناريو النمو تقديري قائم على بيانات السوق وقابل للتحديث.</p>
-    </div>
-  </footer>
+    <!-- 19. RISKS -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-shield-halved"></i> المخاطر والتخفيف</span>
+        <h2 class="sec">مخاطر مدروسة بخطط واضحة</h2>
+        <div class="body">
+          <table class="tbl">
+            <thead><tr><th>المخاطرة</th><th>التخفيف</th></tr></thead>
+            <tbody>
+              <tr><td>بناء ثقة علامة جديدة</td><td>تحقّق سوقي سابق، شراكات، وباقة أفراد مجانية لأثر الشبكة</td></tr>
+              <tr><td>دخول منافسين كبار</td><td>خندق الحدّ الائتماني الموحّد + تقنية AUREX + تكلفة التحوّل</td></tr>
+              <tr><td>اشتراطات تنظيمية (ساما)</td><td>التكامل مع مزوّد مرخّص، والبقاء كوسيط توثيق</td></tr>
+              <tr><td>الأمن السيبراني</td><td>تشفير وتوقيع رقمي، تدقيق أمني دوري، ونسخ احتياطي</td></tr>
+              <tr><td>سرعة التبنّي</td><td>مجانية الأفراد + عائد واضح للتاجر + الأقل سعراً</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">دراسة الجدوى · 19</span></div>
+    </section></div>
 
+    <!-- 20. TEAM + CONCLUSION -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-users"></i> الفريق والخلاصة</span>
+        <h2 class="sec">فريق رشيق ورهان منخفض المخاطر عالي العائد</h2>
+        <div class="body">
+          <div class="grid3">
+            <div class="card"><h4><span class="ci"><i class="fas fa-user-gear"></i></span> إدارة المشروع</h4><p>قيادة الإستراتيجية وتطوير الأعمال والشراكات.</p></div>
+            <div class="card"><h4><span class="ci"><i class="fas fa-code"></i></span> القيادة التقنية</h4><p>تطوير التطبيق وتقنية AUREX، وخبرة في الأجهزة والصيانة داخلياً.</p></div>
+            <div class="card"><h4><span class="ci"><i class="fas fa-bullhorn"></i></span> التسويق والعملاء</h4><p>اكتساب التجار، الدعم، وبناء العلامة.</p></div>
+          </div>
+          <div class="note" style="margin-top:16px"><i class="fas fa-circle-check"></i> 3 مؤسّسين بتمويل ذاتي. يُسر يجمع ما يندر اجتماعه: <strong>مشكلة حقيقية واسعة</strong>، و<strong>سوق سعودي ضخم وجاهز</strong>، و<strong>نموذج عالمي بـ 600M$</strong>، وتقنية <strong>AUREX</strong> حصرية، و<strong>ربحية من السنة الأولى</strong> — مع إمكان نمو إلى عشرات الملايين باستثمار محدود.</div>
+          <div style="margin-top:14px">
+            <span class="pill">سوق 1.3M منشأة</span><span class="pill">مربح من السنة 1</span><span class="pill">LTV/CAC ~28×</span><span class="pill">نموذج مُثبَت عالمياً</span><span class="pill">تقنية AUREX حصرية</span><span class="pill">عائد كبير · مخاطرة منخفضة</span>
+          </div>
+        </div>
+      </div>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">دراسة الجدوى · 20</span></div>
+    </section></div>
+
+    <!-- 21. SOURCES -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-book"></i> المصادر والمراجع</span>
+        <h2 class="sec">أرقام مبنية على مصادر موثوقة</h2>
+        <div class="body">
+          <ol class="srclist">
+            <li>Mordor Intelligence — سوق التقنية المالية السعودي 2025–2030.</li>
+            <li>Monsha'at (مُنشآت) — تقارير المنشآت الصغيرة والمتوسطة 2025.</li>
+            <li>mada / Saudi Payments — أجهزة نقاط البيع والدفع اللاسلكي 2025.</li>
+            <li>DataReportal / GASTAT — نفاذ الإنترنت والهواتف الذكية 2025.</li>
+            <li>PS Market Research / Mordor — سوق BNPL السعودي 2025.</li>
+            <li>Mordor Intelligence — سوق التقنية المالية في MENA 2025–2031.</li>
+            <li>تقارير KhataBook / OkCredit — تقييم وتمويل تطبيقات الدفتر الرقمي.</li>
+            <li>SAMA — إطار المصرفية المفتوحة 2025–2026.</li>
+            <li>النموذج المالي الأساسي (السيناريو المتحفّظ) — دراسة جدوى يُسر الداخلية.</li>
+          </ol>
+          <div class="note" style="margin-top:18px"><i class="fas fa-circle-info"></i> يُسر © 2026 — دراسة جدوى وفرصة استثمارية. السيناريو المتحفّظ مبني على النموذج الداخلي الفعلي؛ سيناريو النمو تقديري قائم على بيانات السوق وقابل للتحديث.</div>
+        </div>
+      </div>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">دراسة الجدوى · 21</span></div>
+    </section></div>
+
+  </div>
+
+  <script>
+    (function () {
+      function fit() { document.documentElement.style.setProperty('--s', Math.min(1, (window.innerWidth - 40) / 1280)); }
+      window.addEventListener('resize', fit); fit();
+    })();
+  </script>
 </body>
 
 </html>
