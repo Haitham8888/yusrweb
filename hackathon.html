@@ -99,13 +99,22 @@
     .step p { font-size: 13.5px; color: var(--body); line-height: 1.5 }
     .arr { color: var(--p2); font-size: 22px; flex: none }
 
-    /* Business Model Canvas */
-    .bmc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 22px; flex: 1; align-content: center }
-    .blk { background: var(--bg); border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px }
-    .blk h3 { font-size: 18px; color: var(--ink); margin-bottom: 8px; display: flex; align-items: center; gap: 9px }
-    .blk h3 .ci { width: 38px; height: 38px; font-size: 16px }
-    .blk ul { list-style: none } .blk li { font-size: 14.5px; color: var(--body); padding: 2px 16px 2px 0; position: relative; line-height: 1.5 }
+    /* Business Model Canvas — classic 9-block layout */
+    .bmc { display: grid; direction: ltr; grid-template-columns: repeat(10, 1fr); grid-template-rows: 1fr 1fr 0.66fr; gap: 8px; margin-top: 14px; flex: 1 }
+    .blk { direction: rtl; text-align: right; background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 9px 12px; overflow: hidden; min-height: 0 }
+    .blk.vp { background: var(--tint); border-color: #cfe3a8 }
+    .blk.rev { background: #f3f7eb; border-color: #cfe3a8 }
+    .blk h4 { display: flex; align-items: center; gap: 8px; margin-bottom: 5px }
+    .blk h4 .ci { width: 30px; height: 30px; font-size: 13px; border-radius: 9px }
+    .blk h4 b { font-size: 14px; color: var(--ink); font-weight: 800; line-height: 1.1; display: block }
+    .blk h4 small { font-size: 9.5px; color: var(--mut); font-weight: 700; display: block; letter-spacing: .2px }
+    .blk ul { list-style: none }
+    .blk li { font-size: 12px; color: var(--body); line-height: 1.4; padding: 1px 12px 1px 0; position: relative }
     .blk li::before { content: "•"; position: absolute; right: 0; color: var(--primary); font-weight: 900 }
+    .blk.wide ul { display: flex; flex-wrap: wrap; gap: 3px 24px } .blk.wide li { font-size: 12.5px }
+    .b-partners { grid-area: 1/1/3/3 } .b-activities { grid-area: 1/3/2/5 } .b-resources { grid-area: 2/3/3/5 }
+    .b-value { grid-area: 1/5/3/7 } .b-relations { grid-area: 1/7/2/9 } .b-channels { grid-area: 2/7/3/9 }
+    .b-segments { grid-area: 1/9/3/11 } .b-cost { grid-area: 3/1/4/6 } .b-revenue { grid-area: 3/6/4/11 }
 
     /* Tech stack */
     .tech-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 30px; flex: 1; align-content: center }
@@ -276,14 +285,17 @@
     <div class="frame"><section class="slide">
       <div class="pad">
         <span class="eyebrow"><i class="fas fa-diagram-project ic"></i> نموذج العمل التجاري</span>
-        <h2 class="title sm">بزنس مودل بسيط <span class="g">وقوي</span></h2>
+        <h2 class="title sm" style="font-size:32px">مخطط نموذج العمل <span class="g">التجاري</span></h2>
         <div class="bmc">
-          <div class="blk"><h3><span class="ci"><i class="fas fa-gem"></i></span> القيمة المقدّمة</h3><ul><li>توثيق رقمي آمن للديون والعربون باللمسة</li><li>يحفظ الحقوق ويمنع التلاعب والاحتيال</li><li>رقمنة الدفاتر الورقية القديمة</li></ul></div>
-          <div class="blk"><h3><span class="ci"><i class="fas fa-users"></i></span> شرائح العملاء</h3><ul><li>الأفراد (مجانًا)</li><li>التجار والمتاجر الصغيرة والمتوسطة</li><li>المؤسسات والبنوك والجهات الحكومية</li></ul></div>
-          <div class="blk"><h3><span class="ci"><i class="fas fa-sack-dollar"></i></span> مصادر الدخل</h3><ul><li>اشتراكات التجار: 80 / 119 / 149 ر.س (الاحترافية بنظام ERP)</li><li>ترخيص AUREX عبر API و Open Banking للمؤسسات</li></ul></div>
-          <div class="blk"><h3><span class="ci"><i class="fas fa-bullhorn"></i></span> القنوات</h3><ul><li>سوشال ميديا عضوية (تيك توك · سناب · X)</li><li>مبيعات ميدانية وستكرات المتاجر</li><li>الإحالة وشراكات الغرف التجارية والمورّدين</li></ul></div>
-          <div class="blk"><h3><span class="ci"><i class="fas fa-wallet"></i></span> هيكل التكاليف</h3><ul><li>خفيف: بلا أجهزة ولا مستودعات</li><li>سيرفرات محلية وتسويق منخفض التكلفة</li><li>دعم حكومي للرواتب ومقرّ مدعوم</li></ul></div>
-          <div class="blk"><h3><span class="ci"><i class="fas fa-chess-rook"></i></span> الميزة التنافسية</h3><ul><li>تقنية AUREX (طلب براءة اختراع)</li><li>حدّ ائتماني موحّد يحمي السوق</li><li>تكلفة انتقال عالية = ولاء وثبات</li></ul></div>
+          <div class="blk b-partners"><h4><span class="ci"><i class="fas fa-handshake"></i></span><span><b>الشراكات الرئيسية</b><small>Key Partners</small></span></h4><ul><li>البنوك ومزوّدو المصرفية المفتوحة (ساما)</li><li>شركات أجهزة نقاط البيع</li><li>الغرف التجارية ومُنشآت والحاضنات</li><li>المورّدون والموزّعون</li></ul></div>
+          <div class="blk b-activities"><h4><span class="ci"><i class="fas fa-gears"></i></span><span><b>الأنشطة الرئيسية</b><small>Key Activities</small></span></h4><ul><li>تطوير وتشغيل تقنية AUREX</li><li>اكتساب التجار والدعم</li><li>التسويق وبناء الشبكة</li></ul></div>
+          <div class="blk b-resources"><h4><span class="ci"><i class="fas fa-cubes"></i></span><span><b>الموارد الرئيسية</b><small>Key Resources</small></span></h4><ul><li>تقنية AUREX (طلب براءة اختراع)</li><li>فريق تقني وذكاء اصطناعي</li><li>قاعدة بيانات موحّدة وبنية سحابية</li></ul></div>
+          <div class="blk b-value vp"><h4><span class="ci"><i class="fas fa-gift"></i></span><span><b>القيم المقترحة</b><small>Value Proposition</small></span></h4><ul><li>توثيق رقمي آمن باللمسة، غير قابل للتلاعب</li><li>يحفظ الحقوق ويمنع الاحتيال</li><li>حدّ ائتماني موحّد بين المتاجر</li><li>رقمنة الدفاتر الورقية (OCR)</li><li>وثّق الآن وادفع لاحقًا</li></ul></div>
+          <div class="blk b-relations"><h4><span class="ci"><i class="fas fa-heart"></i></span><span><b>العلاقات مع العملاء</b><small>Customer Relationships</small></span></h4><ul><li>تطبيق سهل ذاتي الخدمة</li><li>مساعد ذكي (AI) ودعم فني</li><li>تجربة مجانية 15 يوم وإحالة</li></ul></div>
+          <div class="blk b-channels"><h4><span class="ci"><i class="fas fa-bullhorn"></i></span><span><b>القنوات</b><small>Channels</small></span></h4><ul><li>متاجر التطبيقات (App Store · Google Play)</li><li>سوشال ميديا (تيك توك · سناب · X)</li><li>مبيعات ميدانية وستكرات وشراكات</li></ul></div>
+          <div class="blk b-segments"><h4><span class="ci"><i class="fas fa-users"></i></span><span><b>شرائح العملاء</b><small>Customer Segments</small></span></h4><ul><li>الأفراد (مجانًا)</li><li>التجار والمتاجر الصغيرة والمتوسطة</li><li>المؤسسات والبنوك والجهات الحكومية</li></ul></div>
+          <div class="blk b-cost wide"><h4><span class="ci"><i class="fas fa-file-invoice-dollar"></i></span><span><b>هيكل التكاليف</b><small>Cost Structure</small></span></h4><ul><li>تطوير وتشغيل تقني (سيرفرات محلية خفيفة)</li><li>رواتب مدعومة حكوميًا ومقرّ مدعوم</li><li>تسويق منخفض التكلفة</li><li>تراخيص وامتثال</li></ul></div>
+          <div class="blk b-revenue wide rev"><h4><span class="ci"><i class="fas fa-coins"></i></span><span><b>مصادر الإيرادات</b><small>Revenue Streams</small></span></h4><ul><li>اشتراكات التجار: 80 / 119 / 149 ر.س (الاحترافية بـ ERP)</li><li>ترخيص AUREX عبر API و Open Banking للمؤسسات</li></ul></div>
         </div>
       </div>
       <div class="foot"><span class="brand"><img src="assets/img/Yusr.png">يُسر</span><span dir="ltr">07 / 12</span></div>
