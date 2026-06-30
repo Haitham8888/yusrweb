@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>يُسر | خطة التسويق</title>
+  <meta name="description" content="خطة التسويق لتطبيق يُسر — نمو منخفض التكلفة مدفوع بأثر الشبكة: كيف نستبدل الدفاتر الورقية بدفتر رقمي موثّق، وقنوات تسويق رخيصة وسهلة.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="icon" href="assets/img/Yusr.png" type="image/png">
+  <style>
+    :root {
+      --primary: #5B7A23; --p2: #7FA735; --accent: #76B041; --dark: #14210C;
+      --grad: linear-gradient(135deg, #7FA735 0%, #5B7A23 55%, #263A14 100%);
+      --grad-dark: linear-gradient(150deg, #1d3010 0%, #14210C 75%);
+      --ink: #16210d; --body: #45513f; --mut: #8a978a;
+      --bg: #f7f9f2; --tint: #eef6e2; --line: #e3ebd8; --white: #fff; --gold: #b8860b;
+      --s: 1;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0 }
+    html { -webkit-print-color-adjust: exact; print-color-adjust: exact }
+    body { font-family: 'Cairo', sans-serif; background: #cdd2c6; color: var(--body); line-height: 1.6; -webkit-font-smoothing: antialiased }
+    @page { size: 13.333in 7.5in; margin: 0 }
+
+    .deck { display: flex; flex-direction: column; align-items: center; gap: 24px; padding: 24px 12px 56px }
+    .frame { width: calc(1280px*var(--s)); height: calc(720px*var(--s)); flex: none }
+    .slide { width: 1280px; height: 720px; transform: scale(var(--s)); transform-origin: top left; position: relative; background: var(--white); border-radius: 14px; overflow: hidden; box-shadow: 0 14px 50px rgba(20, 33, 12, .22) }
+    .pad { position: absolute; inset: 0; padding: 48px 60px 40px; display: flex; flex-direction: column }
+
+    .toolbar { position: fixed; top: 14px; left: 14px; z-index: 60 }
+    .toolbar button { font-family: inherit; font-weight: 800; font-size: 14px; border: 0; cursor: pointer; background: var(--dark); color: #fff; padding: 11px 18px; border-radius: 999px; box-shadow: 0 6px 18px rgba(20, 33, 12, .3); display: flex; align-items: center; gap: 8px }
+    .toolbar button:hover { background: var(--primary) }
+
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 800; color: var(--primary); background: var(--tint); padding: 7px 16px; border-radius: 999px; align-self: flex-start }
+    h2.sec { font-size: 33px; font-weight: 900; color: var(--ink); line-height: 1.2; margin-top: 12px }
+    h2.sec .g { color: var(--primary) }
+    .lead { font-size: 17px; color: var(--body); margin-top: 8px; max-width: 96ch }
+    h3.sub { font-size: 19px; font-weight: 800; color: var(--ink); margin: 16px 0 10px }
+    .body { flex: 1; display: flex; flex-direction: column; justify-content: center; margin-top: 14px }
+    .body.top { justify-content: flex-start }
+    strong { color: var(--ink) }
+
+    .s-foot { position: absolute; left: 60px; right: 60px; bottom: 18px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); padding-top: 9px }
+    .s-foot .b { display: flex; align-items: center; gap: 9px } .s-foot img { height: 22px } .s-foot .nm { font-size: 16px; font-weight: 900; color: var(--ink) }
+    .s-foot .pg { font-size: 13px; font-weight: 800; color: var(--mut) }
+
+    /* cover */
+    .slide.cover { background: var(--grad-dark); color: #fff }
+    .slide.cover .pad { justify-content: center }
+    .slide.cover .ring { position: absolute; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .07); width: 760px; height: 760px; top: -300px; right: -200px }
+    .slide.cover .glow { position: absolute; width: 680px; height: 680px; border-radius: 50%; background: radial-gradient(circle, rgba(127, 167, 53, .28), transparent 66%); bottom: -360px; left: -160px }
+    .hbrand { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; position: relative; z-index: 2 }
+    .hbrand img { width: 64px; height: 64px; background: #fff; border-radius: 16px; padding: 7px }
+    .hbrand span { font-size: 44px; font-weight: 900 }
+    .htag { font-size: 16px; font-weight: 800; letter-spacing: 2px; color: #bce08a; position: relative; z-index: 2 }
+    .cover h1 { font-size: 54px; font-weight: 900; line-height: 1.15; margin: 12px 0 16px; position: relative; z-index: 2 }
+    .cover h1 .g { color: #bce08a }
+    .cover .desc { font-size: 21px; color: #cfe0b8; max-width: 82ch; position: relative; z-index: 2 }
+    .cover .desc strong { color: #fff }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 30px; position: relative; z-index: 2 }
+    .hero-meta span { font-size: 16px; font-weight: 700; background: rgba(255, 255, 255, .10); border: 1px solid rgba(255, 255, 255, .18); padding: 9px 18px; border-radius: 999px; display: flex; align-items: center; gap: 8px }
+    .hero-meta i { color: #bce08a }
+
+    /* stats */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px }
+    .stats.three { grid-template-columns: repeat(3, 1fr) }
+    .stat { background: var(--white); border: 1px solid var(--line); border-radius: 16px; padding: 22px 18px; text-align: center }
+    .stat.dark { background: var(--grad-dark); color: #fff; border: 0 }
+    .stat .n { font-size: 32px; font-weight: 900; color: var(--primary); line-height: 1.1 }
+    .stat.dark .n { color: #fff }
+    .stat .n small { font-size: 16px; font-weight: 800 }
+    .stat .l { font-size: 14px; font-weight: 700; margin-top: 6px; color: var(--mut) }
+    .stat.dark .l { color: #c4d8aa }
+
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px }
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px }
+    .card { background: var(--white); border: 1px solid var(--line); border-radius: 16px; padding: 20px 22px }
+    .card h4 { font-size: 18px; color: var(--ink); margin-bottom: 7px; display: flex; align-items: center; gap: 10px }
+    .card p { font-size: 14.5px; line-height: 1.6; margin: 0; color: var(--body) }
+    .ci { width: 42px; height: 42px; border-radius: 12px; background: var(--tint); color: var(--primary); display: inline-flex; align-items: center; justify-content: center; font-size: 18px; flex: none }
+    .card.tint { background: var(--bg) }
+    .num-ci { background: var(--grad); color: #fff; font-weight: 900; font-size: 17px }
+
+    .note { font-size: 15px; color: var(--body); background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; margin-top: 14px }
+    .note i { color: var(--primary) }
+    .note.hi { background: var(--tint); border-color: #cfe3a8 }
+
+    ul.b { list-style: none }
+    ul.b li { position: relative; padding: 6px 30px 6px 0; font-size: 16px; color: var(--body) }
+    ul.b li::before { content: "\f058"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--primary); position: absolute; right: 0; top: 8px; font-size: 15px }
+
+    /* journey timeline */
+    .road { position: relative; padding-right: 26px; border-right: 3px solid var(--line) }
+    .rstep { position: relative; padding: 0 28px 16px 0 }
+    .rstep:last-child { padding-bottom: 0 }
+    .rstep::before { content: ""; position: absolute; right: -34px; top: 4px; width: 16px; height: 16px; border-radius: 50%; background: var(--primary); border: 3px solid var(--white) }
+    .rstep.go::before { background: var(--gold); box-shadow: 0 0 0 4px rgba(184, 134, 11, .18) }
+    .rstep h4 { font-size: 18px; color: var(--ink); display: flex; align-items: center; gap: 8px }
+    .rstep h4 .tag { font-size: 12px; font-weight: 800; color: var(--primary); background: var(--tint); padding: 2px 10px; border-radius: 999px }
+    .rstep p { font-size: 15px; margin: 2px 0 0; color: var(--body) }
+    .rstep p strong { color: var(--ink) }
+
+    /* viral loop flow */
+    .flow { display: flex; align-items: stretch; gap: 12px; justify-content: center; margin-top: 8px }
+    .flow .node { flex: 1; background: var(--white); border: 1px solid var(--line); border-radius: 18px; padding: 24px 18px; text-align: center; display: flex; flex-direction: column; align-items: center }
+    .flow .node.dark { background: var(--grad-dark); color: #fff; border: 0 }
+    .flow .node .ni { width: 58px; height: 58px; border-radius: 16px; background: var(--grad); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 14px }
+    .flow .node.dark .ni { background: rgba(255, 255, 255, .16) }
+    .flow .node h4 { font-size: 19px; color: var(--ink); margin-bottom: 5px }
+    .flow .node.dark h4 { color: #fff }
+    .flow .node p { font-size: 14px; color: var(--mut); line-height: 1.5 }
+    .flow .node.dark p { color: #cfe0b6 }
+    .flow .arr { display: flex; align-items: center; color: var(--p2); font-size: 28px; flex: none }
+    .loop-back { margin-top: 16px; text-align: center; font-size: 17px; font-weight: 800; color: var(--primary); background: var(--tint); border: 1px solid #cfe3a8; border-radius: 999px; padding: 12px 24px; display: inline-flex; align-items: center; gap: 10px; align-self: center }
+
+    /* channel cards */
+    .ch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px }
+    .ch { background: var(--white); border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px }
+    .ch h4 { font-size: 17px; color: var(--ink); margin-bottom: 5px; display: flex; align-items: center; gap: 9px }
+    .ch p { font-size: 13.5px; color: var(--body); line-height: 1.55; margin: 0 }
+    .ch .cost { display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 800; color: var(--primary); background: var(--tint); padding: 3px 11px; border-radius: 999px }
+
+    .road.phases { border-right: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px }
+    .road.phases .rstep { padding: 0 }
+    .road.phases .rstep::before { display: none }
+
+    /* proof slide: real stores + activity */
+    .shops { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px }
+    .shop { background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 26px rgba(20, 33, 12, .12) }
+    .shop img { width: 100%; height: 222px; object-fit: cover; display: block }
+    .shop span { display: flex; align-items: center; gap: 8px; padding: 12px 16px; font-size: 16px; font-weight: 800; color: var(--ink) }
+    .shop span i { color: var(--primary) }
+    .ci.logo { padding: 0; overflow: hidden; background: #0b1733 }
+    .ci.logo img { width: 100%; height: 100%; object-fit: cover }
+    .card .hnd { font-size: 13px; font-weight: 700; color: var(--primary); margin-right: 6px }
+
+    @media print {
+      body { background: #fff }
+      .toolbar { display: none }
+      .deck { display: block; padding: 0; gap: 0 }
+      .frame { width: 1280px; height: 720px; page-break-after: always; break-after: page }
+      .frame:last-child { page-break-after: auto; break-after: auto }
+      .slide { transform: none; border-radius: 0; box-shadow: none }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="toolbar"><button onclick="window.print()"><i class="fas fa-file-pdf"></i> طباعة / حفظ PDF</button></div>
+  <div class="deck">
+
+    <!-- 1. COVER -->
+    <div class="frame"><section class="slide cover">
+      <span class="ring"></span><span class="glow"></span>
+      <div class="pad">
+        <div class="hbrand"><img src="assets/img/Yusr.png" alt="يُسر"><span>يُسر</span></div>
+        <div class="htag">خطة التسويق · نمو منخفض التكلفة · 2026</div>
+        <h1>نمو رخيص <span class="g">مدفوع بأثر الشبكة</span></h1>
+        <div class="desc">المنتج نفسه يسوّق لنا: <strong>كل متجر يجلب عملاءه، وكل عميل يجلب تجاره</strong>. خطتنا تعتمد على قنوات بسيطة ورخيصة وسهلة علينا — تيك توك وستكرات المتاجر والمبيعات الميدانية والإحالة — كما في دراسة الجدوى.</div>
+        <div class="hero-meta">
+          <span><i class="fas fa-share-nodes"></i> أثر الشبكة</span>
+          <span><i class="fab fa-tiktok"></i> سوشال ميديا عضوية</span>
+          <span><i class="fas fa-tag"></i> ستكرات المتاجر</span>
+          <span><i class="fas fa-coins"></i> تكلفة اكتساب ~120 ر.س</span>
+        </div>
+      </div>
+    </section></div>
+
+    <!-- 2. WHY CHEAP -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-piggy-bank"></i> الفكرة الأساسية</span>
+        <h2 class="sec">ليش تسويقنا رخيص؟ لأن المنتج يجرّ نفسه</h2>
+        <div class="body">
+          <div class="grid3">
+            <div class="card"><h4><span class="ci"><i class="fas fa-store"></i></span> كل متجر = بوابة عملاء</h4><p>التاجر يدخّل عملاءه بنفسه في يُسر وقت تسجيل الدين — فنكسب عشرات الأفراد من كل متجر بلا أي تكلفة إعلان.</p></div>
+            <div class="card"><h4><span class="ci"><i class="fas fa-user-group"></i></span> كل عميل = بوابة متاجر</h4><p>كل فرد يتعامل مع عدة متاجر (بقالة، مغسلة، صيدلية...)، فيدعوهم لاستخدام يُسر — ونكسب متاجر جديدة مجانًا.</p></div>
+            <div class="card"><h4><span class="ci"><i class="fas fa-gift"></i></span> مجانية الأفراد تشعل النمو</h4><p>التطبيق مجاني للأفراد بالكامل، فلا حاجز يمنع الانتشار — والتاجر يدفع لأنه يستفيد مباشرة.</p></div>
+          </div>
+          <div class="stats three" style="margin-top:18px">
+            <div class="stat dark"><div class="n">~120</div><div class="l">ر.س تكلفة اكتساب التاجر (CAC)</div></div>
+            <div class="stat dark"><div class="n">&lt; شهرين</div><div class="l">استرداد تكلفة الاكتساب</div></div>
+            <div class="stat dark"><div class="n">يقلّ مع النمو</div><div class="l">كلما كبرنا صار الاكتساب أرخص</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">خطة التسويق · 02</span></div>
+    </section></div>
+
+    <!-- 3. MERCHANT JOURNEY -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-route"></i> رحلة التاجر</span>
+        <h2 class="sec">من الدفتر الورقي إلى دفتر رقمي موثّق</h2>
+        <div class="body">
+          <div class="road">
+            <div class="rstep"><h4><span class="tag">1</span> يشوفنا</h4><p>صاحب البقالة يشوف إعلاننا في <strong>تيك توك أو سناب</strong>، أو يلاحظ <strong>ستكر يُسر</strong> عند الكاشير في بقالة منافِسه بالحارة.</p></div>
+            <div class="rstep"><h4><span class="tag">2</span> يكتشف ويجرّب</h4><p>يحمّل التطبيق، ويعجبه إن <strong>دفتر ديونه الورقي يصير رقمي مؤمّن وموثّق لا يمكن التلاعب فيه</strong> — ويقدر <strong>يجرّب أي باقة مجانًا 15 يوم</strong> قبل ما يشترك.</p></div>
+            <div class="rstep"><h4><span class="tag">3</span> يرقمن دفاتره القديمة</h4><p>بالمسح الذكي (OCR) يصوّر دفاتره وفواتيره القديمة، فتتحوّل لسجلات رقمية — بلا إدخال يدوي.</p></div>
+            <div class="rstep"><h4><span class="tag">4</span> لا تسجيل بلا موافقة</h4><p>ما يقدر يسجّل أي عميل إلا بموافقته — وهذا يحمي الجميع ويبني الثقة.</p></div>
+            <div class="rstep go"><h4><span class="tag">5</span> لحظة التحويل</h4><p>لما يجي العميل يضيف دين جديد، يقول له المحاسب: <strong>«يا تدفعها كاملة، يا ننقلها لدفترنا الرقمي في يُسر»</strong> — فينضم العميل (مجانًا)، ويتكرر مع كل عميل.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">خطة التسويق · 03</span></div>
+    </section></div>
+
+    <!-- 4. VIRAL LOOP -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-arrows-rotate"></i> حلقة النمو</span>
+        <h2 class="sec">حلقة تكبر بنفسها — كل طرف يجرّ الطرف الثاني</h2>
+        <div class="body">
+          <div class="flow">
+            <div class="node dark"><div class="ni"><i class="fas fa-store"></i></div><h4>متجر واحد</h4><p>تاجر يبدأ يستخدم يُسر</p></div>
+            <div class="arr"><i class="fas fa-arrow-left-long"></i></div>
+            <div class="node"><div class="ni"><i class="fas fa-user-group"></i></div><h4>عملاؤه ينضمّون</h4><p>كل عملائه يسجّلون (أفراد مجانًا) وقت توثيق الدين</p></div>
+            <div class="arr"><i class="fas fa-arrow-left-long"></i></div>
+            <div class="node"><div class="ni"><i class="fas fa-store"></i></div><h4>تجار جدد</h4><p>كل عميل يدعو بقيّة متاجره — فتدخل متاجر جديدة</p></div>
+          </div>
+          <div style="text-align:center;margin-top:6px"><span class="loop-back"><i class="fas fa-arrows-rotate"></i> وتتكرّر الحلقة بلا توقف — نموّ شبه مجاني</span></div>
+          <div class="note hi"><i class="fas fa-circle-info"></i> كل متجر بوابة لعشرات العملاء، وكل عميل بوابة لعدة متاجر. هذا «أثر الشبكة» هو محرّك نمونا الأساسي — ويجعل تكلفة الاكتساب تقلّ كلما كبرنا.</div>
+        </div>
+      </div>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">خطة التسويق · 04</span></div>
+    </section></div>
+
+    <!-- 5. CHANNELS OVERVIEW -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-bullhorn"></i> قنواتنا</span>
+        <h2 class="sec">ست قنوات رخيصة وسهلة علينا</h2>
+        <div class="body">
+          <div class="ch-grid">
+            <div class="ch"><h4><span class="ci"><i class="fab fa-tiktok"></i></span> سوشال ميديا عضوية</h4><p>تيك توك وسناب وX — محتوى قصير يقوده مدير تسويق داخلي بأدوات ذكاء اصطناعي.</p><span class="cost">شبه مجاني</span></div>
+            <div class="ch"><h4><span class="ci"><i class="fas fa-tag"></i></span> ستكرات ولافتات المتجر</h4><p>ستكر «نوثّق ديونك هنا عبر يُسر» عند الكاشير — يشوفه العملاء والتجار المنافسون.</p><span class="cost">طباعة رخيصة</span></div>
+            <div class="ch"><h4><span class="ci"><i class="fas fa-people-group"></i></span> مبيعات ميدانية</h4><p>زيارة الأسواق والمجمعات والبقالات مباشرة، وتفعيل أول عملية توثيق أمام التاجر.</p><span class="cost">جهد الفريق</span></div>
+            <div class="ch"><h4><span class="ci"><i class="fab fa-whatsapp"></i></span> مجموعات واتساب</h4><p>نشر في مجموعات التجار وأصحاب المتاجر في واتساب وتيليجرام — انتشار مجاني.</p><span class="cost">مجاني</span></div>
+            <div class="ch"><h4><span class="ci"><i class="fas fa-share-nodes"></i></span> الإحالة والتحفيز</h4><p>«تاجر يجيب تاجر = شهر مجاني» — تكلفة بسيطة مقابل عميل يبقى معنا سنوات.</p><span class="cost">تكلفة بسيطة</span></div>
+            <div class="ch"><h4><span class="ci"><i class="fas fa-handshake"></i></span> الشراكات والمورّدون</h4><p>الغرف التجارية ومُنشآت، والمورّدون الذين يمرّرون يُسر لتجار التجزئة.</p><span class="cost">شراكات</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">خطة التسويق · 05</span></div>
+    </section></div>
+
+    <!-- 6. SOCIAL DEEP -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fab fa-tiktok"></i> الأقوى والأرخص</span>
+        <h2 class="sec">السوشال ميديا العضوية — جمهور ضخم بتكلفة قريبة من الصفر</h2>
+        <div class="body">
+          <div class="stats">
+            <div class="stat"><div class="n">34<small>M</small></div><div class="l">مستخدم بالغ لتيك توك في السعودية</div></div>
+            <div class="stat"><div class="n">95<small> دقيقة</small></div><div class="l">معدل الاستخدام اليومي — الأعلى بالمنطقة</div></div>
+            <div class="stat"><div class="n">35<small>%</small></div><div class="l">فقط من الشركات تسوّق عليه = فرصة لنا</div></div>
+            <div class="stat"><div class="n">24.7<small>M</small></div><div class="l">مستخدم لسناب شات في السعودية</div></div>
+          </div>
+          <ul class="b" style="margin-top:14px">
+            <li>خوارزمية تيك توك تنشر المحتوى الجيّد <strong>حتى بدون متابعين</strong> — مقطع واحد ممكن يوصل لملايين.</li>
+            <li>محتوى رخيص ومُقنع: <strong>مواقف يومية عن «اكتب عندي بالدفتر»</strong>، وقبل/بعد رقمنة الدفتر، وقصص أصحاب متاجر حقيقيين.</li>
+            <li>إضافة لمتاجر التطبيقات (ASO): الظهور لمن يبحث عن <strong>«دفتر ديون» و«سند قبض» و«تحصيل ديون»</strong>.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">خطة التسويق · 06</span></div>
+    </section></div>
+
+    <!-- 7. GROUND DEEP -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-map-location-dot"></i> الانتشار شبه المجاني</span>
+        <h2 class="sec">على الأرض: ستكرات وميدان وإحالة وشراكات</h2>
+        <div class="body">
+          <div class="grid2">
+            <div class="card"><h4><span class="ci"><i class="fas fa-tag"></i></span> ستكرات المتاجر</h4><p>ستكر صغير عند الكاشير «نوثّق ديونك هنا عبر يُسر». يشوفه كل عميل، <strong>ويشوفه التاجر المنافس لما يزور المحل</strong> — فيكتشف يُسر ويجرّبه. طباعة بريالات قليلة.</p></div>
+            <div class="card"><h4><span class="ci"><i class="fas fa-people-group"></i></span> المبيعات الميدانية</h4><p>فريق يزور الأسواق الشعبية وأسواق الجملة والبقالات والمغاسل، ويفعّل <strong>أول عملية توثيق</strong> أمام التاجر — أقوى قناة للإقناع.</p></div>
+            <div class="card"><h4><span class="ci"><i class="fas fa-share-nodes"></i></span> الإحالة بين التجار</h4><p>«تاجر يجيب تاجر = شهر مجاني». التاجر الراضي أفضل مندوب — والمكافأة بسيطة مقابل عميل يبقى سنوات.</p></div>
+            <div class="card"><h4><span class="ci"><i class="fas fa-handshake"></i></span> الشراكات والمورّدون</h4><p>الغرف التجارية ومُنشآت توصلنا لقواعد تجار كبيرة، والمورّدون يمرّرون يُسر لتجار التجزئة الذين يبيعون لهم.</p></div>
+          </div>
+          <div class="note"><i class="fas fa-lightbulb"></i> <strong>الخطّاف الأقوى:</strong> «رقمن دفترك القديم مجانًا» — سبب فوري يخلي التاجر يجرّب يُسر من أول يوم.</div>
+        </div>
+      </div>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">خطة التسويق · 07</span></div>
+    </section></div>
+
+    <!-- 8. PROOF — real stores + activity -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-circle-check"></i> من الواقع</span>
+        <h2 class="sec">نطبّق الخطة فعلاً — لا مجرد كلام على ورق</h2>
+        <div class="body">
+          <div class="shops">
+            <div class="shop"><img src="assets/img/store-grocery.jpg" alt="بقالة وتموينات"><span><i class="fas fa-store"></i> بقالة وتموينات</span></div>
+            <div class="shop"><img src="assets/img/store-decor.jpg" alt="محل ديكور ومفروشات"><span><i class="fas fa-store"></i> محل ديكور ومفروشات</span></div>
+            <div class="shop"><img src="assets/img/store-laundry.jpg" alt="مغسلة ملابس"><span><i class="fas fa-store"></i> مغسلة ملابس</span></div>
+          </div>
+          <div class="grid2" style="margin-top:16px">
+            <div class="card"><h4><span class="ci"><i class="fab fa-x-twitter"></i></span> نشطون على منصة X <span class="hnd">@Ysr126</span></h4><p>ننشر محتوى تسويقي منتظم على X لبناء الوعي والوصول للتجار والأفراد — تطبيق فعلي لقناة السوشال ميديا.</p></div>
+            <div class="card"><h4><span class="ci logo"><img src="assets/img/jisr.jpg" alt="جسر"></span> شراكة تبادل خبرات مع جسر (JISR)</h4><p>اتفاقية تبادل خبرات مع شركة جسر — شراكة تقوّي انتشارنا وتفتح قنوات وصول جديدة بتكلفة منخفضة.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">خطة التسويق · 08</span></div>
+    </section></div>
+
+    <!-- 9. BUDGET + PHASES -->
+    <div class="frame"><section class="slide">
+      <div class="pad">
+        <span class="eyebrow"><i class="fas fa-sack-dollar"></i> الميزانية والمراحل</span>
+        <h2 class="sec">ميزانية صغيرة — متوافقة مع دراسة الجدوى</h2>
+        <div class="body">
+          <div class="stats">
+            <div class="stat"><div class="n">5,000</div><div class="l">ر.س تسويق · السنة 1</div></div>
+            <div class="stat"><div class="n">10,000</div><div class="l">ر.س تسويق · السنة 2</div></div>
+            <div class="stat"><div class="n">25,000</div><div class="l">ر.س تسويق · السنة 3</div></div>
+            <div class="stat dark"><div class="n">~120</div><div class="l">ر.س تكلفة اكتساب التاجر</div></div>
+          </div>
+          <div class="road phases" style="margin-top:20px">
+            <div class="rstep"><h4><span class="tag">المرحلة 1</span> الإطلاق</h4><p>تركيز محلي: ميدان مكثّف + ستكرات + أول قصص نجاح حقيقية.</p></div>
+            <div class="rstep"><h4><span class="tag">المرحلة 2</span> النمو</h4><p>تكثيف تيك توك والإحالة والشراكات، وتشغيل حلقة أثر الشبكة.</p></div>
+            <div class="rstep"><h4><span class="tag">المرحلة 3</span> التوسّع</h4><p>حملات أوسع إقليميًا + شراكات مؤسسية + دخول أسواق الخليج.</p></div>
+          </div>
+          <div class="note hi"><i class="fas fa-circle-check"></i> كل ريال تسويق يولّد عائدًا مضاعفًا (عائد العميل أعلى من تكلفته بكثير)، وأثر الشبكة يخفّض التكلفة كلما كبرنا.</div>
+        </div>
+      </div>
+      <div class="s-foot"><div class="b"><img src="assets/img/Yusr.png" alt=""><span class="nm">يُسر</span></div><span class="pg">خطة التسويق · 09</span></div>
+    </section></div>
+
+    <!-- 9. CLOSE -->
+    <div class="frame"><section class="slide cover">
+      <span class="ring"></span><span class="glow"></span>
+      <div class="pad">
+        <div class="hbrand"><img src="assets/img/Yusr.png" alt="يُسر"><span>يُسر</span></div>
+        <h1 style="font-size:46px">نموّ رخيص <span class="g">يقوده المنتج نفسه</span></h1>
+        <div class="desc">قنوات بسيطة وسهلة علينا، وأثر شبكة يجعل كل متجر وكل عميل يجرّ الآخر — فيبقى التسويق منخفض التكلفة بينما النمو يتسارع.</div>
+        <div class="hero-meta">
+          <span><i class="fas fa-share-nodes"></i> أثر الشبكة</span>
+          <span><i class="fab fa-tiktok"></i> محتوى عضوي</span>
+          <span><i class="fas fa-tag"></i> ستكرات وميدان</span>
+          <span><i class="fas fa-coins"></i> تكلفة منخفضة</span>
+          <span><i class="fas fa-arrow-trend-up"></i> عائد مضاعف</span>
+        </div>
+      </div>
+    </section></div>
+
+  </div>
+
+  <script>
+    (function () {
+      function fit() { document.documentElement.style.setProperty('--s', Math.min(1, (window.innerWidth - 40) / 1280)); }
+      window.addEventListener('resize', fit); fit();
+    })();
+  </script>
+</body>
+
+</html>
