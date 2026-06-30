@@ -162,7 +162,36 @@
     .tcap .tchip { display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 800; color: #fff; background: var(--grad); padding: 7px 16px; border-radius: 999px }
     .tcap .tcap-s { font-size: 13.5px; color: var(--body); font-weight: 700; margin-top: 8px } .tcap .tcap-s i { color: var(--primary); margin: 0 4px }
     .tart { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center }
-    .tart svg { width: auto; height: 100%; max-width: 100%; max-height: 100% }
+    /* AUREX cross-platform transfer — pure HTML/CSS/JS */
+    .aurexfx { position: relative; width: 100%; height: 100%; max-height: 432px; border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; padding: 16px 18px 14px; border: 1px solid rgba(124, 167, 53, .22); background: radial-gradient(125% 100% at 50% 26%, #25391b 0%, #16240d 56%, #0e1707 100%) }
+    .ax-stage { position: relative; flex: 1; display: flex; align-items: center; justify-content: center; gap: 60px; min-height: 0 }
+    .ax-beam { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 72%; height: 3px; z-index: 1; background: linear-gradient(90deg, transparent, rgba(156, 203, 94, .85), transparent) }
+    .ax-wave { position: absolute; left: 50%; top: 50%; width: 120px; height: 120px; border-radius: 50%; border: 2px solid #9ccb5e; transform: translate(-50%, -50%) scale(.3); opacity: 0; z-index: 1; animation: axwave 2.8s ease-out infinite }
+    .ax-wave.d2 { animation-delay: .95s } .ax-wave.d3 { animation-delay: 1.9s }
+    @keyframes axwave { 0% { opacity: .5; transform: translate(-50%, -50%) scale(.3) } 80% { opacity: .12 } 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.7) } }
+    .ax-phone { position: relative; width: 150px; height: 286px; border-radius: 30px; flex: none; z-index: 2; padding: 11px; background: linear-gradient(165deg, #34481d, #1a2a0e); border: 2px solid #44602a; box-shadow: 0 22px 44px rgba(0, 0, 0, .45) }
+    .ax-android { transform: rotate(6deg) } .ax-iphone { transform: rotate(-6deg) }
+    .ax-cam { position: absolute; z-index: 3; background: #0c1606; left: 50%; transform: translateX(-50%) }
+    .ax-punch { top: 19px; width: 9px; height: 9px; border-radius: 50% } .ax-island { top: 17px; width: 42px; height: 13px; border-radius: 8px }
+    .ax-scr { position: absolute; inset: 11px; border-radius: 21px; overflow: hidden; padding: 15px 13px; display: flex; flex-direction: column; background: linear-gradient(180deg, #fff, #f3f7ec) }
+    .ax-top { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; margin-bottom: 13px }
+    .ax-logo { font-size: 15px; font-weight: 900; color: var(--primary) }
+    .ax-osm { font-size: 10px; font-weight: 800; color: var(--primary); background: var(--tint); padding: 3px 9px; border-radius: 999px }
+    .ax-rows { display: flex; flex-direction: column; gap: 9px }
+    .ax-r { display: flex; align-items: center; gap: 9px }
+    .ax-ic { width: 28px; height: 28px; border-radius: 9px; background: var(--tint); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 12px; flex: none }
+    .ax-b { flex: 1; display: flex; flex-direction: column; gap: 5px } .ax-b b { height: 6px; border-radius: 3px; background: #dbe7c8; width: 100% } .ax-b b.m { width: 72% } .ax-b b.s { width: 48%; background: #e7efda }
+    .ax-ok { margin-top: auto; display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 12.5px; font-weight: 800; color: #fff; background: var(--grad); padding: 8px 12px; border-radius: 10px }
+    .ax-core { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 5; display: flex; align-items: center; justify-content: center }
+    .ax-seal { width: 78px; height: 78px; border-radius: 23px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #14210C; background: linear-gradient(145deg, #bce08a, #6f9a2e); box-shadow: 0 0 0 7px rgba(124, 167, 53, .16), 0 16px 34px rgba(0, 0, 0, .45); animation: axpulse 2.6s ease-in-out infinite }
+    .ax-seal i { font-size: 25px } .ax-seal b { font-size: 10px; font-weight: 900; letter-spacing: 1px; margin-top: 3px }
+    .ax-seal.hit { animation: axhit .65s ease }
+    @keyframes axpulse { 0%, 100% { transform: scale(1) } 50% { transform: scale(1.06) } }
+    @keyframes axhit { 0% { transform: scale(1) } 35% { transform: scale(1.22); box-shadow: 0 0 0 12px rgba(156, 203, 94, .28), 0 16px 34px rgba(0, 0, 0, .45) } 100% { transform: scale(1) } }
+    .ax-spark { position: absolute; left: 50%; top: 50%; width: 15px; height: 15px; border-radius: 50%; z-index: 4; opacity: 0; transform: translate(-50%, -50%); background: #d6f0a6; box-shadow: 0 0 16px 5px rgba(156, 203, 94, .9) }
+    .ax-spark.go { animation: axspark 1.15s ease-in-out }
+    @keyframes axspark { 0% { opacity: 0; transform: translate(calc(-50% - 150px), -50%) scale(.5) } 12% { opacity: 1 } 88% { opacity: 1 } 100% { opacity: 0; transform: translate(calc(-50% + 150px), -50%) scale(.5) } }
+    .ax-foot { flex: none; display: flex; align-items: center; justify-content: center; gap: 8px; padding-top: 8px; font-size: 13px; font-weight: 800; color: #bce08a }
 
     /* Investment ask */
     .ask-hero { background: var(--grad-dark); color: #fff; border-radius: 20px; padding: 30px 36px; margin-top: 24px; display: flex; align-items: center; gap: 30px }
@@ -387,214 +416,7 @@
           </div>
           <div class="tcol">
             <div class="tcap"><span class="tchip"><i class="fas fa-bolt"></i> 2027 · التحويل السريع</span><div class="tcap-s">من أي جوال إلى أي جوال — أندرويد <i class="fas fa-right-left"></i> آيفون بلمسة AUREX</div></div>
-            <div class="tart"><svg viewBox="0 0 760 680" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="ttl desc">
-<title id="ttl">AUREX one-touch documented transfer between an Android phone and an iPhone</title>
-<desc>An Android phone on the left and an iPhone on the right tilt toward each other on a dark green panel. A glowing river of green sparks flows between them into a central shield with a checkmark, labelled AUREX, representing a verified documented record rather than a payment.</desc>
-<defs>
-<radialGradient id="panelGlow" cx="50%" cy="46%" r="62%">
-<stop offset="0%" stop-color="#1d3010"/>
-<stop offset="55%" stop-color="#14210C"/>
-<stop offset="100%" stop-color="#0e1707"/>
-</radialGradient>
-<radialGradient id="centerHalo" cx="50%" cy="50%" r="50%">
-<stop offset="0%" stop-color="#9ccb5e" stop-opacity="0.95"/>
-<stop offset="35%" stop-color="#76B041" stop-opacity="0.55"/>
-<stop offset="70%" stop-color="#5B7A23" stop-opacity="0.18"/>
-<stop offset="100%" stop-color="#5B7A23" stop-opacity="0"/>
-</radialGradient>
-<linearGradient id="riverGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-<stop offset="0%" stop-color="#9ccb5e" stop-opacity="0"/>
-<stop offset="18%" stop-color="#9ccb5e" stop-opacity="0.85"/>
-<stop offset="50%" stop-color="#bce08a" stop-opacity="1"/>
-<stop offset="82%" stop-color="#9ccb5e" stop-opacity="0.85"/>
-<stop offset="100%" stop-color="#9ccb5e" stop-opacity="0"/>
-</linearGradient>
-<linearGradient id="phoneBodyL" x1="0%" y1="0%" x2="100%" y2="100%">
-<stop offset="0%" stop-color="#26340f"/>
-<stop offset="50%" stop-color="#1a2a0c"/>
-<stop offset="100%" stop-color="#0f1907"/>
-</linearGradient>
-<linearGradient id="phoneBodyR" x1="100%" y1="0%" x2="0%" y2="100%">
-<stop offset="0%" stop-color="#2a3a12"/>
-<stop offset="50%" stop-color="#1c2d0d"/>
-<stop offset="100%" stop-color="#101a08"/>
-</linearGradient>
-<linearGradient id="screenL" x1="0%" y1="0%" x2="0%" y2="100%">
-<stop offset="0%" stop-color="#23381a"/>
-<stop offset="55%" stop-color="#18280f"/>
-<stop offset="100%" stop-color="#12200b"/>
-</linearGradient>
-<linearGradient id="screenR" x1="0%" y1="0%" x2="0%" y2="100%">
-<stop offset="0%" stop-color="#24391b"/>
-<stop offset="55%" stop-color="#192a10"/>
-<stop offset="100%" stop-color="#13210b"/>
-</linearGradient>
-<linearGradient id="railL" x1="0%" y1="0%" x2="100%" y2="0%">
-<stop offset="0%" stop-color="#5B7A23"/>
-<stop offset="50%" stop-color="#9ccb5e"/>
-<stop offset="100%" stop-color="#3d5418"/>
-</linearGradient>
-<linearGradient id="railR" x1="100%" y1="0%" x2="0%" y2="0%">
-<stop offset="0%" stop-color="#5B7A23"/>
-<stop offset="50%" stop-color="#9ccb5e"/>
-<stop offset="100%" stop-color="#3d5418"/>
-</linearGradient>
-<linearGradient id="shieldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-<stop offset="0%" stop-color="#bce08a"/>
-<stop offset="45%" stop-color="#9ccb5e"/>
-<stop offset="100%" stop-color="#5B7A23"/>
-</linearGradient>
-<linearGradient id="chipGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-<stop offset="0%" stop-color="#7FA735"/>
-<stop offset="100%" stop-color="#9ccb5e"/>
-</linearGradient>
-<filter id="softGlow" x="-60%" y="-60%" width="220%" height="220%">
-<feGaussianBlur stdDeviation="6" result="b"/>
-<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-</filter>
-<filter id="bigGlow" x="-80%" y="-80%" width="260%" height="260%">
-<feGaussianBlur stdDeviation="11"/>
-</filter>
-<filter id="riverBlur" x="-30%" y="-120%" width="160%" height="340%">
-<feGaussianBlur stdDeviation="3.4"/>
-</filter>
-</defs>
-
-<rect x="0" y="0" width="760" height="680" rx="28" fill="#0e1707"/>
-<rect x="0" y="0" width="760" height="680" rx="28" fill="url(#panelGlow)"/>
-<rect x="6" y="6" width="748" height="668" rx="24" fill="none" stroke="#5B7A23" stroke-opacity="0.28" stroke-width="1.5"/>
-
-<ellipse cx="380" cy="320" rx="300" ry="220" fill="url(#centerHalo)" opacity="0.9"/>
-
-<ellipse cx="380" cy="600" rx="270" ry="34" fill="#0a1305" opacity="0.65"/>
-<ellipse cx="205" cy="592" rx="120" ry="22" fill="#000000" opacity="0.4"/>
-<ellipse cx="555" cy="592" rx="120" ry="22" fill="#000000" opacity="0.4"/>
-
-<g transform="translate(205,322) rotate(-7)">
-<rect x="-104" y="-218" width="208" height="436" rx="34" fill="url(#railL)"/>
-<rect x="-99" y="-213" width="198" height="426" rx="30" fill="url(#phoneBodyL)"/>
-<rect x="-89" y="-200" width="178" height="400" rx="22" fill="url(#screenL)" stroke="#3a5520" stroke-width="1"/>
-<circle cx="0" cy="-182" r="6.5" fill="#0c1606"/>
-<circle cx="0" cy="-182" r="3.4" fill="#1b3a55"/>
-<circle cx="-1.4" cy="-183.4" r="1.3" fill="#8fb4d6"/>
-<g opacity="0.96">
-<rect x="-72" y="-150" width="100" height="20" rx="10" fill="url(#chipGrad)"/>
-<circle cx="-58" cy="-140" r="7" fill="#14210C"/>
-<path d="M-61.4 -140 l2.4 2.6 l4.4 -5.4" fill="none" stroke="#bce08a" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="-44" y="-135.5" font-family="Cairo, sans-serif" font-size="11" font-weight="700" fill="#14210C">VERIFIED</text>
-</g>
-<rect x="-72" y="-112" width="144" height="46" rx="11" fill="#1d3010" stroke="#3f5d22" stroke-width="1"/>
-<circle cx="-54" cy="-89" r="12" fill="#2a4015"/>
-<path d="M-58 -89 l3 3 l5.5 -6.5" fill="none" stroke="#9ccb5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="-34" y="-99" width="64" height="7" rx="3.5" fill="#bce08a" opacity="0.85"/>
-<rect x="-34" y="-86" width="44" height="6" rx="3" fill="#7FA735" opacity="0.7"/>
-<rect x="42" y="-95" width="26" height="9" rx="4.5" fill="#9ccb5e"/>
-<rect x="-72" y="-52" width="144" height="34" rx="9" fill="#16270d" stroke="#33491c" stroke-width="0.8"/>
-<rect x="-62" y="-40" width="58" height="6" rx="3" fill="#5B7A23" opacity="0.85"/>
-<rect x="-62" y="-28" width="40" height="5" rx="2.5" fill="#3f5d22"/>
-<rect x="22" y="-38" width="42" height="11" rx="5.5" fill="#7FA735" opacity="0.9"/>
-<rect x="-72" y="-8" width="144" height="34" rx="9" fill="#16270d" stroke="#33491c" stroke-width="0.8"/>
-<rect x="-62" y="4" width="50" height="6" rx="3" fill="#5B7A23" opacity="0.85"/>
-<rect x="-62" y="16" width="36" height="5" rx="2.5" fill="#3f5d22"/>
-<rect x="26" y="6" width="38" height="11" rx="5.5" fill="#5B7A23" opacity="0.8"/>
-<g transform="translate(-44,150)">
-<text x="0" y="0" font-family="Cairo, sans-serif" font-size="14" font-weight="700" fill="#9ccb5e" letter-spacing="1.5">ANDROID</text>
-</g>
-<rect x="-89" y="-200" width="60" height="400" rx="22" fill="#9ccb5e" opacity="0.06"/>
-</g>
-
-<g transform="translate(555,322) rotate(7)">
-<rect x="-104" y="-218" width="208" height="436" rx="42" fill="url(#railR)"/>
-<rect x="-99" y="-213" width="198" height="426" rx="38" fill="url(#phoneBodyR)"/>
-<rect x="-89" y="-200" width="178" height="400" rx="30" fill="url(#screenR)" stroke="#3a5520" stroke-width="1"/>
-<rect x="-26" y="-192" width="52" height="20" rx="10" fill="#0a1305"/>
-<circle cx="14" cy="-182" r="4.5" fill="#15314a"/>
-<circle cx="12.6" cy="-183.4" r="1.4" fill="#8fb4d6"/>
-<g opacity="0.96">
-<rect x="-28" y="-152" width="100" height="20" rx="10" fill="url(#chipGrad)"/>
-<circle cx="-14" cy="-142" r="7" fill="#14210C"/>
-<path d="M-17.4 -142 l2.4 2.6 l4.4 -5.4" fill="none" stroke="#bce08a" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="0" y="-137.5" font-family="Cairo, sans-serif" font-size="11" font-weight="700" fill="#14210C">VERIFIED</text>
-</g>
-<rect x="-72" y="-114" width="144" height="46" rx="11" fill="#1d3010" stroke="#3f5d22" stroke-width="1"/>
-<circle cx="-54" cy="-91" r="12" fill="#2a4015"/>
-<path d="M-58 -91 l3 3 l5.5 -6.5" fill="none" stroke="#9ccb5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="-34" y="-101" width="64" height="7" rx="3.5" fill="#bce08a" opacity="0.85"/>
-<rect x="-34" y="-88" width="44" height="6" rx="3" fill="#7FA735" opacity="0.7"/>
-<rect x="42" y="-97" width="26" height="9" rx="4.5" fill="#9ccb5e"/>
-<rect x="-72" y="-54" width="144" height="34" rx="9" fill="#16270d" stroke="#33491c" stroke-width="0.8"/>
-<rect x="-62" y="-42" width="58" height="6" rx="3" fill="#5B7A23" opacity="0.85"/>
-<rect x="-62" y="-30" width="40" height="5" rx="2.5" fill="#3f5d22"/>
-<rect x="22" y="-40" width="42" height="11" rx="5.5" fill="#7FA735" opacity="0.9"/>
-<rect x="-72" y="-10" width="144" height="34" rx="9" fill="#16270d" stroke="#33491c" stroke-width="0.8"/>
-<rect x="-62" y="2" width="50" height="6" rx="3" fill="#5B7A23" opacity="0.85"/>
-<rect x="-62" y="14" width="36" height="5" rx="2.5" fill="#3f5d22"/>
-<rect x="26" y="4" width="38" height="11" rx="5.5" fill="#5B7A23" opacity="0.8"/>
-<g transform="translate(-30,150)">
-<text x="0" y="0" font-family="Cairo, sans-serif" font-size="14" font-weight="700" fill="#9ccb5e" letter-spacing="1.5">iPHONE</text>
-</g>
-<rect x="29" y="-200" width="60" height="400" rx="30" fill="#0a1305" opacity="0.22"/>
-</g>
-
-<g filter="url(#riverBlur)">
-<path d="M300 322 Q380 300 460 322" fill="none" stroke="url(#riverGrad)" stroke-width="20" stroke-linecap="round" opacity="0.55"/>
-<path d="M300 322 Q380 308 460 322" fill="none" stroke="url(#riverGrad)" stroke-width="9" stroke-linecap="round" opacity="0.9"/>
-</g>
-<path d="M300 322 Q380 312 460 322" fill="none" stroke="#f7f9f2" stroke-width="2.4" stroke-linecap="round" opacity="0.8"/>
-
-<g fill="#bce08a">
-<circle cx="318" cy="318" r="3.1" opacity="0.95"/>
-<circle cx="338" cy="328" r="2.3" opacity="0.85"/>
-<circle cx="356" cy="314" r="3.6" opacity="1"/>
-<circle cx="372" cy="324" r="2" opacity="0.8"/>
-<circle cx="408" cy="316" r="3.2" opacity="0.95"/>
-<circle cx="424" cy="327" r="2.4" opacity="0.85"/>
-<circle cx="442" cy="318" r="3" opacity="0.9"/>
-<circle cx="330" cy="333" r="1.6" opacity="0.7"/>
-<circle cx="398" cy="332" r="1.7" opacity="0.7"/>
-<circle cx="450" cy="328" r="2" opacity="0.75"/>
-</g>
-<g fill="#9ccb5e">
-<circle cx="312" cy="328" r="1.5" opacity="0.7"/>
-<circle cx="348" cy="334" r="1.4" opacity="0.65"/>
-<circle cx="386" cy="312" r="1.8" opacity="0.8"/>
-<circle cx="416" cy="332" r="1.5" opacity="0.7"/>
-<circle cx="436" cy="312" r="1.7" opacity="0.75"/>
-<circle cx="304" cy="316" r="1.3" opacity="0.6"/>
-<circle cx="458" cy="316" r="1.4" opacity="0.65"/>
-</g>
-<g fill="#f7f9f2">
-<circle cx="326" cy="320" r="1.1" opacity="0.85"/>
-<circle cx="364" cy="326" r="1" opacity="0.8"/>
-<circle cx="404" cy="324" r="1.1" opacity="0.85"/>
-<circle cx="432" cy="322" r="1" opacity="0.8"/>
-</g>
-
-<circle cx="380" cy="322" r="92" fill="url(#centerHalo)" opacity="0.85"/>
-<circle cx="380" cy="318" r="62" fill="#9ccb5e" opacity="0.5" filter="url(#bigGlow)"/>
-
-<g transform="translate(380,308)" filter="url(#softGlow)">
-<path d="M0 -62 L52 -42 L52 8 C52 44 28 66 0 80 C-28 66 -52 44 -52 8 L-52 -42 Z" fill="#0e1707" opacity="0.55" transform="translate(0,4)"/>
-<path d="M0 -62 L52 -42 L52 8 C52 44 28 66 0 80 C-28 66 -52 44 -52 8 L-52 -42 Z" fill="url(#shieldGrad)" stroke="#eef6e2" stroke-width="2.5"/>
-<path d="M0 -52 L42 -35 L42 6 C42 36 22 54 0 66 C-22 54 -42 36 -42 6 L-42 -35 Z" fill="none" stroke="#14210C" stroke-width="1.4" opacity="0.45"/>
-<path d="M-22 6 L-7 22 L24 -16" fill="none" stroke="#14210C" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" opacity="0.25"/>
-<path d="M-22 4 L-7 20 L24 -18" fill="none" stroke="#f7f9f2" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-
-<g transform="translate(380,422)">
-<rect x="-58" y="-17" width="116" height="34" rx="17" fill="#14210C" stroke="#9ccb5e" stroke-width="1.4" opacity="0.96"/>
-<text x="0" y="6" text-anchor="middle" font-family="Cairo, sans-serif" font-size="20" font-weight="700" fill="#9ccb5e" letter-spacing="3.5">AUREX</text>
-</g>
-
-<g fill="#9ccb5e" opacity="0.5">
-<circle cx="120" cy="120" r="1.6"/>
-<circle cx="650" cy="150" r="1.6"/>
-<circle cx="92" cy="430" r="1.4"/>
-<circle cx="678" cy="470" r="1.4"/>
-<circle cx="170" cy="560" r="1.3"/>
-<circle cx="600" cy="565" r="1.3"/>
-</g>
-</svg></div>
+            <div class="tart"><div class="aurexfx"><div class="ax-stage"><span class="ax-beam"></span><span class="ax-wave"></span><span class="ax-wave d2"></span><span class="ax-wave d3"></span><div class="ax-phone ax-android"><span class="ax-cam ax-punch"></span><div class="ax-scr"><div class="ax-top"><span class="ax-logo">يُسر</span><span class="ax-osm">أندرويد</span></div><div class="ax-rows"><div class="ax-r"><span class="ax-ic"><i class="fas fa-file-lines"></i></span><span class="ax-b"><b></b><b class="s"></b></span></div><div class="ax-r"><span class="ax-ic"><i class="fas fa-handshake"></i></span><span class="ax-b"><b class="m"></b><b class="s"></b></span></div></div><div class="ax-ok"><i class="fas fa-circle-check"></i> تم التوثيق</div></div></div><div class="ax-core"><span class="ax-spark"></span><div class="ax-seal"><i class="fas fa-shield-halved"></i><b>AUREX</b></div></div><div class="ax-phone ax-iphone"><span class="ax-cam ax-island"></span><div class="ax-scr"><div class="ax-top"><span class="ax-logo">يُسر</span><span class="ax-osm">آيفون</span></div><div class="ax-rows"><div class="ax-r"><span class="ax-ic"><i class="fas fa-file-lines"></i></span><span class="ax-b"><b></b><b class="s"></b></span></div><div class="ax-r"><span class="ax-ic"><i class="fas fa-handshake"></i></span><span class="ax-b"><b class="m"></b><b class="s"></b></span></div></div><div class="ax-ok"><i class="fas fa-circle-check"></i> تم التوثيق</div></div></div></div><div class="ax-foot"><i class="fas fa-fingerprint"></i> لمسة تُوثّق، لا تدفع — بين أي جوالين</div></div></div>
           </div>
         </div>
       </div>
@@ -653,6 +475,16 @@
     (function () {
       function fit() { document.documentElement.style.setProperty('--s', Math.min(1, (window.innerWidth - 52) / 1280)); }
       window.addEventListener('resize', fit); fit();
+    })();
+    /* AUREX transfer animation — spark travels phone-to-phone, then the seal flashes "documented" */
+    (function () {
+      var fx = document.querySelector('.aurexfx'); if (!fx) return;
+      var spark = fx.querySelector('.ax-spark'), seal = fx.querySelector('.ax-seal');
+      function cycle() {
+        if (spark) { spark.classList.remove('go'); void spark.offsetWidth; spark.classList.add('go'); }
+        if (seal) { setTimeout(function () { seal.classList.add('hit'); setTimeout(function () { seal.classList.remove('hit'); }, 650); }, 620); }
+      }
+      cycle(); setInterval(cycle, 2900);
     })();
   </script>
 </body>
