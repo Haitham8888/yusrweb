@@ -85,7 +85,18 @@
     .bank { border-radius: 18px; padding: 22px; color: #fff; position: relative; overflow: hidden; min-height: 150px; box-shadow: var(--shadow) }
     .bank .bn { font-size: 16px; font-weight: 800; opacity: .92 } .bank .bt2 { font-size: 12px; opacity: .8; margin-top: 2px }
     .bank .bal { font-size: 30px; font-weight: 900; margin-top: 22px } .bank .iban { font-size: 13px; opacity: .85; margin-top: 6px; letter-spacing: 1px }
-    .bank i.chip { position: absolute; left: 22px; top: 22px; font-size: 26px; opacity: .85 }
+    .bank .bhead { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 50px }
+    .bank.has-logo { display: flex; flex-direction: column; min-height: 172px } .bank.has-logo .bal { margin-top: auto }
+    .bank .blogo { background: #fff; border-radius: 12px; padding: 9px 15px; display: inline-flex; align-items: center; box-shadow: 0 4px 14px rgba(0,0,0,.16) }
+    .bank .blogo img { height: 32px; width: auto; display: block }
+    .bank .btag { font-size: 12px; font-weight: 800; color: #fff; background: rgba(255,255,255,.18); padding: 6px 13px; border-radius: 999px; white-space: nowrap }
+    .bank .bicon { width: 46px; height: 46px; border-radius: 12px; background: rgba(255,255,255,.16); display: inline-flex; align-items: center; justify-content: center; font-size: 21px; color: #fff; flex: none }
+    .bank .bmeta .bn { font-size: 16px; font-weight: 800 } .bank .bmeta .bt2 { font-size: 12px; opacity: .82; margin-top: 2px }
+    .banks-feat { display: grid; grid-template-columns: 1.25fr 1fr; gap: 18px; margin-bottom: 20px; align-items: stretch }
+    .bank-info { background: var(--bg); border: 1px solid var(--line); border-radius: 18px; padding: 20px 24px; display: flex; flex-direction: column }
+    .bank-info h4 { font-size: 16px; color: var(--ink); margin-bottom: 6px; display: flex; align-items: center; gap: 8px } .bank-info h4 i { color: var(--primary) }
+    .bank-info .brow { display: flex; justify-content: space-between; align-items: center; padding: 10.5px 0; border-bottom: 1px solid var(--line); font-size: 14px } .bank-info .brow:last-child { border-bottom: 0 }
+    .bank-info .brow span { color: var(--mut); font-weight: 600 } .bank-info .brow b { color: var(--ink); font-weight: 800 } .bank-info .brow b.ok { color: var(--primary) }
 
     .ocr-tabs { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap }
     .ocr-tab { padding: 11px 18px; border-radius: 12px; border: 1px solid var(--line); background: #fff; font-weight: 800; font-size: 14px; cursor: pointer; color: var(--body); display: flex; align-items: center; gap: 9px }
@@ -175,10 +186,7 @@
     const SEED = {
       sales: { months: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو'], values: [42000, 38500, 47200, 51000, 49800, 55400] },
       banks: [
-        { bank: 'مصرف الراجحي', type: 'حساب جاري', iban: 'SA•• •••• •••• 4821', balance: 84200, c: 'linear-gradient(135deg,#2f6f3e,#1d3010)' },
-        { bank: 'البنك الأهلي SNB', type: 'حساب جاري', iban: 'SA•• •••• •••• 7390', balance: 52900, c: 'linear-gradient(135deg,#5B7A23,#263A14)' },
-        { bank: 'بنك الجزيرة', type: 'حساب توفير', iban: 'SA•• •••• •••• 1156', balance: 31500, c: 'linear-gradient(135deg,#7FA735,#4a6b1c)' },
-        { bank: 'محفظة mada', type: 'مدفوعات نقاط البيع', iban: 'الربط عبر المصرفية المفتوحة', balance: 12800, c: 'linear-gradient(135deg,#3c571c,#14210C)' }
+        { bank: 'بنك الجزيرة', type: 'حساب جاري', iban: 'SA•• •••• •••• 1156', balance: 181400, logo: 'assets/img/partners/aljazira.jpg', c: 'linear-gradient(135deg,#7FA735 0%,#5B7A23 55%,#263A14 100%)' }
       ],
       products: [
         { name: 'أرز بسمتي 5كجم', sku: 'RICE-5', price: 35, qty: 120, min: 25 },
@@ -261,11 +269,24 @@
       chartRefs.d = new Chart(document.getElementById('cDue'), { type: 'doughnut', data: { labels: ['مدفوع', 'تحت المعالجة', 'لم يُدفع'], datasets: [{ data: [dd.paid, dd.process, dd.unpaid], backgroundColor: ['#5B7A23', '#c98a14', '#d23b3b'], borderWidth: 0 }] }, options: { cutout: '64%', plugins: { legend: { position: 'bottom', labels: { font: { family: 'Cairo', size: 13 }, padding: 14, usePointStyle: true } } } } });
     };
 
-    R.banks = () => `<div class="sec-head"><div><h2>الحسابات البنكية</h2><div class="sub">عرض جميع حسابات المنشأة عبر المصرفية المفتوحة (ساما)</div></div><div class="sp"><button class="btn gho" onclick="addBank()"><i class="fas fa-plus"></i> ربط حساب</button></div></div>
-      <div class="kpis"><div class="kpi dark" style="grid-column:span 2"><div class="ic"><i class="fas fa-building-columns"></i></div><div class="v">${fmt(bankTotal())}<small> ر.س</small></div><div class="l">إجمالي الأرصدة عبر ${DB.banks.length} حسابات بنكية</div></div>
+    function bankCard(b) {
+      const head = b.logo
+        ? `<span class="blogo"><img src="${b.logo}" alt="${b.bank}"></span><span class="btag">${b.type}</span>`
+        : `<span class="bicon"><i class="fas fa-building-columns"></i></span><div class="bmeta"><div class="bn">${b.bank}</div><div class="bt2">${b.type}</div></div>`;
+      return `<div class="bank${b.logo ? ' has-logo' : ''}" style="background:${b.c}"><div class="bhead">${head}</div><div class="bal">${fmt(b.balance)} <span style="font-size:14px">ر.س</span></div><div class="iban" dir="ltr">${b.iban}</div></div>`;
+    }
+    R.banks = () => { const b = DB.banks[0]; const multi = DB.banks.length > 1; return `<div class="sec-head"><div><h2>الحسابات البنكية</h2><div class="sub">عرض حساب المنشأة عبر المصرفية المفتوحة (ساما)</div></div><div class="sp"><button class="btn gho" onclick="addBank()"><i class="fas fa-plus"></i> ربط حساب</button></div></div>
+      <div class="kpis"><div class="kpi dark" style="grid-column:span 2"><div class="ic"><i class="fas fa-building-columns"></i></div><div class="v">${fmt(bankTotal())}<small> ر.س</small></div><div class="l">${multi ? 'إجمالي الأرصدة عبر ' + DB.banks.length + ' حسابات بنكية' : 'إجمالي الرصيد لدى بنك الجزيرة'}</div></div>
         <div class="kpi"><div class="ic"><i class="fas fa-arrow-trend-up"></i></div><div class="v pos">+${fmt(31200)}</div><div class="l">صافي التدفق هذا الشهر</div></div>
         <div class="kpi"><div class="ic"><i class="fas fa-shield-halved"></i></div><div class="v" style="font-size:20px">ساما</div><div class="l">ربط آمن عبر المصرفية المفتوحة</div></div></div>
-      <div class="banks">${DB.banks.map(b => `<div class="bank" style="background:${b.c}"><i class="fas fa-building-columns chip"></i><div style="text-align:left"><div class="bn">${b.bank}</div><div class="bt2">${b.type}</div></div><div class="bal">${fmt(b.balance)} <span style="font-size:14px">ر.س</span></div><div class="iban">${b.iban}</div></div>`).join('')}</div>`;
+      ${multi
+        ? `<div class="banks">${DB.banks.map(bankCard).join('')}</div>`
+        : `<div class="banks-feat">${bankCard(b)}<div class="bank-info"><h4><i class="fas fa-circle-info"></i> تفاصيل الحساب</h4>
+            <div class="brow"><span>المصرف</span><b>بنك الجزيرة</b></div>
+            <div class="brow"><span>نوع الحساب</span><b>حساب جاري</b></div>
+            <div class="brow"><span>الآيبان</span><b dir="ltr">${b.iban}</b></div>
+            <div class="brow"><span>طريقة الربط</span><b>المصرفية المفتوحة · ساما</b></div>
+            <div class="brow"><span>الحالة</span><b class="ok">● نشط</b></div></div></div>`}`; };
 
     R.sales = () => {
       const t = revenue();
@@ -487,7 +508,7 @@
       if (/مبيع|إيراد|دخل/.test(q)) return `إجمالي مبيعاتك خلال 6 أشهر <b>${fmt(revenue())} ر.س</b>، بمتوسط شهري <b>${fmt(revenue() / 6)} ر.س</b> — بنمو 11.3%.`;
       if (/ضريب|زكا|قيمة مضاف/.test(q)) { const x = taxData(); return `ضريبة القيمة المضافة (15%) ≈ <b>${fmt(x.vat)} ر.س</b>، والزكاة (2.5%) ≈ <b>${fmt(x.zakat)} ر.س</b>. تقدر تصدّرها PDF أو Excel من قسم الضرائب والزكاة.`; }
       if (/مخزون|منتج|نفد|بضاع/.test(q)) return low.length ? `لديك <b>${low.length}</b> منتجات تحتاج تزويد: ${low.map(p => p.name).join('، ')}.` : 'مستويات المخزون جيدة.';
-      if (/بنك|رصيد|حساب|نقد/.test(q)) return `إجمالي أرصدتك عبر ${DB.banks.length} حسابات بنكية <b>${fmt(bankTotal())} ر.س</b>.`;
+      if (/بنك|رصيد|حساب|نقد/.test(q)) return `${DB.banks.length > 1 ? 'إجمالي أرصدتك عبر ' + DB.banks.length + ' حسابات بنكية' : 'رصيدك لدى بنك الجزيرة'} <b>${fmt(bankTotal())} ر.س</b>.`;
       if (/عربون|عرابين|دفعة/.test(q)) return `لديك <b>${DB.deposits.length}</b> دفعات مقدّمة (عرابين) بإجمالي <b>${fmt(sum(DB.deposits.map(d => d.amount)))} ر.س</b>.`;
       if (/مرحب|السلام|هلا|هاي/.test(q)) return 'هلا بك! أنا مساعد يُسر الذكي. اسألني عن مبيعاتك، ديونك، مخزونك، الضريبة أو الزكاة.';
       return 'أقدر أساعدك بمعلومات عن: المبيعات، المستحقات، العربون، المخزون، أرصدة البنوك، الضريبة، والزكاة.';
