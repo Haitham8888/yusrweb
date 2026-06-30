@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>يُسر | إعلان موشن جرافيك</title>
+  <title>يُسر | إعلان موشن جرافيك (طولي)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -19,182 +19,193 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0 }
     html, body { height: 100% }
-    body {
-      font-family: 'Cairo', sans-serif; background: #0c1507;
-      display: flex; align-items: center; justify-content: center; overflow: hidden;
-    }
-    /* Stage 1080x1080, scaled to fit viewport */
+    body { font-family: 'Cairo', sans-serif; background: #0c1507; display: flex; align-items: center; justify-content: center; overflow: hidden; }
     .stage {
-      width: 1080px; height: 1080px; position: relative; overflow: hidden;
+      width: 1440px; height: 2560px; position: relative; overflow: hidden;
       transform: scale(var(--s, 1)); transform-origin: center center;
       background:
-        radial-gradient(120% 90% at 80% -10%, #25401a 0%, transparent 55%),
-        radial-gradient(120% 90% at 10% 110%, #1f3514 0%, transparent 55%),
-        linear-gradient(160deg, #16240d 0%, #0e1808 100%);
+        radial-gradient(95% 45% at 82% 0%, #2c4d1e 0%, transparent 55%),
+        radial-gradient(95% 45% at 12% 100%, #244019 0%, transparent 55%),
+        linear-gradient(165deg, #1a2b0f 0%, #0e1808 100%);
       color: #fff;
     }
-    /* Ambient layers */
-    .grid-bg { position: absolute; inset: -2px; opacity: .07;
+    .grid-bg { position: absolute; inset: -2px; opacity: .06;
       background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px);
-      background-size: 70px 70px; animation: gridmove 9s linear infinite; }
-    @keyframes gridmove { to { background-position: 70px 70px } }
-    .blob { position: absolute; border-radius: 50%; filter: blur(50px); opacity: .5 }
-    .blob.a { width: 520px; height: 520px; background: #3f6b1e; top: -160px; right: -120px; animation: float1 11s ease-in-out infinite }
-    .blob.b { width: 460px; height: 460px; background: #2c4a16; bottom: -160px; left: -120px; animation: float2 13s ease-in-out infinite }
-    @keyframes float1 { 50% { transform: translate(-40px, 50px) scale(1.1) } }
-    @keyframes float2 { 50% { transform: translate(40px, -40px) scale(1.08) } }
+      background-size: 90px 90px; animation: gridmove 9s linear infinite; }
+    @keyframes gridmove { to { background-position: 90px 90px } }
+    .blob { position: absolute; border-radius: 50%; filter: blur(75px); opacity: .5 }
+    .blob.a { width: 760px; height: 760px; background: #3f6b1e; top: -220px; right: -180px; animation: float1 11s ease-in-out infinite }
+    .blob.b { width: 680px; height: 680px; background: #2c4a16; top: 900px; left: -240px; animation: float2 13s ease-in-out infinite }
+    .blob.c { width: 620px; height: 620px; background: #355d1a; bottom: -200px; right: -140px; animation: float1 15s ease-in-out infinite }
+    @keyframes float1 { 50% { transform: translate(-50px, 60px) scale(1.1) } }
+    @keyframes float2 { 50% { transform: translate(50px, -50px) scale(1.08) } }
 
-    .watermark { position: absolute; top: 46px; right: 54px; display: flex; align-items: center; gap: 12px; z-index: 6; opacity: .9 }
-    .watermark img { width: 46px; height: 46px; background: #fff; border-radius: 12px; padding: 5px }
-    .watermark b { font-size: 30px; font-weight: 900 }
+    .watermark { position: absolute; top: 64px; right: 80px; display: flex; align-items: center; gap: 16px; z-index: 6; opacity: .92 }
+    .watermark img { width: 64px; height: 64px; background: #fff; border-radius: 16px; padding: 7px }
+    .watermark b { font-size: 42px; font-weight: 900 }
 
-    /* Scenes */
-    .scene { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 90px; opacity: 0; }
+    /* Scenes — 3 vertical zones, space-between fills the whole frame */
+    .scene { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 150px 96px 130px; gap: 70px; opacity: 0; }
+    .z { display: flex; flex-direction: column; align-items: center; gap: 30px; width: 100% }
     .sc1 { animation: sc1 var(--T) infinite } .sc2 { animation: sc2 var(--T) infinite }
     .sc3 { animation: sc3 var(--T) infinite } .sc4 { animation: sc4 var(--T) infinite }
     .sc5 { animation: sc5 var(--T) infinite } .sc6 { animation: sc6 var(--T) infinite }
     @keyframes sc1 { 0%{opacity:0;transform:scale(1.05)} 2%{opacity:1;transform:scale(1)} 12%{opacity:1} 14%,100%{opacity:0;transform:scale(.97)} }
-    @keyframes sc2 { 0%,14%{opacity:0;transform:translateY(28px)} 17%{opacity:1;transform:translateY(0)} 26%{opacity:1} 28%,100%{opacity:0;transform:translateY(-24px)} }
+    @keyframes sc2 { 0%,14%{opacity:0;transform:translateY(40px)} 17%{opacity:1;transform:translateY(0)} 26%{opacity:1} 28%,100%{opacity:0;transform:translateY(-34px)} }
     @keyframes sc3 { 0%,28%{opacity:0;transform:scale(.95)} 31%{opacity:1;transform:scale(1)} 44%{opacity:1} 46%,100%{opacity:0;transform:scale(1.03)} }
     @keyframes sc4 { 0%,46%{opacity:0} 49%{opacity:1} 60%{opacity:1} 62%,100%{opacity:0} }
-    @keyframes sc5 { 0%,62%{opacity:0;transform:translateY(26px)} 65%{opacity:1;transform:translateY(0)} 76%{opacity:1} 78%,100%{opacity:0;transform:translateY(-20px)} }
-    @keyframes sc6 { 0%,78%{opacity:0;transform:translateY(28px)} 81%{opacity:1;transform:translateY(0)} 99%{opacity:1} 100%{opacity:0} }
+    @keyframes sc5 { 0%,62%{opacity:0;transform:translateY(36px)} 65%{opacity:1;transform:translateY(0)} 76%{opacity:1} 78%,100%{opacity:0;transform:translateY(-28px)} }
+    @keyframes sc6 { 0%,78%{opacity:0;transform:translateY(40px)} 81%{opacity:1;transform:translateY(0)} 99%{opacity:1} 100%{opacity:0} }
+
+    h2.line { font-size: 116px; font-weight: 900; line-height: 1.18 }
+    .g { color: var(--lime) }
+    .sceneSub { font-size: 50px; color: var(--soft); font-weight: 700; max-width: 24ch; line-height: 1.5 }
+    .eyebrow2 { font-size: 42px; font-weight: 800; color: var(--lime); background: rgba(188,224,138,.12); border: 2px solid rgba(188,224,138,.32); padding: 16px 42px; border-radius: 999px }
+    .statline { font-size: 48px; font-weight: 800; color: #fff; display: inline-flex; align-items: center; gap: 18px }
+    .statline i { color: var(--lime) }
 
     /* Scene 1 — Brand */
-    .badge-logo { width: 200px; height: 200px; border-radius: 48px; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 30px 70px rgba(0,0,0,.4); animation: pop 1.2s cubic-bezier(.2,.9,.3,1.3) both; }
-    .badge-logo img { width: 140px; height: 140px }
+    .badge-logo { width: 360px; height: 360px; border-radius: 86px; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 44px 100px rgba(0,0,0,.45); animation: pop 1.2s cubic-bezier(.2,.9,.3,1.3) both; }
+    .badge-logo img { width: 256px; height: 256px }
     @keyframes pop { from { transform: scale(.4); opacity: 0 } to { transform: scale(1); opacity: 1 } }
-    .brand-name { font-size: 120px; font-weight: 900; margin-top: 30px; letter-spacing: -2px }
-    .brand-sub { font-size: 38px; color: var(--soft); margin-top: 6px; font-weight: 700 }
-    .rule { width: 120px; height: 7px; border-radius: 4px; background: linear-gradient(90deg, var(--p2), var(--lime)); margin: 30px auto 0 }
-
-    h2.line { font-size: 76px; font-weight: 900; line-height: 1.2 }
-    .g { color: var(--lime) }
-    .big-emoji { font-size: 120px; margin-bottom: 20px }
+    .brand-name { font-size: 220px; font-weight: 900; letter-spacing: -4px; line-height: 1 }
+    .brand-sub { font-size: 60px; color: var(--soft); font-weight: 700 }
+    .rule { width: 200px; height: 12px; border-radius: 7px; background: linear-gradient(90deg, var(--p2), var(--lime)); }
+    .pills { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center }
+    .pill { font-size: 40px; font-weight: 700; color: #eaf4d9; background: rgba(255,255,255,.10); border: 2px solid rgba(255,255,255,.18); padding: 18px 38px; border-radius: 999px; display: inline-flex; align-items: center; gap: 16px }
+    .pill i { color: var(--lime) }
 
     /* Scene 2 — problem */
-    .paper { width: 360px; height: 240px; background: #f4efe2; border-radius: 18px; position: relative; transform: rotate(-6deg); box-shadow: 0 24px 50px rgba(0,0,0,.45); margin-bottom: 40px; overflow: hidden }
-    .paper::before { content: ""; position: absolute; inset: 26px; background: repeating-linear-gradient(#cdbf9b 0 3px, transparent 3px 30px) }
-    .x-mark { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 150px; color: #c0392b; text-shadow: 0 6px 16px rgba(0,0,0,.3); animation: xpulse 1.4s ease-in-out infinite }
+    .paper { width: 600px; height: 410px; background: #f4efe2; border-radius: 30px; position: relative; transform: rotate(-6deg); box-shadow: 0 40px 80px rgba(0,0,0,.5); overflow: hidden }
+    .paper::before { content: ""; position: absolute; inset: 44px; background: repeating-linear-gradient(#cdbf9b 0 4px, transparent 4px 48px) }
+    .x-mark { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 270px; color: #c0392b; text-shadow: 0 8px 22px rgba(0,0,0,.3); animation: xpulse 1.4s ease-in-out infinite }
     @keyframes xpulse { 50% { transform: scale(1.12) } }
 
     /* Scene 3 — AUREX tap */
-    .tap { position: relative; width: 560px; height: 360px; margin: 0 auto 30px }
-    .phone { position: absolute; width: 168px; height: 330px; border-radius: 30px; background: linear-gradient(160deg, #1e3413, #0e1808); border: 3px solid #3a5a22; box-shadow: 0 24px 60px rgba(0,0,0,.5); display: flex; flex-direction: column; align-items: center; padding-top: 26px; }
-    .phone img { width: 54px; height: 54px; background: #fff; border-radius: 12px; padding: 4px }
-    .phone .ln { width: 70%; height: 9px; border-radius: 6px; background: rgba(255,255,255,.18); margin-top: 14px }
+    .tap { position: relative; width: 800px; height: 540px }
+    .phone { position: absolute; width: 248px; height: 490px; border-radius: 46px; background: linear-gradient(160deg, #1e3413, #0e1808); border: 4px solid #3a5a22; box-shadow: 0 34px 76px rgba(0,0,0,.55); display: flex; flex-direction: column; align-items: center; padding-top: 40px; }
+    .phone img { width: 84px; height: 84px; background: #fff; border-radius: 20px; padding: 7px }
+    .phone .ln { width: 70%; height: 14px; border-radius: 8px; background: rgba(255,255,255,.18); margin-top: 24px }
     .phone .ln.s { width: 45% }
-    .phone.left { right: 70px; top: 20px; transform: rotate(-9deg) }
-    .phone.right { left: 70px; top: 20px; transform: rotate(9deg) }
-    .pulse { position: absolute; left: 50%; top: 52%; width: 60px; height: 60px; margin: -30px 0 0 -30px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 40px var(--lime); animation: tapglow 1.6s ease-out infinite }
-    .pulse::after, .pulse::before { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 3px solid var(--lime); animation: ring 1.6s ease-out infinite }
+    .phone.left { right: 96px; top: 28px; transform: rotate(-9deg) }
+    .phone.right { left: 96px; top: 28px; transform: rotate(9deg) }
+    .pulse { position: absolute; left: 50%; top: 52%; width: 94px; height: 94px; margin: -47px 0 0 -47px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 70px var(--lime); animation: tapglow 1.6s ease-out infinite }
+    .pulse::after, .pulse::before { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 5px solid var(--lime); animation: ring 1.6s ease-out infinite }
     .pulse::before { animation-delay: .8s }
-    @keyframes ring { from { transform: scale(1); opacity: .9 } to { transform: scale(3.6); opacity: 0 } }
+    @keyframes ring { from { transform: scale(1); opacity: .9 } to { transform: scale(3.8); opacity: 0 } }
     @keyframes tapglow { 50% { transform: scale(1.18) } }
-    .check-badge { display: inline-flex; align-items: center; gap: 12px; background: var(--grad); color: #fff; font-size: 30px; font-weight: 800; padding: 14px 28px; border-radius: 999px; margin-top: 8px; animation: pop 1s ease both; box-shadow: 0 14px 30px rgba(0,0,0,.35) }
-    .aurex-tag { font-size: 30px; color: var(--lime); font-weight: 800; letter-spacing: 1px; margin-top: 22px }
+    .check-badge { display: inline-flex; align-items: center; gap: 18px; background: var(--grad); color: #fff; font-size: 48px; font-weight: 800; padding: 24px 48px; border-radius: 999px; animation: pop 1s ease both; box-shadow: 0 22px 50px rgba(0,0,0,.4) }
+    .aurex-tag { font-size: 52px; color: var(--lime); font-weight: 800; letter-spacing: 2px }
 
-    /* Scene 4 — features */
-    .feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; width: 760px }
-    .fcard { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14); border-radius: 24px; padding: 36px 28px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
-    .fcard i { font-size: 56px; color: var(--lime) }
-    .fcard span { font-size: 32px; font-weight: 800 }
+    /* Scene 4 — features (single tall column) */
+    .scene-head { font-size: 96px; font-weight: 900; line-height: 1.15 }
+    .feat-col { display: flex; flex-direction: column; gap: 30px; width: 100% }
+    .fcard { background: rgba(255,255,255,.06); border: 2px solid rgba(255,255,255,.14); border-radius: 36px; padding: 40px 48px; display: flex; align-items: center; gap: 36px; }
+    .fcard i { font-size: 76px; color: var(--lime); width: 96px; text-align: center; flex: none }
+    .fcard span { font-size: 56px; font-weight: 800; text-align: right }
     .f1 { animation: fpop var(--T) infinite } .f2 { animation: fpop2 var(--T) infinite }
     .f3 { animation: fpop3 var(--T) infinite } .f4 { animation: fpop4 var(--T) infinite }
-    @keyframes fpop { 0%,49%{opacity:0;transform:scale(.6) translateY(20px)} 52%{opacity:1;transform:none} 100%{opacity:1} }
-    @keyframes fpop2 { 0%,51%{opacity:0;transform:scale(.6) translateY(20px)} 54%{opacity:1;transform:none} 100%{opacity:1} }
-    @keyframes fpop3 { 0%,53%{opacity:0;transform:scale(.6) translateY(20px)} 56%{opacity:1;transform:none} 100%{opacity:1} }
-    @keyframes fpop4 { 0%,55%{opacity:0;transform:scale(.6) translateY(20px)} 58%{opacity:1;transform:none} 100%{opacity:1} }
+    @keyframes fpop { 0%,49%{opacity:0;transform:translateX(40px)} 52%{opacity:1;transform:none} 100%{opacity:1} }
+    @keyframes fpop2 { 0%,51%{opacity:0;transform:translateX(40px)} 54%{opacity:1;transform:none} 100%{opacity:1} }
+    @keyframes fpop3 { 0%,53%{opacity:0;transform:translateX(40px)} 56%{opacity:1;transform:none} 100%{opacity:1} }
+    @keyframes fpop4 { 0%,55%{opacity:0;transform:translateX(40px)} 58%{opacity:1;transform:none} 100%{opacity:1} }
 
     /* Scene 5 — Customer stores */
-    .shops { display: flex; gap: 26px; justify-content: center; margin-top: 34px }
-    .shop { width: 252px; border-radius: 22px; overflow: hidden; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.16); box-shadow: 0 18px 44px rgba(0,0,0,.45) }
-    .shop img { width: 100%; height: 300px; object-fit: cover; display: block }
-    .shop span { display: block; padding: 16px 8px; font-size: 25px; font-weight: 800; text-align: center; color: #fff }
+    .shops { display: flex; gap: 30px; justify-content: center; width: 100% }
+    .shop { flex: 1; border-radius: 32px; overflow: hidden; background: rgba(255,255,255,.06); border: 2px solid rgba(255,255,255,.16); box-shadow: 0 26px 60px rgba(0,0,0,.5) }
+    .shop img { width: 100%; height: 720px; object-fit: cover; display: block }
+    .shop span { display: block; padding: 30px 8px; font-size: 42px; font-weight: 800; text-align: center; color: #fff }
     .shop.h1 { animation: spop var(--T) infinite } .shop.h2 { animation: spop2 var(--T) infinite } .shop.h3 { animation: spop3 var(--T) infinite }
-    @keyframes spop { 0%,63%{opacity:0;transform:translateY(30px) scale(.92)} 66%{opacity:1;transform:none} 100%{opacity:1} }
-    @keyframes spop2 { 0%,65%{opacity:0;transform:translateY(30px) scale(.92)} 68%{opacity:1;transform:none} 100%{opacity:1} }
-    @keyframes spop3 { 0%,67%{opacity:0;transform:translateY(30px) scale(.92)} 70%{opacity:1;transform:none} 100%{opacity:1} }
+    @keyframes spop { 0%,63%{opacity:0;transform:translateY(44px) scale(.92)} 66%{opacity:1;transform:none} 100%{opacity:1} }
+    @keyframes spop2 { 0%,65%{opacity:0;transform:translateY(44px) scale(.92)} 68%{opacity:1;transform:none} 100%{opacity:1} }
+    @keyframes spop3 { 0%,67%{opacity:0;transform:translateY(44px) scale(.92)} 70%{opacity:1;transform:none} 100%{opacity:1} }
 
     /* Scene 6 — CTA */
-    .cta-free { font-size: 34px; font-weight: 800; color: var(--lime); margin-bottom: 8px }
-    .cta-title { font-size: 84px; font-weight: 900; line-height: 1.15 }
-    .stores { display: flex; gap: 22px; margin-top: 44px }
-    .store { display: inline-flex; align-items: center; gap: 14px; background: #fff; color: #14210C; font-weight: 800; padding: 18px 30px; border-radius: 18px; font-size: 28px; box-shadow: 0 16px 36px rgba(0,0,0,.35) }
-    .store i { font-size: 40px }
-    .cta-foot { margin-top: 40px; font-size: 30px; color: var(--soft); font-weight: 700 }
+    .cta-free { font-size: 54px; font-weight: 800; color: var(--lime); display: inline-flex; align-items: center; gap: 18px }
+    .cta-title { font-size: 130px; font-weight: 900; line-height: 1.16 }
+    .stores { display: flex; gap: 30px; flex-wrap: wrap; justify-content: center }
+    .store { display: inline-flex; align-items: center; gap: 18px; background: #fff; color: #14210C; font-weight: 800; padding: 28px 48px; border-radius: 28px; font-size: 46px; box-shadow: 0 24px 52px rgba(0,0,0,.4) }
+    .store i { font-size: 60px }
+    .cta-foot { font-size: 48px; color: var(--soft); font-weight: 700 }
     .cta-foot b { color: #fff }
 
-    /* progress bar */
-    .progress { position: absolute; left: 0; bottom: 0; height: 8px; background: var(--grad); width: 0; animation: prog var(--T) linear infinite; z-index: 7 }
+    .progress { position: absolute; left: 0; bottom: 0; height: 12px; background: var(--grad); width: 0; animation: prog var(--T) linear infinite; z-index: 7 }
     @keyframes prog { from { width: 0 } to { width: 100% } }
 
     @media (prefers-reduced-motion: reduce) { * { animation: none !important } }
+
+    .fsbtn { position: fixed; top: 18px; left: 18px; z-index: 50; font-family: inherit; font-weight: 800; font-size: 16px; border: 0; cursor: pointer; background: rgba(20,33,12,.92); color: #fff; padding: 12px 22px; border-radius: 999px; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 6px 18px rgba(0,0,0,.35) }
+    .fsbtn:hover { background: #5B7A23 }
   </style>
 </head>
 
 <body>
+  <button id="fsBtn" class="fsbtn" onclick="toggleFs()"><i class="fas fa-expand"></i> ملء الشاشة</button>
+
   <div class="stage" id="stage">
     <div class="grid-bg"></div>
-    <span class="blob a"></span><span class="blob b"></span>
-
+    <span class="blob a"></span><span class="blob b"></span><span class="blob c"></span>
     <div class="watermark"><img src="assets/img/Yusr.png" alt="يُسر"><b>يُسر</b></div>
 
     <!-- Scene 1: Brand -->
     <div class="scene sc1">
-      <div class="badge-logo"><img src="assets/img/Yusr.png" alt="يُسر"></div>
-      <div class="brand-name">يُسر</div>
-      <div class="brand-sub">وسيطك الرقمي لتوثيق الحقوق</div>
-      <div class="rule"></div>
+      <div class="z"><div class="badge-logo"><img src="assets/img/Yusr.png" alt="يُسر"></div></div>
+      <div class="z"><div class="brand-name">يُسر</div><div class="brand-sub">وسيطك الرقمي لتوثيق الحقوق</div><div class="rule"></div></div>
+      <div class="z"><div class="pills">
+        <span class="pill"><i class="fas fa-fingerprint"></i> توثيق فوري</span>
+        <span class="pill"><i class="fas fa-lock"></i> غير قابل للتلاعب</span>
+        <span class="pill"><i class="fas fa-gift"></i> مجاني للأفراد</span>
+      </div></div>
     </div>
 
     <!-- Scene 2: Problem -->
     <div class="scene sc2">
-      <div class="paper"><span class="x-mark"><i class="fas fa-xmark"></i></span></div>
-      <h2 class="line">دفاتر الديون الورقية<br><span class="g">تضيع معها حقوقك</span></h2>
+      <div class="z"><span class="eyebrow2">المشكلة</span></div>
+      <div class="z"><div class="paper"><span class="x-mark"><i class="fas fa-xmark"></i></span></div></div>
+      <div class="z"><h2 class="line">دفاتر الديون الورقية<br><span class="g">تضيع معها حقوقك</span></h2><div class="sceneSub">ضياع للحقوق ونزاعات لا تنتهي</div></div>
     </div>
 
     <!-- Scene 3: AUREX tap -->
     <div class="scene sc3">
-      <div class="tap">
+      <div class="z"><div class="tap">
         <div class="phone left"><img src="assets/img/Yusr.png" alt=""><span class="ln"></span><span class="ln s"></span></div>
         <div class="phone right"><img src="assets/img/Yusr.png" alt=""><span class="ln"></span><span class="ln s"></span></div>
         <span class="pulse"></span>
-      </div>
-      <h2 class="line">لمسة <span class="g">تُوثّق</span>، لا تدفع</h2>
-      <span class="check-badge"><i class="fas fa-circle-check"></i> تم التوثيق فوراً</span>
-      <div class="aurex-tag">بتقنية AUREX</div>
+      </div></div>
+      <div class="z"><h2 class="line">لمسة <span class="g">تُوثّق</span>، لا تدفع</h2><span class="check-badge"><i class="fas fa-circle-check"></i> تم التوثيق فوراً</span></div>
+      <div class="z"><div class="aurex-tag">بتقنية AUREX</div></div>
     </div>
 
     <!-- Scene 4: Features -->
     <div class="scene sc4">
-      <div class="feat-grid">
-        <div class="fcard f1"><i class="fas fa-fingerprint"></i><span>توثيق فوري بلمسة</span></div>
-        <div class="fcard f2"><i class="fas fa-lock"></i><span>غير قابل للتلاعب</span></div>
-        <div class="fcard f3"><i class="fas fa-wifi"></i><span>يعمل بلا إنترنت</span></div>
+      <div class="z"><div class="scene-head">كل ما تحتاجه <span class="g">لحفظ حقّك</span></div></div>
+      <div class="z"><div class="feat-col">
+        <div class="fcard f1"><i class="fas fa-fingerprint"></i><span>توثيق فوري بلمسة واحدة</span></div>
+        <div class="fcard f2"><i class="fas fa-lock"></i><span>غير قابل للتلاعب أو الإنكار</span></div>
+        <div class="fcard f3"><i class="fas fa-wifi"></i><span>يعمل حتى بلا إنترنت</span></div>
         <div class="fcard f4"><i class="fas fa-mobile-screen"></i><span>على كل الأجهزة</span></div>
-      </div>
+      </div></div>
     </div>
 
     <!-- Scene 5: Customer stores -->
     <div class="scene sc5">
-      <h2 class="line">متاجر <span class="g">تثق بـ يُسر</span></h2>
-      <div class="shops">
+      <div class="z"><h2 class="line">متاجر <span class="g">تثق بـ يُسر</span></h2></div>
+      <div class="z"><div class="shops">
         <div class="shop h1"><img src="assets/img/store-grocery.jpg" alt="بقالة وتموينات"><span>بقالة وتموينات</span></div>
         <div class="shop h2"><img src="assets/img/store-decor.jpg" alt="محل ديكور ومفروشات"><span>ديكور ومفروشات</span></div>
         <div class="shop h3"><img src="assets/img/store-laundry.jpg" alt="مغسلة ملابس"><span>مغسلة ملابس</span></div>
-      </div>
+      </div></div>
+      <div class="z"><div class="statline"><i class="fas fa-store"></i> تجار حقيقيون يستخدمون يُسر الآن</div></div>
     </div>
 
     <!-- Scene 6: CTA -->
     <div class="scene sc6">
-      <div class="cta-free"><i class="fas fa-gift"></i> مجاني للأفراد بالكامل</div>
-      <div class="cta-title">حمّل <span class="g">يُسر</span> الآن<br>ووثّق حقّك</div>
-      <div class="stores">
+      <div class="z"><div class="badge-logo" style="width:200px;height:200px;border-radius:50px"><img src="assets/img/Yusr.png" alt="يُسر" style="width:140px;height:140px"></div><div class="cta-free"><i class="fas fa-gift"></i> مجاني للأفراد بالكامل</div></div>
+      <div class="z"><div class="cta-title">حمّل <span class="g">يُسر</span> الآن<br>ووثّق حقّك</div></div>
+      <div class="z"><div class="stores">
         <span class="store"><i class="fab fa-apple"></i> App Store</span>
         <span class="store"><i class="fab fa-google-play"></i> Google Play</span>
-      </div>
-      <div class="cta-foot">وثّق الآن، والسداد <b>لاحقاً</b> — بكل يُسر</div>
+      </div><div class="cta-foot">وثّق الآن، والسداد <b>لاحقاً</b> — بكل يُسر</div></div>
     </div>
 
     <div class="progress"></div>
@@ -202,10 +213,21 @@
 
   <script>
     function fit() {
-      var s = Math.min(window.innerWidth, window.innerHeight) / 1080;
+      var s = Math.min(window.innerWidth / 1440, window.innerHeight / 2560);
       document.getElementById('stage').style.setProperty('--s', s);
     }
     window.addEventListener('resize', fit); fit();
+
+    function toggleFs() {
+      var el = document.documentElement;
+      if (!document.fullscreenElement) { (el.requestFullscreen || el.webkitRequestFullscreen).call(el); }
+      else { document.exitFullscreen(); }
+    }
+    document.addEventListener('fullscreenchange', function () {
+      var btn = document.getElementById('fsBtn');
+      if (btn) btn.style.display = document.fullscreenElement ? 'none' : '';
+      fit();
+    });
   </script>
 </body>
 
