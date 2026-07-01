@@ -34,7 +34,7 @@ body{font-family:'Cairo',system-ui,sans-serif;direction:rtl;background:#e9ede1;c
   .doc{box-shadow:none;width:auto}
   .page{page-break-after:always;min-height:auto;padding:12mm 15mm}
   .page:last-child{page-break-after:auto}
-  .sec,.kpis,.stories,.team,.ftab,.callout,.sign,.tband,.lh,.partners,.story,.mem,.funds,.total{page-break-inside:avoid}
+  .sec,.kpis,.stories,.ftab,.callout,.sign,.tband,.lh,.partners,.story,.funds,.total,.launch,.awards,.aw{page-break-inside:avoid}
 }
 
 .lh{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding-bottom:14px;border-bottom:3px solid var(--primary)}
@@ -54,6 +54,15 @@ body{font-family:'Cairo',system-ui,sans-serif;direction:rtl;background:#e9ede1;c
 
 .intro{margin:15px 0 2px;font-size:14px;color:#3d4736}
 .intro b{color:var(--primary-dark)}
+
+/* Launch highlight */
+.launch{display:flex;gap:16px;align-items:center;background:var(--grad);border-radius:15px;padding:15px 18px;color:#fff;margin-top:16px;position:relative;overflow:hidden}
+.launch:after{content:"";position:absolute;inset:0;background:radial-gradient(130% 150% at 6% -20%,rgba(255,255,255,.22),transparent 55%)}
+.launch .txt{flex:1;position:relative}
+.launch .txt .k{font-size:11px;font-weight:800;color:#eaf6d8;letter-spacing:.5px;margin-bottom:4px}
+.launch .txt h3{font-size:19px;font-weight:900;margin-bottom:5px;color:#fff}
+.launch .txt p{font-size:12.5px;color:#f2f8e8;line-height:1.6;margin:0}
+.launch .pic{flex:none;width:100px;height:128px;border-radius:12px;background-size:cover;background-position:center;border:3px solid rgba(255,255,255,.55);position:relative}
 
 .sec{margin-top:17px}
 .sec > h2{display:flex;align-items:center;gap:10px;font-size:17px;font-weight:900;color:var(--primary-dark);margin-bottom:10px}
@@ -99,6 +108,21 @@ body{font-family:'Cairo',system-ui,sans-serif;direction:rtl;background:#e9ede1;c
 .ftab td b{color:var(--primary)}
 .fnote{font-size:10.5px;color:var(--muted);text-align:center;margin-top:6px;line-height:1.6}
 
+/* Funders */
+.funds{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:4px}
+.fund{border:1px solid var(--border);border-radius:13px;background:var(--bg-tint);padding:14px 10px;text-align:center}
+.fund .amt{font-size:20px;font-weight:900;color:var(--primary);line-height:1}
+.fund .amt small{font-size:10.5px;font-weight:800}
+.fund .src{font-size:10.5px;color:var(--primary-dark);font-weight:800;margin-top:6px;line-height:1.45}
+.total{margin-top:10px;text-align:center;background:var(--grad-dark);color:#eaf6d8;border-radius:12px;padding:10px 14px;font-size:13px;font-weight:800}
+.total b{color:#bce08a;font-size:15.5px}
+
+/* Awards gallery */
+.awards{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;margin-top:12px}
+.aw{border:1px solid var(--border);border-radius:13px;overflow:hidden;background:#fff}
+.aw .im{height:138px;background-size:cover;background-position:center top}
+.aw .cap{padding:8px 11px;font-size:11px;font-weight:800;color:var(--primary-dark);text-align:center;line-height:1.45}
+
 .sign{margin-top:18px;display:flex;justify-content:space-between;align-items:flex-end;gap:20px;border-top:1px solid var(--border);padding-top:14px}
 .sign .who b{color:var(--primary-dark);font-size:14px}
 .sign .who span{font-size:11.5px;color:var(--muted);display:block;margin-top:2px}
@@ -113,15 +137,6 @@ body{font-family:'Cairo',system-ui,sans-serif;direction:rtl;background:#e9ede1;c
 .hi{color:var(--primary);font-weight:900}
 .close{margin-top:14px;text-align:center;border-top:3px solid var(--primary);border-radius:12px;background:var(--bg-light);padding:12px 16px}
 .close p{font-size:13.5px;margin:0}
-
-.funds{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:4px}
-.fund{border:1px solid var(--border);border-radius:13px;background:var(--bg-tint);padding:15px 10px;text-align:center}
-.fund .amt{font-size:21px;font-weight:900;color:var(--primary);line-height:1}
-.fund .amt small{font-size:11px;font-weight:800}
-.fund .src{font-size:11px;color:var(--primary-dark);font-weight:800;margin-top:6px;line-height:1.45}
-.total{margin-top:11px;text-align:center;background:var(--grad-dark);color:#eaf6d8;border-radius:12px;padding:11px 14px;font-size:13.5px;font-weight:800}
-.total b{color:#bce08a;font-size:16px}
-.badge-store{display:inline-block;background:#e7f0d6;color:var(--primary);font-size:11.5px;font-weight:800;padding:2px 10px;border-radius:999px}
 
 </style>
 </head>
@@ -141,31 +156,41 @@ body{font-family:'Cairo',system-ui,sans-serif;direction:rtl;background:#e9ede1;c
   <p class="intro">السلام عليكم ورحمة الله وبركاته، وبعد،<br>
   يسرّنا في <b>شركة ميسور للاتصالات وتقنية المعلومات</b> — الجهة المطوّرة لتطبيق <b>«يُسر»</b> — أن نرفع لكم هذا التحديث بأبرز مستجدّاتنا وقصص نجاحنا ومؤشرات نمونا، عرفانًا بدعمكم واحتضانكم الذي كان له أثرٌ ملموس في مسيرتنا. ونعتزّ بالشراكة مع <b>مركز ريادة الأعمال (كود)</b> في بناء منتجٍ تقني سعودي يخدم المنشآت الصغيرة والمتوسطة ويعزّز الاقتصاد الرقمي ضمن مستهدفات رؤية المملكة 2030.</p>
 
+  <div class="launch">
+    <div class="txt">
+      <div class="k">أحدث المستجدات</div>
+      <h3>التدشين الرسمي لتطبيق «يُسر»</h3>
+      <p>احتفلنا بتدشين «يُسر» رسميًا — لحظةٌ نعتزّ بها ونشارككم فرحتها، تتوّج شهورًا من العمل وتؤذن بمرحلة انطلاقٍ أوسع في السوق السعودي.</p>
+    </div>
+    <div class="pic" style="background-image:url('assets/img/launch.jpg')"></div>
+  </div>
+
   <div class="sec">
     <h2><span class="no">1</span> الوضع الحالي للشركة</h2>
-    <p>شركة <strong>ميسور</strong> شركةٌ تقنية سعودية ناشئة، منتجها الأول تطبيق <strong>«يُسر»</strong>: وسيطٌ رقمي آمن لتوثيق الديون والعربون بين المتاجر والموردين وعملائهم. بدأنا بتقنية رمز الاستجابة (QR) وأثبتنا الفكرة في السوق، <strong>ثم أعدنا الإطلاق منذ شهرين</strong> بتقنيتنا المطوّرة داخليًا <strong>AUREX</strong> — وبدأنا فعليًا نحقّق إيرادات تشغيلية.</p>
+    <p>شركة <strong>ميسور</strong> شركةٌ تقنية سعودية ناشئة، منتجها الأول تطبيق <strong>«يُسر»</strong>: وسيطٌ رقمي آمن لتوثيق الديون والعربون بين المتاجر والموردين وعملائهم. بدأنا بتقنية رمز الاستجابة (QR) وأثبتنا الفكرة، ثم أعدنا الإطلاق بتقنيتنا المطوّرة داخليًا <strong>AUREX</strong> وبدأنا نحقّق إيرادات فعلية — وصولًا إلى <strong>التدشين الرسمي</strong> للتطبيق.</p>
     <ul class="ul">
       <li><b>تشغيلٌ فعلي حيّ:</b> التطبيق يعمل في السوق مع متاجر ومستخدمين حقيقيين يوثّقون معاملاتهم يوميًا.</li>
       <li><b>تمويل ذاتي 100%:</b> نُدير تشغيلنا الحالي بالكامل ذاتيًا، بانضباطٍ مالي عالٍ وكفاءةٍ في رأس المال.</li>
       <li><b>ملكية فكرية سعودية:</b> تقنية AUREX قيد التسجيل كـ<b>براءة اختراع</b> — أصلٌ استراتيجي يحمي تميّزنا التنافسي.</li>
-      <li><b>ثقة المنظومة:</b> حصلنا على دعمٍ وجوائز من عدّة جهات وطنية رائدة (تفصيلها في الصفحة 3).</li>
+      <li><b>ثقة المنظومة:</b> دعمٌ وجوائز من عدّة جهات وطنية رائدة (تفصيلها في الصفحة 4).</li>
     </ul>
   </div>
+  <div class="pfoot"><span class="b"><img src="assets/img/Yusr.png">يُسر · شركة ميسور للاتصالات وتقنية المعلومات</span><span>تحديث المستجدات — يوليو 2026 · صفحة 1 من 4</span></div>
+</section>
 
+<section class="page">
   <div class="sec">
     <h2><span class="no">2</span> أبرز الإنجازات والتطورات</h2>
     <ul class="ul">
+      <li><b>التدشين الرسمي لتطبيق «يُسر»</b> — تتويجٌ لمسيرة التطوير وإعلانٌ لمرحلة انطلاقٍ أوسع.</li>
       <li><b>رفع التطبيق على متجر آبل (App Store)</b> وهو حاليًا <b>قيد المراجعة النهائية</b>، مع استكمال متطلبات ومعالجات <b>الأمن السيبراني</b> استعدادًا للنشر العام.</li>
-      <li><b>إطلاق النسخة الجديدة بتقنية AUREX</b> التي تحوّل الدفاتر الورقية إلى سجلّات موثّقة بتوقيعٍ رقمي متقدّم يمنع التلاعب أو الإنكار.</li>
-      <li><b>تحقيق إيرادات فعلية خلال أول شهرين</b> من إعادة الإطلاق — دليلٌ مبكّر على جاهزية المنتج للسوق.</li>
+      <li><b>إطلاق تقنية AUREX</b> التي تحوّل الدفاتر الورقية إلى سجلّات موثّقة بتوقيعٍ رقمي متقدّم يمنع التلاعب أو الإنكار.</li>
+      <li><b>تحقيق إيرادات فعلية مبكّرة</b> — دليلٌ على جاهزية المنتج للسوق.</li>
       <li><b>توسيع نموذج العمل</b> ليشمل الأفراد والمنشآت والجهات الحكومية، وتوثيق العلاقة بين <b>المورّد والتاجر</b> داخل المملكة وخارجها.</li>
       <li><b>بناء واجهة AUREX API</b> جاهزة للتكامل مع الشركات والبنوك والجهات الحكومية الكبرى (نماذج B2B وB2G).</li>
     </ul>
   </div>
-  <div class="pfoot"><span class="b"><img src="assets/img/Yusr.png">يُسر · شركة ميسور للاتصالات وتقنية المعلومات</span><span>تحديث المستجدات — يوليو 2026 · صفحة 1 من 3</span></div>
-</section>
 
-<section class="page">
   <div class="sec">
     <h2><span class="no">◇</span> شركاء النجاح والاحتضان</h2>
     <div class="partners">
@@ -182,13 +207,16 @@ body{font-family:'Cairo',system-ui,sans-serif;direction:rtl;background:#e9ede1;c
     <div class="kpis">
       <div class="kpi"><div class="v">10<small>+</small></div><div class="l">متجرٌ مشترك يوثّق حقوقه</div></div>
       <div class="kpi"><div class="v">50<small>+</small></div><div class="l">مستخدمٌ وثّق حقّه عبر «يُسر»</div></div>
-      <div class="kpi dark"><div class="v">7,000<small> ر.س</small></div><div class="l">إيرادات فعلية خلال شهرين</div></div>
+      <div class="kpi dark"><div class="v">7,000<small> ر.س</small></div><div class="l">إيرادات فعلية مبكّرة</div></div>
       <div class="kpi"><div class="v">100<small>%</small></div><div class="l">تمويل ذاتي في التشغيل</div></div>
       <div class="kpi"><div class="v">100<small>%</small></div><div class="l">مجاني للأفراد</div></div>
       <div class="kpi"><div class="v">24/7</div><div class="l">توثيق وأرشفة دائمة</div></div>
     </div>
   </div>
+  <div class="pfoot"><span class="b"><img src="assets/img/Yusr.png">يُسر · شركة ميسور للاتصالات وتقنية المعلومات</span><span>تحديث المستجدات — يوليو 2026 · صفحة 2 من 4</span></div>
+</section>
 
+<section class="page">
   <div class="sec">
     <h2><span class="no">4</span> قصص النجاح من واقع الاستخدام</h2>
     <div class="stories">
@@ -207,12 +235,28 @@ body{font-family:'Cairo',system-ui,sans-serif;direction:rtl;background:#e9ede1;c
       <li><b>الحاجة إلى رأس مالٍ للتوسّع والتسويق</b> — نُديرها بانضباط، ونعتمد على التمويل الذاتي وطرق التسويق الرقمي الحديثة عالية الكفاءة.</li>
     </ul>
   </div>
-  <div class="pfoot"><span class="b"><img src="assets/img/Yusr.png">يُسر · شركة ميسور للاتصالات وتقنية المعلومات</span><span>تحديث المستجدات — يوليو 2026 · صفحة 2 من 3</span></div>
+
+  <div class="sec">
+    <h2><span class="no">6</span> الأثر المالي والرؤية المستقبلية</h2>
+    <table class="ftab">
+      <tr><th>المؤشر (مستهدف — دراسة الجدوى)</th><th>السنة 1</th><th>السنة 2</th><th>السنة 3</th></tr>
+      <tr><td>الإيرادات المتوقعة (ر.س)</td><td><b>513,190</b></td><td><b>616,900</b></td><td><b>737,100</b></td></tr>
+      <tr><td>صافي الربح المتوقع (ر.س)</td><td>460,111</td><td>444,716</td><td>539,486</td></tr>
+      <tr><td>الانتشار المستهدف</td><td>توسّع محلي</td><td>+5,000 متجر</td><td>+14,000 متجر وأسواق المنطقة</td></tr>
+    </table>
+    <p class="fnote">أرقام السنوات الثلاث تقديريةٌ مستهدفة وفق دراسة الجدوى · صافي ربحٍ تراكمي متوقع يقارب 1.44 مليون ريال · السوق السعودي المستهدف نحو 2.85 مليار دولار و1.3 مليون منشأة صغيرة ومتوسطة.</p>
+    <ul class="ul" style="margin-top:8px">
+      <li>تعميق الانتشار بين المنشآت الصغيرة والمتوسطة عبر التسويق الرقمي عالي الكفاءة.</li>
+      <li>إبرام أول <b>عميل بنكي/حكومي</b> عبر واجهة AUREX API (نماذج B2B/B2G).</li>
+      <li>ترسيخ الريادة في <b>توثيق الحقوق المالية</b> والتوسّع نحو أسواق المنطقة.</li>
+    </ul>
+  </div>
+  <div class="pfoot"><span class="b"><img src="assets/img/Yusr.png">يُسر · شركة ميسور للاتصالات وتقنية المعلومات</span><span>تحديث المستجدات — يوليو 2026 · صفحة 3 من 4</span></div>
 </section>
 
 <section class="page">
   <div class="sec">
-    <h2><span class="no">6</span> الدعم والجوائز التي حصلنا عليها</h2>
+    <h2><span class="no">7</span> الدعم والجوائز التي حصلنا عليها</h2>
     <div class="funds">
       <div class="fund"><div class="amt">150,000<small> ر.س</small></div><div class="src">مركز ريادة الأعمال (كود)</div></div>
       <div class="fund"><div class="amt">30,000<small> ر.س</small></div><div class="src">منشآت — جامعة جازان</div></div>
@@ -220,32 +264,21 @@ body{font-family:'Cairo',system-ui,sans-serif;direction:rtl;background:#e9ede1;c
       <div class="fund"><div class="amt">5,000<small> ر.س</small></div><div class="src">الجمعية السعودية للمحاسبة</div></div>
     </div>
     <div class="total">إجمالي الدعم والجوائز <b>195,000 ريال</b> — ثقةٌ من منظومة ريادة الأعمال والتقنية في المملكة</div>
-    <div class="callout dark"><h4>أثر دعم مركزكم — بمسؤولية وانضباط</h4><p>نعتزّ بالدعم الذي منحتمونا إياه بمبلغ <b>150,000 ريال</b>. وحرصًا منّا على الاستدامة والكفاءة، <b>لم نصرف منه أي ريال حتى تاريخه</b>، واحتفظنا به كـ<b>احتياطيٍّ استراتيجي واستثمارٍ للمستقبل</b> — معتمدين على التمويل الذاتي 100% في تشغيلنا الحالي. نرى في هذا الانضباط المالي التزامًا أمينًا بثقتكم، وأساسًا لنموٍّ مدروسٍ طويل المدى.</p></div>
-  </div>
-
-  <div class="sec">
-    <h2><span class="no">7</span> الأثر المالي والرؤية المستقبلية</h2>
-    <table class="ftab">
-      <tr><th>المؤشر (مستهدف — دراسة الجدوى)</th><th>السنة 1</th><th>السنة 2</th><th>السنة 3</th></tr>
-      <tr><td>الإيرادات المتوقعة (ر.س)</td><td><b>513,190</b></td><td><b>616,900</b></td><td><b>737,100</b></td></tr>
-      <tr><td>صافي الربح المتوقع (ر.س)</td><td>460,111</td><td>444,716</td><td>539,486</td></tr>
-      <tr><td>الانتشار المستهدف</td><td>توسّع محلي</td><td>+5,000 متجر</td><td>+14,000 متجر وأسواق المنطقة</td></tr>
-    </table>
-    <p class="fnote">أرقام السنوات الثلاث تقديريةٌ مستهدفة وفق دراسة الجدوى · صافي ربحٍ تراكمي متوقع يقارب 1.44 مليون ريال برأس مالٍ نحو 150 ألف ريال · السوق السعودي المستهدف نحو 2.85 مليار دولار و1.3 مليون منشأة صغيرة ومتوسطة.</p>
-    <ul class="ul" style="margin-top:8px">
-      <li>تعميق الانتشار بين المنشآت الصغيرة والمتوسطة عبر التسويق الرقمي عالي الكفاءة.</li>
-      <li>إبرام أول <b>عميل بنكي/حكومي</b> عبر واجهة AUREX API (نماذج B2B/B2G).</li>
-      <li>ترسيخ الريادة في <b>توثيق الحقوق المالية</b> والتوسّع نحو أسواق المنطقة.</li>
-    </ul>
+    <div class="awards">
+      <div class="aw"><div class="im" style="background-image:url('assets/img/awards/code.webp')"></div><div class="cap">مركز ريادة الأعمال الرقمية (كود)</div></div>
+      <div class="aw"><div class="im" style="background-image:url('assets/img/awards/monshaat.webp')"></div><div class="cap">منشآت — تمكين أندية ريادة الأعمال الجامعية</div></div>
+      <div class="aw"><div class="im" style="background-image:url('assets/img/awards/albilad.png')"></div><div class="cap">هاكاثون البلاد للادخار — بنك البلاد</div></div>
+      <div class="aw"><div class="im" style="background-image:url('assets/img/awards/saa.webp')"></div><div class="cap">هاكاثون رقيم المحاسبي 2 — الجمعية السعودية للمحاسبة</div></div>
+    </div>
+    <div class="callout dark"><h4>أثر دعم مركزكم — بمسؤولية وانضباط</h4><p>نعتزّ بالدعم الذي منحتمونا إياه بمبلغ <b>150,000 ريال</b>. وحرصًا منّا على الاستدامة والكفاءة، <b>لم نصرف منه أي ريال حتى تاريخه</b>، واحتفظنا به كـ<b>احتياطيٍّ استراتيجي واستثمارٍ للمستقبل</b> — معتمدين على التمويل الذاتي 100%. نرى في هذا الانضباط المالي التزامًا أمينًا بثقتكم، وأساسًا لنموٍّ مدروسٍ طويل المدى.</p></div>
   </div>
 
   <div class="sign">
     <div class="who"><b>فريق «يُسر»</b><span>شركة ميسور للاتصالات وتقنية المعلومات</span><div class="co">haitham8888.github.io/yusrweb</div></div>
     <div class="stamp"><span>يُسر</span><b>ميسور</b><span>MAYSOOR</span></div>
   </div>
-
-  <div class="close"><p>نشكر لكم دعمكم ومتابعتكم الكريمة، ونتطلّع لمواصلة الشراكة نحو تمكين <span class="hi">اقتصادٍ رقميٍّ موثوق</span> في المملكة. 🌿</p></div>
-  <div class="pfoot"><span class="b"><img src="assets/img/Yusr.png">يُسر · شركة ميسور للاتصالات وتقنية المعلومات</span><span>تحديث المستجدات — يوليو 2026 · صفحة 3 من 3</span></div>
+  <div class="close"><p>نشكر لكم دعمكم ومتابعتكم الكريمة، ونتطلّع لمواصلة الشراكة نحو تمكين <span class="hi">اقتصادٍ رقميٍّ موثوق</span>، في المملكة.</p></div>
+  <div class="pfoot"><span class="b"><img src="assets/img/Yusr.png">يُسر · شركة ميسور للاتصالات وتقنية المعلومات</span><span>تحديث المستجدات — يوليو 2026 · صفحة 4 من 4</span></div>
 </section>
 </div>
 </body>
